@@ -1,2 +1,6 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/HP/source/repos/gravityProject/gravityProject/Content/File.spritefont","C:/Users/HP/source/repos/gravityProject/gravityProject/Content/bin/DesktopGL/File.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21535,0.2627785
+"C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/File.spritefont","C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/bin/DesktopGL/File.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21535,0.1829275
+"C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/ground1.png","C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/bin/DesktopGL/ground1.xnb","TextureProcessor","Texture2DContent",617,10085,0.0105406
+"C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/ground3.png","C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/bin/DesktopGL/ground3.xnb","TextureProcessor","Texture2DContent",615,10085,0.0018392
+"C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/half-life.png","C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/bin/DesktopGL/half-life.xnb","TextureProcessor","Texture2DContent",33586,16000085,0.387973
+"C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/playerCharacter.png","C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/bin/DesktopGL/playerCharacter.xnb","TextureProcessor","Texture2DContent",341,4985,0.0015456

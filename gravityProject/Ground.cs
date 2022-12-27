@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -10,17 +11,31 @@ using System.Threading.Tasks;
 
 namespace gravityProject
 {
-    internal class Ground : Game1
+    internal class Ground 
     {
         public Rectangle GroundPos;
-        public Texture2D ground;
+        public Texture2D groundTexture;
 
+      
+        
 
-        public void GroundTexture()
+        public Ground(int posX, int posY)
         {
+            
+            this.GroundPos = new Rectangle(posX, posY, 50 ,50);
 
+        }
+
+
+
+        public void MainGround()
+        {
+            
          
         }
+     
+            
+
 
 
 

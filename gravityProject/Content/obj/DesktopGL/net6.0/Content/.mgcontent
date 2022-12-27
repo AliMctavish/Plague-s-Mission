@@ -1,1 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?><SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Profile>Reach</Profile><Platform>DesktopGL</Platform><Config /><SourceFiles><File>C:/Users/HP/source/repos/gravityProject/gravityProject/Content/File.spritefont</File></SourceFiles><DestFiles><File xsi:nil="true" /></DestFiles></SourceFileCollection>
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/pc/Source/Repos/firstGameRepository/gravityProject/Content/File.spritefont</File>
+    <File>C:/Users/pc/Source/Repos/firstGameRepository/gravityProject/Content/ground1.png</File>
+    <File>C:/Users/pc/Source/Repos/firstGameRepository/gravityProject/Content/ground3.png</File>
+    <File>C:/Users/pc/Source/Repos/firstGameRepository/gravityProject/Content/half-life.png</File>
+    <File>C:/Users/pc/Source/Repos/firstGameRepository/gravityProject/Content/playerCharacter.png</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>

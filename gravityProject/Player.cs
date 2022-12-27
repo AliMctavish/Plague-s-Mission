@@ -13,8 +13,10 @@ namespace gravityProject
 
 
             
-        public void playerTexture()
+        public void playerTexture(GameTime gameTime)
         {
+            
+
         }
 
 
