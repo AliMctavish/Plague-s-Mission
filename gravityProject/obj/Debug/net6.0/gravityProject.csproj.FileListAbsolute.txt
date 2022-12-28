@@ -54,3 +54,5 @@ C:\Users\pc\Source\Repos\firstGameRepository\gravityProject\obj\Debug\net6.0\ref
 C:\Users\pc\Source\Repos\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\playerCharacter.xnb
 C:\Users\pc\Source\Repos\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\ground1.xnb
 C:\Users\pc\Source\Repos\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\ground3.xnb
+C:\Users\pc\Source\Repos\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\background.xnb
+C:\Users\pc\Source\Repos\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\groundBase.xnb

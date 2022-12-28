@@ -18,20 +18,13 @@ namespace gravityProject
         private Texture2D texture2D;
         private Rectangle PlayerPos;
         private Ground[] ground;
-        private Rectangle GroundPos;
-        private Rectangle GroundPos2;
         private int jumpConuter = 0;
-        private Vector2 movement;
         private bool isFlipped = false;
-        private float sumVectors;
-        private int groundRad =  230 ;
-        private int PlayerRad = 15 + 15  ;
-        SpriteEffect spriteEffect = null;
-        private int sumRad;
+        private string map;
         private int groundAxis =  50 ; 
         private double timePassed=1d;
         bool hasJump = false;
-        private int increase;
+        private Texture2D backgroundColor;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -47,46 +40,74 @@ namespace gravityProject
         {
 
 
-            ground = new Ground[20];
+            ground = new Ground[40];
             // TODO: Add your initialization logic here
           
             texture2D = Content.Load<Texture2D>("playerCharacter");
-   
+            backgroundColor = Content.Load<Texture2D>("background");
+            map = "####....####....##$$" +
+                  "$$$$....$$$$....$$$$" ;
 
             _font = Content.Load<SpriteFont>("File");
-            
-            GroundPos = new Rectangle(300, 200, 50, 50);
-            GroundPos2 = new Rectangle(300+50, 200, 50, 50);
             PlayerPos = new Rectangle(300 , 100 , 35, 35);
-            movement = new Vector2(PlayerPos.X, PlayerPos.Y);
-    
-            
-        
-
-
-  
-                               
+                
             base.Initialize();
 
         }
-
+        
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-         
-            for (int i = 0; i < 20; i++)
+
+
+            for (int i = 0; i < map.Length; i++)
             {
-                ground[i] = new Ground(100 + groundAxis, 300);
-                ground[i].groundTexture = Content.Load<Texture2D>("ground1");
+                ground[i] = new Ground(10 + groundAxis, 300);
+                if (i == 0)
+                {
+                    ground[i].groundTexture = Content.Load<Texture2D>("ground1");
+                }
+                else
+                {
+                    ground[i].groundTexture = Content.Load<Texture2D>("ground3");
+                }
                 groundAxis += 50;
             }
+            groundAxis = 50;
+            int groundBase = 50;
+            for(int j = 0; j < map.Length; j++) 
+            {
+              
+
+                if (map[j] == '#' || j == 0)
+                {
+                    ground[j] = new Ground(10 + groundAxis, 500);
+                    ground[j].groundTexture = Content.Load<Texture2D>("ground3");
+
+                }  
+                if (map[j] == '$')
+                {
+                   
+                    ground[j] = new Ground(10 + groundAxis, 550);
+                    ground[j].groundTexture = Content.Load<Texture2D>("groundBase");
+                    
+                }
+               
+                groundAxis += 50;
+            }
+
+
+
+          
+
             // TODO: use this.Content to load your game content here
         }
+
 
         protected override void Update(GameTime gameTime)
         {
 
-            float time = (float)gameTime.ElapsedGameTime.TotalSeconds *50;
+            float time = (float)gameTime.ElapsedGameTime.TotalSeconds * 240;
             
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -113,29 +134,26 @@ namespace gravityProject
             {
                 PlayerPos.X = PlayerPos.X - (int)time;
             }
-
-            for(int i = 0; i < ground.Length; i++)
+            for (int i = 0; i < ground.Length; i++)
             {
                 if (PlayerPos.Intersects(ground[i].GroundPos) && hasJump == false)
                 {
-                    PlayerPos.Y -= 1;
+
+                    PlayerPos.Y -= 3;
                     if (Keyboard.GetState().IsKeyDown(Keys.Space))
                     {
                         hasJump = true;
                     }
-                }
-                else
-                {
-                    PlayerPos.Y = PlayerPos.Y + (int)time;
-
-                }
+                }    
             }
+                    PlayerPos.Y += 3;
+            
             if(hasJump == true)
             {
                 timePassed -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                 for (int i = 0; i < 2; i++)
                 {
-                    PlayerPos.Y -= 1;
+                    PlayerPos.Y -= 2;
                 }
 
                 if(timePassed <= 0)
@@ -151,8 +169,11 @@ namespace gravityProject
         }
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Gray);
+            GraphicsDevice.Clear(Color.White);
+
             _spriteBatch.Begin();
+
+            _spriteBatch.Draw(backgroundColor, new Vector2(0, 0), Color.White);
 
             switch (isFlipped)
             {
@@ -181,13 +202,13 @@ namespace gravityProject
 
             _spriteBatch.DrawString(_font,"Player Position On Y : " + PlayerPos.Y , new Vector2(10, 0), color: Color.White);
             _spriteBatch.DrawString(_font,"Player Position On X : " + PlayerPos.X , new Vector2(10, 20), color: Color.White);
-            _spriteBatch.DrawString(_font,"Collide With Ground : " + PlayerPos.Intersects(GroundPos) , new Vector2(10, 40), color: Color.White);
-            _spriteBatch.DrawString(_font,"Ability To Jump : " + hasJump , new Vector2(10, 60), color: Color.White);
-            _spriteBatch.DrawString(_font,"Time Since Jumped : " + timePassed , new Vector2(10,80), color: Color.White);
-            _spriteBatch.DrawString(_font,"Jump Counter : " + jumpConuter , new Vector2(10,100), color: Color.White);
+            _spriteBatch.DrawString(_font,"Ability To Jump : " + hasJump , new Vector2(10, 40), color: Color.White);
+            _spriteBatch.DrawString(_font,"Time Since Jumped : " + timePassed , new Vector2(10,60), color: Color.White);
+            _spriteBatch.DrawString(_font,"Jump Counter : " + jumpConuter , new Vector2(10,80), color: Color.White);
             for(int i = 0; i < ground.Length; i++)
             {
                 _spriteBatch.Draw(ground[i].groundTexture, new Vector2(ground[i].GroundPos.X - 35, ground[i].GroundPos.Y - 35), Color.White);
+
             }
 
             _spriteBatch.End();
