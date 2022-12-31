@@ -20,8 +20,10 @@ namespace gravityProject
         private Ground[] ground;
         private int jumpConuter = 0;
         private bool isFlipped = false;
-        private string map;
-        private int groundAxis =  50 ; 
+
+        private string map = "####....###..####...999999999999############...................###########################.................";
+
+        private int groundAxis =  50 ;
         private double timePassed=1d;
         bool hasJump = false;
         private Texture2D backgroundColor;
@@ -40,13 +42,13 @@ namespace gravityProject
         {
 
 
-            ground = new Ground[40];
+            ground = new Ground[map.Length];
             // TODO: Add your initialization logic here
           
             texture2D = Content.Load<Texture2D>("playerCharacter");
             backgroundColor = Content.Load<Texture2D>("background");
-            map = "####....####....##$$" +
-                  "$$$$....$$$$....$$$$" ;
+            
+               
 
             _font = Content.Load<SpriteFont>("File");
             PlayerPos = new Rectangle(300 , 100 , 35, 35);
@@ -58,47 +60,35 @@ namespace gravityProject
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-
             for (int i = 0; i < map.Length; i++)
             {
-                ground[i] = new Ground(10 + groundAxis, 300);
-                if (i == 0)
-                {
+           
+                    if (map[i] == '#')
+                    {
+                        ground[i] = new Ground(10 + groundAxis-160, 300);
+                        ground[i].groundTexture = Content.Load<Texture2D>("ground3");
+                    }
+                    if (map[i] == '.')
+                    {
+                        ground[i] = new Ground(10 + groundAxis-160, 550);
+                        ground[i].groundTexture = Content.Load<Texture2D>("groundBase");
+                    }
+                    if (map[i] == '9')
+                    {
+                    ground[i] = new Ground(10 + groundAxis - 650-50, 450);
                     ground[i].groundTexture = Content.Load<Texture2D>("ground1");
-                }
-                else
-                {
-                    ground[i].groundTexture = Content.Load<Texture2D>("ground3");
-                }
+                    }
+
                 groundAxis += 50;
-            }
-            groundAxis = 50;
-            int groundBase = 50;
-            for(int j = 0; j < map.Length; j++) 
-            {
+                
               
-
-                if (map[j] == '#' || j == 0)
-                {
-                    ground[j] = new Ground(10 + groundAxis, 500);
-                    ground[j].groundTexture = Content.Load<Texture2D>("ground3");
-
-                }  
-                if (map[j] == '$')
-                {
-                   
-                    ground[j] = new Ground(10 + groundAxis, 550);
-                    ground[j].groundTexture = Content.Load<Texture2D>("groundBase");
-                    
-                }
-               
-                groundAxis += 50;
             }
 
 
 
-          
+            Debug.WriteLine(ground[4].groundTexture);
+
+
 
             // TODO: use this.Content to load your game content here
         }
@@ -107,32 +97,28 @@ namespace gravityProject
         protected override void Update(GameTime gameTime)
         {
 
-            float time = (float)gameTime.ElapsedGameTime.TotalSeconds * 240;
+            
+            float time = (float)gameTime.ElapsedGameTime.TotalSeconds * 140;
             
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-
-
-            //switch (true)
-            //{
-            //    case Keyboard.GetState().IsKeyDown(Keys.D):
-            //        PlayerPos.X = PlayerPos.X + (int)time;
-            //        break;
-
-            //    case Keyboard.GetState().IsKeyDown(Keys.A):
-            //        PlayerPos.X = PlayerPos.X - (int)time;
-            //        break;
-            //}
-
-
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                PlayerPos.X = PlayerPos.X + (int)time;
+                PlayerPos.X = PlayerPos.X + (int)time - 2  ;
+
+                for (int i = 0; i < ground.Length; i++)
+                {
+                    ground[i].GroundPos.X = ground[i].GroundPos.X  - 1 - (int)time;
+                }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                PlayerPos.X = PlayerPos.X - (int)time;
+                PlayerPos.X = PlayerPos.X - (int)time + 2;
+                for (int i = 0; i < ground.Length; i++)
+                {
+                    ground[i].GroundPos.X = ground[i].GroundPos.X + 1 + (int)time;
+                }
             }
             for (int i = 0; i < ground.Length; i++)
             {
@@ -164,6 +150,8 @@ namespace gravityProject
                 }
                 
             }
+
+
 
             base.Update(gameTime);
         }
