@@ -17,11 +17,14 @@ namespace gravityProject
         private SpriteFont _font;
         private Texture2D texture2D;
         private Rectangle PlayerPos;
-        private Ground[] ground;
+        private Ground[][] ground;
         private int jumpConuter = 0;
         private bool isFlipped = false;
 
-        private string map = "####....###..####...999999999999############...................###########################.................";
+        private string[] map = {"##########" ,
+                                "##########"};
+
+        //private string map = "####....###..####...999999999999############...................###########################.................";
 
         private int groundAxis =  50 ;
         private double timePassed=1d;
@@ -42,7 +45,7 @@ namespace gravityProject
         {
 
 
-            ground = new Ground[map.Length];
+            ground = new Ground[map.Length][];
             // TODO: Add your initialization logic here
           
             texture2D = Content.Load<Texture2D>("playerCharacter");
@@ -62,31 +65,21 @@ namespace gravityProject
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             for (int i = 0; i < map.Length; i++)
             {
-           
-                    if (map[i] == '#')
+                    for(int j = 0; j < map[i].Length; j++)
                     {
-                        ground[i] = new Ground(10 + groundAxis-160, 300);
-                        ground[i].groundTexture = Content.Load<Texture2D>("ground3");
-                    }
-                    if (map[i] == '.')
+                    if (map[i][j] == '#')
                     {
-                        ground[i] = new Ground(10 + groundAxis-160, 550);
-                        ground[i].groundTexture = Content.Load<Texture2D>("groundBase");
-                    }
-                    if (map[i] == '9')
-                    {
-                    ground[i] = new Ground(10 + groundAxis - 650-50, 450);
-                    ground[i].groundTexture = Content.Load<Texture2D>("ground1");
+                        ground[i][j] = new Ground(0 + groundAxis, i*4);
+                        ground[i][j].groundTexture = Content.Load<Texture2D>("ground3");
                     }
 
+
+                    }
                 groundAxis += 50;
-                
-              
             }
 
 
 
-            Debug.WriteLine(ground[4].groundTexture);
 
 
 
@@ -108,8 +101,11 @@ namespace gravityProject
                 PlayerPos.X = PlayerPos.X + (int)time - 2  ;
 
                 for (int i = 0; i < ground.Length; i++)
-                {
-                    ground[i].GroundPos.X = ground[i].GroundPos.X  - 1 - (int)time;
+                { 
+                    for(int j  = 0; j < ground[i].Length; j++)
+                    {
+                    ground[i][j].GroundPos.X = ground[i][j].GroundPos.X  - 1 - (int)time;
+                    }
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.A))
@@ -117,20 +113,28 @@ namespace gravityProject
                 PlayerPos.X = PlayerPos.X - (int)time + 2;
                 for (int i = 0; i < ground.Length; i++)
                 {
-                    ground[i].GroundPos.X = ground[i].GroundPos.X + 1 + (int)time;
+                    for(int j = 0; j < ground[i].Length; j++)
+                    {
+                        ground[i][j].GroundPos.X = ground[i][j].GroundPos.X + 1 + (int)time;
+
+                    }
                 }
             }
             for (int i = 0; i < ground.Length; i++)
             {
-                if (PlayerPos.Intersects(ground[i].GroundPos) && hasJump == false)
+                for(int j = 0; j < ground[i].Length; j++)
                 {
-
-                    PlayerPos.Y -= 3;
-                    if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                    if (PlayerPos.Intersects(ground[i][j].GroundPos) && hasJump == false)
                     {
-                        hasJump = true;
+
+                        PlayerPos.Y -= 3;
+                        if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                        {
+                            hasJump = true;
+                        }
                     }
-                }    
+                }
+             
             }
                     PlayerPos.Y += 3;
             
