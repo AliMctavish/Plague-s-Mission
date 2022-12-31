@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Runtime;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
 namespace gravityProject
@@ -17,14 +20,20 @@ namespace gravityProject
         private SpriteFont _font;
         private Texture2D texture2D;
         private Rectangle PlayerPos;
-        private Ground[][] ground;
+        private Ground[] ground;
         private int jumpConuter = 0;
         private bool isFlipped = false;
-
-        private string[] map = {"##########" ,
-                                "##########"};
-
-        //private string map = "####....###..####...999999999999############...................###########################.................";
+        int num = 0;
+        private string[] map = {",$############################",
+                                ".........",
+                                "$..$.$..$.$.$..###.###.###.###",
+                                "%..%.%%.%.%.%....%.%.%...%...%", 
+                                "%##%.%%%%.%%%..##%.%.%.##%.$$%",
+                                "%..%.%.%%...%..%...%.%.%.....%",
+                                "%..%.%..%.$$%..%##.%#%.%##.$#%",
+                              
+                                 
+        };
 
         private int groundAxis =  50 ;
         private double timePassed=1d;
@@ -43,9 +52,25 @@ namespace gravityProject
 
         protected override void Initialize()
         {
+            int value = -1;
+            foreach(var cell in map)
+            {
+                value += cell.Length;
+                Debug.WriteLine(value);
+                
+            }
+
+            Debug.WriteLine(value);
+           
+           ground = new Ground[value];
 
 
-            ground = new Ground[map.Length][];
+
+
+            Debug.WriteLine(map.Length);
+
+
+            
             // TODO: Add your initialization logic here
           
             texture2D = Content.Load<Texture2D>("playerCharacter");
@@ -63,18 +88,46 @@ namespace gravityProject
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            int push = 0 ; 
             for (int i = 0; i < map.Length; i++)
             {
-                    for(int j = 0; j < map[i].Length; j++)
+                for (int j = 0; j < map[i].Length; j++)
+                {
+                    
+                        if (map[i][j] == '#')
+                        {
+                        ground[num] = new Ground(50 * j + 50 , i * 50 + 200);
+                        ground[num].groundTexture = Content.Load<Texture2D>("ground3");
+                            num++;
+                     
+                        }
+                   
+                        if (map[i][j] == '$')
+                        {
+                        ground[num] = new Ground(50 * j + 50 , i * 50 + 200);
+                        ground[num].groundTexture = Content.Load<Texture2D>("ground1");
+                            num++;
+                  
+                        }
+                        
+                    
+                    if (map[i][j] == '%')
                     {
-                    if (map[i][j] == '#')
+                        ground[num] = new Ground( 50* j+50 , i * 50 + 200);
+                        ground[num].groundTexture = Content.Load<Texture2D>("groundBase");
+                        num++;
+                     
+                    }
+                    if (map[i][j] == '.')
                     {
-                        ground[i][j] = new Ground(0 + groundAxis, i*4);
-                        ground[i][j].groundTexture = Content.Load<Texture2D>("ground3");
+                        ground[num] = new Ground(900,900);
+                        ground[num].groundTexture = Content.Load<Texture2D>("groundBase");
+                        num++;
                     }
 
 
-                    }
+
+                     }
                 groundAxis += 50;
             }
 
@@ -98,43 +151,33 @@ namespace gravityProject
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                PlayerPos.X = PlayerPos.X + (int)time - 2  ;
+                PlayerPos.X = PlayerPos.X + (int)time   ;
 
                 for (int i = 0; i < ground.Length; i++)
-                { 
-                    for(int j  = 0; j < ground[i].Length; j++)
-                    {
-                    ground[i][j].GroundPos.X = ground[i][j].GroundPos.X  - 1 - (int)time;
-                    }
+                {
+
+                    ground[i].GroundPos.X = ground[i].GroundPos.X + 1 - (int)time;
+
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                PlayerPos.X = PlayerPos.X - (int)time + 2;
+                PlayerPos.X = PlayerPos.X - (int)time ;
                 for (int i = 0; i < ground.Length; i++)
                 {
-                    for(int j = 0; j < ground[i].Length; j++)
-                    {
-                        ground[i][j].GroundPos.X = ground[i][j].GroundPos.X + 1 + (int)time;
-
-                    }
+                    ground[i].GroundPos.X = ground[i].GroundPos.X - 1 + (int)time;
                 }
             }
             for (int i = 0; i < ground.Length; i++)
             {
-                for(int j = 0; j < ground[i].Length; j++)
-                {
-                    if (PlayerPos.Intersects(ground[i][j].GroundPos) && hasJump == false)
+                    if (PlayerPos.Intersects(ground[i].GroundPos) && hasJump == false)
                     {
-
                         PlayerPos.Y -= 3;
                         if (Keyboard.GetState().IsKeyDown(Keys.Space))
                         {
                             hasJump = true;
                         }
                     }
-                }
-             
             }
                     PlayerPos.Y += 3;
             
@@ -199,8 +242,7 @@ namespace gravityProject
             _spriteBatch.DrawString(_font,"Jump Counter : " + jumpConuter , new Vector2(10,80), color: Color.White);
             for(int i = 0; i < ground.Length; i++)
             {
-                _spriteBatch.Draw(ground[i].groundTexture, new Vector2(ground[i].GroundPos.X - 35, ground[i].GroundPos.Y - 35), Color.White);
-
+                    _spriteBatch.Draw(ground[i].groundTexture, new Vector2(ground[i].GroundPos.X - 35, ground[i].GroundPos.Y - 35), Color.White);
             }
 
             _spriteBatch.End();
