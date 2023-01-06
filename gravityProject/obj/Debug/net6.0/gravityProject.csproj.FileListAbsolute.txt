@@ -88,3 +88,5 @@ C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\obj\Debu
 C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\obj\Debug\net6.0\gravityProject.pdb
 C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\obj\Debug\net6.0\gravityProject.genruntimeconfig.cache
 C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\obj\Debug\net6.0\ref\gravityProject.dll
+C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\ball.xnb
+C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\background-export.xnb

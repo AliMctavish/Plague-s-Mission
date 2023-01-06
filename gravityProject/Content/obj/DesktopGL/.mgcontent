@@ -4,15 +4,19 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/background.png</File>
-    <File>C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/File.spritefont</File>
-    <File>C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/ground1.png</File>
-    <File>C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/ground3.png</File>
-    <File>C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/groundBase.png</File>
-    <File>C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/half-life.png</File>
-    <File>C:/Users/pc/source/repos/firstGameRepository/gravityProject/Content/playerCharacter.png</File>
+    <File>C:/Users/pc/source/repos/AliMctavish/firstGameRepository/gravityProject/Content/background-export.png</File>
+    <File>C:/Users/pc/source/repos/AliMctavish/firstGameRepository/gravityProject/Content/background.png</File>
+    <File>C:/Users/pc/source/repos/AliMctavish/firstGameRepository/gravityProject/Content/ball.png</File>
+    <File>C:/Users/pc/source/repos/AliMctavish/firstGameRepository/gravityProject/Content/File.spritefont</File>
+    <File>C:/Users/pc/source/repos/AliMctavish/firstGameRepository/gravityProject/Content/ground1.png</File>
+    <File>C:/Users/pc/source/repos/AliMctavish/firstGameRepository/gravityProject/Content/ground3.png</File>
+    <File>C:/Users/pc/source/repos/AliMctavish/firstGameRepository/gravityProject/Content/groundBase.png</File>
+    <File>C:/Users/pc/source/repos/AliMctavish/firstGameRepository/gravityProject/Content/half-life.png</File>
+    <File>C:/Users/pc/source/repos/AliMctavish/firstGameRepository/gravityProject/Content/playerCharacter.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
