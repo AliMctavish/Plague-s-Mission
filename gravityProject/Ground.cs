@@ -22,7 +22,7 @@ namespace gravityProject
         public Ground(int posX, int posY)
         {
             
-            this.GroundPos = new Rectangle(posX, posY, 50 ,50);
+            this.GroundPos = new Rectangle(posX, posY, 64 ,64);
 
         }
 

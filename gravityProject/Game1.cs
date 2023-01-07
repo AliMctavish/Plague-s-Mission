@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -21,14 +22,26 @@ namespace gravityProject
         private SpriteFont _font;
         private Texture2D texture2D;
         private Rectangle PlayerPos;
+        private Rectangle chestPos;
+        private Texture2D chestTexture;
         private Ground[] ground;
-        float fallingTime = 10;
+        private Items[] items;
+        float waitingTime = 0;
+        float waitingTime2 = 0;
+        int coinCounter = 1;
 
         Texture2D ballAnimation;
         
         private Rectangle ballPos;
+        private Rectangle coinPos;
         private Texture2D ballTexture;
-        
+        private Texture2D coinTexture;
+        private SoundEffect coinSound;
+        private SoundEffect chestSound;
+        float animateCounter2 = 0.1f;
+
+        private bool isInside = false;
+        private bool played = false;
 
         Maps level =  new Maps();
 
@@ -65,17 +78,19 @@ namespace gravityProject
 
 
 
-        
 
 
 
-   
+
+            items = new Items[sumOfArrays];
            ground = new Ground[sumOfArrays];
+           // items = new Items[sumOfArrays];
 
 
 
-         
 
+
+        
             Debug.WriteLine(level);
 
 
@@ -86,13 +101,19 @@ namespace gravityProject
 
             texture2D = Content.Load<Texture2D>("playerCharacter");
             backgroundColor = Content.Load<Texture2D>("background-export");
-            
-               
+            chestTexture = Content.Load<Texture2D>("chest1");
+
+            coinSound = Content.Load<SoundEffect>("coinSound");
+            chestSound = Content.Load<SoundEffect>("sound");
+            coinTexture = Content.Load<Texture2D>("coin1");
+       
 
             _font = Content.Load<SpriteFont>("File");
 
             ballPos = new Rectangle(300,100 , 32 ,32);
             PlayerPos = new Rectangle(500 , 200 , 35, 35);
+            chestPos = new Rectangle(930, 346, 64, 64);
+            coinPos = new Rectangle(800, 360, 64, 64);
                 
             base.Initialize();
 
@@ -100,8 +121,10 @@ namespace gravityProject
         
         protected override void LoadContent()
         {
-           
 
+
+
+            
            
 
             string[] map = level.LoadLevel(selectLevel);
@@ -120,13 +143,13 @@ namespace gravityProject
                         }
                         if (map[i][j] == '$')
                         {
-                        ground[num] = new Ground(50 * j , i * 50 + 50);
+                        ground[num] = new Ground(64 * j , i * 64 + 50);
                         ground[num].groundTexture = Content.Load<Texture2D>("ground1");
                             num++;
                         }
                         if (map[i][j] == '%')
                         {
-                            ground[num] = new Ground( 50* j , i * 50 + 50);
+                            ground[num] = new Ground( 64* j , i * 64 + 50);
                             ground[num].groundTexture = Content.Load<Texture2D>("groundBase");
                             num++;
                          
@@ -137,7 +160,24 @@ namespace gravityProject
                             ground[num].groundTexture = Content.Load<Texture2D>("groundBase");
                             num++;
                         }
-                     }
+                    if (map[i][j] == '@')
+                    {
+                        items[num] = new Items();
+                        items[num].coinsPos = new Rectangle(2, 2, 2, 2);
+                        items[num].coinsTexture = Content.Load<Texture2D>("coin1");
+
+                        num++;
+                    }
+                    if (map[i][j] == '?')
+                    {
+                        items[num] = new Items();
+                        items[num].chestPos = new Rectangle(2 , 2 , 2 , 2);
+                        items[num].chestTexture = Content.Load<Texture2D>("chest1");
+                        num++;
+                    }
+
+
+                }
                 groundAxis += 50;
             }
 
@@ -162,7 +202,12 @@ namespace gravityProject
 
 
             float time = (float)gameTime.ElapsedGameTime.TotalSeconds * 140;
-            fallingTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            waitingTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+
+
+
+
 
 
 
@@ -198,6 +243,70 @@ namespace gravityProject
             }
 
 
+            if (PlayerPos.Intersects(chestPos))
+            {
+            
+                isInside = true;
+                if (played == false)
+                {
+                    chestSound.Play();
+                    played = true;
+                }
+
+            }
+
+
+
+            if (isInside)
+            {
+                waitingTime2 += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                float animateCounter = 0.1f ;
+                for(int i = 2; i < 11; i++) 
+                {
+                    
+                    if (waitingTime2 >= animateCounter)
+                    {
+                        chestTexture = Content.Load<Texture2D>($"chest{i}");
+                        if(waitingTime2 >= 1)
+                        {
+                            chestTexture = Content.Load<Texture2D>("chest11");
+                            isInside = false;
+                        }
+                        animateCounter += 0.1f;
+                    }
+                }
+
+              
+            }
+        
+            if (PlayerPos.Intersects(coinPos)) 
+            {
+                coinPos.X -= 2300;
+                coinSound.Play();
+            }
+            
+                if (waitingTime >= animateCounter2)
+                {
+                    coinTexture = Content.Load<Texture2D>($"coin{coinCounter}");
+                    if (waitingTime >= 1)
+                    {
+                        coinTexture = Content.Load<Texture2D>("coin11");
+                        waitingTime = 0;
+                        coinCounter = 1;
+                        animateCounter2 = 0.001f;
+                    }
+                    coinCounter+=1;
+                    animateCounter2 += 0.1f;
+                }
+
+
+
+
+
+
+
+
+            
 
             for (int i = 0; i < ground.Length; i++)
             {
@@ -227,14 +336,7 @@ namespace gravityProject
                             hasJump = true;
                         } 
                 }
-                //if (PlayerPos.Intersects(ground[i].GroundPos) && hasJump == false && ground[i].groundTexture.Name == "groundBase" &&  isFlipped)
-                //{
-                //    PlayerPos.X = ground[i].GroundPos.X + PlayerPos.Width;
-                //}
-                //if(PlayerPos.Intersects(ground[i].GroundPos) && hasJump == false && ground[i].groundTexture.Name == "groundBase" && !isFlipped)
-                //{
-                //    PlayerPos.X = ground[i].GroundPos.X - PlayerPos.Width;
-                //}
+            
             }
             //falling
             PlayerPos.Y += 4 ;
@@ -271,7 +373,9 @@ namespace gravityProject
             _spriteBatch.Begin();
 
             _spriteBatch.Draw(backgroundColor, new Vector2(0, 0), Color.White);
-            _spriteBatch.Draw(ballTexture, new Vector2( PlayerPos.X -32 ,  PlayerPos.Y - 50), Color.White);
+            //_spriteBatch.Draw(ballTexture, new Vector2( PlayerPos.X -32 ,  PlayerPos.Y - 50), Color.White);
+            _spriteBatch.Draw(chestTexture, new Rectangle(chestPos.X  -64 , chestPos.Y - 64 , chestPos.Width , chestPos.Height), Color.White);
+            _spriteBatch.Draw(coinTexture, new Rectangle(coinPos.X  -64 , coinPos.Y - 64 , coinPos.Width , coinPos.Height), Color.White);
             switch (isFlipped)
             {
                 case false:
@@ -309,7 +413,17 @@ namespace gravityProject
             {
                     _spriteBatch.Draw(ground[i].groundTexture, new Vector2(ground[i].GroundPos.X - 35, ground[i].GroundPos.Y - 35), Color.White);
             }
-
+            //if (items.Length >= 1)
+            //{
+            //    for (int i = 0; i < items.Length; i++)
+            //    {
+            //        _spriteBatch.Draw(items[i].chestTexture, new Vector2(ground[i].GroundPos.X - 35, ground[i].GroundPos.Y - 35), Color.White);
+            //    }
+            //    for (int i = 0; i < items.Length; i++)
+            //    {
+            //        _spriteBatch.Draw(items[i].chestTexture, new Vector2(ground[i].GroundPos.X - 35, ground[i].GroundPos.Y - 35), Color.White);
+            //    }
+            //}
             _spriteBatch.End();
             // TODO: Add your drawing code here
 
