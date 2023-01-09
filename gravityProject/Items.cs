@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace gravityProject
@@ -14,10 +15,12 @@ namespace gravityProject
         public Texture2D coinsTexture;
         public  Rectangle chestPos;
         public Rectangle coinsPos;
+        private double timer = 0;
 
 
      
-        
+
+     
 
 
         public Rectangle AddChest(int PosX , int PosY)

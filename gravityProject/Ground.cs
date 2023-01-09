@@ -14,7 +14,8 @@ namespace gravityProject
     internal class Ground 
     {
         public Rectangle GroundPos;
-        public Texture2D groundTexture;
+        public Texture2D groundTexture = null;
+
 
       
         

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Runtime;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 
 namespace gravityProject
 {
@@ -23,14 +24,14 @@ namespace gravityProject
         private Texture2D texture2D;
         private Rectangle PlayerPos;
         private Rectangle chestPos;
-        private Texture2D chestTexture;
-        private Ground[] ground;
+        private Texture2D  EnemyTexture;
+        private Ground[] ground = null;
+        int moveCounter = 5;
         private Items[] items;
         float waitingTime = 0;
         float waitingTime2 = 0;
-        int coinCounter = 1;
+        int Counter = 1;
 
-        Texture2D ballAnimation;
         
         private Rectangle ballPos;
         private Rectangle coinPos;
@@ -38,7 +39,9 @@ namespace gravityProject
         private Texture2D coinTexture;
         private SoundEffect coinSound;
         private SoundEffect chestSound;
+        double moveTimer = 1;
         float animateCounter2 = 0.1f;
+        private int numberOfcoins = 0;
 
         private bool isInside = false;
         private bool played = false;
@@ -99,9 +102,10 @@ namespace gravityProject
 
             ballTexture = Content.Load<Texture2D>("ball");
 
-            texture2D = Content.Load<Texture2D>("playerCharacter");
+            texture2D = Content.Load<Texture2D>("animations/playerMovement1");
             backgroundColor = Content.Load<Texture2D>("background-export");
-            chestTexture = Content.Load<Texture2D>("chest1");
+            EnemyTexture = Content.Load<Texture2D>("EnemyIdle1");
+            
 
             coinSound = Content.Load<SoundEffect>("coinSound");
             chestSound = Content.Load<SoundEffect>("sound");
@@ -111,7 +115,7 @@ namespace gravityProject
             _font = Content.Load<SpriteFont>("File");
 
             ballPos = new Rectangle(300,100 , 32 ,32);
-            PlayerPos = new Rectangle(500 , 200 , 35, 35);
+            PlayerPos = new Rectangle(500 , 200 , 76, 98);
             chestPos = new Rectangle(930, 346, 64, 64);
             coinPos = new Rectangle(800, 360, 64, 64);
                 
@@ -153,6 +157,19 @@ namespace gravityProject
                             ground[num].groundTexture = Content.Load<Texture2D>("groundBase");
                             num++;
                          
+                        } 
+                        if (map[i][j] == 'y')
+                        {
+                            ground[num] = new Ground( 64* j , i * 64 + 50);
+                            ground[num].groundTexture = Content.Load<Texture2D>("ground4");
+                            num++;
+                         
+                        } if (map[i][j] == 'x')
+                        {
+                            ground[num] = new Ground( 64* j , i * 64 + 50);
+                            ground[num].groundTexture = Content.Load<Texture2D>("ground4x");
+                            num++;
+                         
                         }
                         if (map[i][j] == '.')
                         {
@@ -163,7 +180,7 @@ namespace gravityProject
                     if (map[i][j] == '@')
                     {
                         items[num] = new Items();
-                        items[num].coinsPos = new Rectangle(2, 2, 2, 2);
+                        items[num].coinsPos = new Rectangle(64 * j, i * 64 + 50, 60, 60);
                         items[num].coinsTexture = Content.Load<Texture2D>("coin1");
 
                         num++;
@@ -171,7 +188,7 @@ namespace gravityProject
                     if (map[i][j] == '?')
                     {
                         items[num] = new Items();
-                        items[num].chestPos = new Rectangle(2 , 2 , 2 , 2);
+                        items[num].chestPos = new Rectangle(64 * j, i * 64 + 61, 60, 60);
                         items[num].chestTexture = Content.Load<Texture2D>("chest1");
                         num++;
                     }
@@ -209,15 +226,27 @@ namespace gravityProject
 
 
 
-
-
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
+                moveTimer += gameTime.ElapsedGameTime.TotalSeconds*6;
+                for (int i = 1; i < 5; i++)
+                {
+                    if (moveTimer > i)
+                    {
+                        texture2D = Content.Load<Texture2D>($"animations/PlayerWalking{i}");
+                    }
+                    if (moveTimer > 5)
+                    {
+                        texture2D = Content.Load<Texture2D>($"animations/PlayerWalking5");
+                        moveTimer = 1;
+                    }
+                }
                 PlayerPos.X = PlayerPos.X + (int)time + 2;
-
+              
                 //for (int i = 0; i < ground.Length; i++)
                 //{
 
@@ -229,9 +258,24 @@ namespace gravityProject
                     PlayerPos.X += 2;
                 }
             }
+
+
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
                 PlayerPos.X = PlayerPos.X - (int)time - 2;
+                moveTimer += gameTime.ElapsedGameTime.TotalSeconds * 6;
+                for(int i = 1; i < 5; i++)
+                {
+                    if (moveTimer > i)
+                    {
+                        texture2D = Content.Load<Texture2D>($"animations/PlayerWalking{i}");
+                    }
+                    if(moveTimer > 5)
+                    {
+                        texture2D = Content.Load<Texture2D>($"animations/PlayerWalking5");
+                        moveTimer = 1;
+                    }   
+                }
                 //for (int i = 0; i < ground.Length; i++)
                 //{
                 //    ground[i].GroundPos.X = ground[i].GroundPos.X - 1 + (int)time;
@@ -241,35 +285,43 @@ namespace gravityProject
                     PlayerPos.X -= 2;
                 }
             }
+       
 
-
-            if (PlayerPos.Intersects(chestPos))
+            for(int i = 0; i < items.Length; i++)
             {
-            
-                isInside = true;
-                if (played == false)
+                if (items[i] != null)
                 {
-                    chestSound.Play();
-                    played = true;
-                }
+                    if (PlayerPos.Intersects(items[i].chestPos))
+                    {
+                        isInside = true;
+                        if (played == false)
+                        {
+                            chestSound.Play();
+                            played = true;
+                        }
 
+                    }
+                }
+     
             }
 
 
 
             if (isInside)
             {
+                for(int i = 2; i < items.Length; i++) 
+                {
                 waitingTime2 += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 float animateCounter = 0.1f ;
-                for(int i = 2; i < 11; i++) 
-                {
                     
                     if (waitingTime2 >= animateCounter)
                     {
-                        chestTexture = Content.Load<Texture2D>($"chest{i}");
+                        if (items[i] != null)
+                        {
+                        items[i].chestTexture = Content.Load<Texture2D>($"chest{Counter}");
+                        }
                         if(waitingTime2 >= 1)
                         {
-                            chestTexture = Content.Load<Texture2D>("chest11");
                             isInside = false;
                         }
                         animateCounter += 0.1f;
@@ -279,23 +331,64 @@ namespace gravityProject
               
             }
         
-            if (PlayerPos.Intersects(coinPos)) 
+            for(int i = 0; i < items.Length; i++)
             {
-                coinPos.X -= 2300;
-                coinSound.Play();
-            }
-            
-                if (waitingTime >= animateCounter2)
+                if (items[i] != null)
                 {
-                    coinTexture = Content.Load<Texture2D>($"coin{coinCounter}");
+                    if (PlayerPos.Intersects(items[i].coinsPos))
+                    {
+                        items[i] = null;
+                        coinSound.Play();
+                        numberOfcoins++;
+                    }
+                }
+            }
+
+                
+
+        
+                if (waitingTime >= animateCounter2 )
+                {
+                for(int i = 0; i < items.Length; i++)
+                {
+                    if (items[i] != null)
+                    {
+                        items[i].coinsTexture = Content.Load<Texture2D>($"coin{Counter}");
+                    }
+                }
+                if(waitingTime <= 0.8)
+                {
+                    if( !Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A))
+                    {
+                      texture2D = Content.Load<Texture2D>($"animations/playerMovement{Counter}");
+                     
+                    }
+                    if (Counter < 4)
+                    {
+                        EnemyTexture = Content.Load<Texture2D>($"EnemyIdle{Counter}");
+
+                    }
+                }
                     if (waitingTime >= 1)
                     {
-                        coinTexture = Content.Load<Texture2D>("coin11");
+                    for(int i = 0; i < items.Length; i++)
+                    {
+                        if (items[i] != null)
+                        {
+                            items[i].coinsTexture = Content.Load<Texture2D>("coin11");
+                        }
+                    }
+                    if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A))
+                    {
+                        texture2D = Content.Load<Texture2D>("animations/playerMovement8");
+                        EnemyTexture = Content.Load<Texture2D>($"EnemyIdle4");
+                    }
+
                         waitingTime = 0;
-                        coinCounter = 1;
+                        Counter = 1;
                         animateCounter2 = 0.001f;
                     }
-                    coinCounter+=1;
+                    Counter+=1;
                     animateCounter2 += 0.1f;
                 }
 
@@ -310,31 +403,33 @@ namespace gravityProject
 
             for (int i = 0; i < ground.Length; i++)
             {
-
-                if (PlayerPos.Intersects(ground[i].GroundPos))
+                if (ground[i] != null)
+                {
+                    if (PlayerPos.Intersects(ground[i].GroundPos) )
                     {
-                    if(PlayerPos.Y <= ground[i].GroundPos.Y)
-                    {
-                        PlayerPos.Y = ground[i].GroundPos.Y - PlayerPos.Height  ;
-                    }
-                  
-                    else
-                    {
-                        if(isFlipped)
+                        if (PlayerPos.Y <= ground[i].GroundPos.Y)
                         {
-                        PlayerPos.X = ground[i].GroundPos.X + PlayerPos.Width + 15;
+                            PlayerPos.Y = ground[i].GroundPos.Y - PlayerPos.Height;
                         }
+
                         else
                         {
-                        PlayerPos.X = ground[i].GroundPos.X - PlayerPos.Width;
+                            if (isFlipped)
+                            {
+                                PlayerPos.X = ground[i].GroundPos.X + PlayerPos.Width + 15;
+                            }
+                            else
+                            {
+                                PlayerPos.X = ground[i].GroundPos.X - PlayerPos.Width;
+                            }
                         }
-                    }
-                
 
-                    if (Keyboard.GetState().IsKeyDown(Keys.Space))
+
+                        if (Keyboard.GetState().IsKeyDown(Keys.Space))
                         {
                             hasJump = true;
-                        } 
+                        }
+                    }
                 }
             
             }
@@ -368,14 +463,12 @@ namespace gravityProject
         }
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.White);
+            GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
 
             _spriteBatch.Draw(backgroundColor, new Vector2(0, 0), Color.White);
             //_spriteBatch.Draw(ballTexture, new Vector2( PlayerPos.X -32 ,  PlayerPos.Y - 50), Color.White);
-            _spriteBatch.Draw(chestTexture, new Rectangle(chestPos.X  -64 , chestPos.Y - 64 , chestPos.Width , chestPos.Height), Color.White);
-            _spriteBatch.Draw(coinTexture, new Rectangle(coinPos.X  -64 , coinPos.Y - 64 , coinPos.Width , coinPos.Height), Color.White);
             switch (isFlipped)
             {
                 case false:
@@ -400,30 +493,43 @@ namespace gravityProject
                
             }
 
-        
+            _spriteBatch.Draw(EnemyTexture, new Rectangle(100,240 , 90,100) , Color.White);
+          
+
             //gameInfo
             _spriteBatch.DrawString(_font,"Player Position On Y : " + PlayerPos.Y , new Vector2(10, 0), color: Color.White);
             _spriteBatch.DrawString(_font,"Player Position On X : " + PlayerPos.X , new Vector2(10, 20), color: Color.White);
             _spriteBatch.DrawString(_font,"Ability To Jump : " + hasJump , new Vector2(10, 40), color: Color.White);
             _spriteBatch.DrawString(_font,"Time Since Jumped : " + timePassed , new Vector2(10,60), color: Color.White);
             _spriteBatch.DrawString(_font,"Jump Counter : " + jumpConuter , new Vector2(10,80), color: Color.White);
+            _spriteBatch.DrawString(_font,"number of coins: " + numberOfcoins , new Vector2(10,100), color: Color.Black ,0 , new Vector2(0,0) ,2, 0 , 0);
             //gameInfo
 
             for(int i = 0; i < ground.Length; i++)
             {
+                if (ground[i] != null)
+                {
                     _spriteBatch.Draw(ground[i].groundTexture, new Vector2(ground[i].GroundPos.X - 35, ground[i].GroundPos.Y - 35), Color.White);
+                }
+                    
             }
-            //if (items.Length >= 1)
-            //{
-            //    for (int i = 0; i < items.Length; i++)
-            //    {
-            //        _spriteBatch.Draw(items[i].chestTexture, new Vector2(ground[i].GroundPos.X - 35, ground[i].GroundPos.Y - 35), Color.White);
-            //    }
-            //    for (int i = 0; i < items.Length; i++)
-            //    {
-            //        _spriteBatch.Draw(items[i].chestTexture, new Vector2(ground[i].GroundPos.X - 35, ground[i].GroundPos.Y - 35), Color.White);
-            //    }
-            //}
+           
+                for (int i = 0; i < items.Length; i++)
+                {
+                if (items[i] != null)
+                {
+                    if (items[i].coinsTexture != null)
+                    {
+                    _spriteBatch.Draw(items[i].coinsTexture, new Vector2(items[i].coinsPos.X - 35, items[i].coinsPos.Y - 35), Color.White);
+                    }
+                    if (items[i].chestTexture != null)
+                    {
+                        _spriteBatch.Draw(items[i].chestTexture, new Vector2(items[i].chestPos.X - 35, items[i].chestPos.Y - 35), Color.White);
+                    }
+                }
+                }
+              
+            
             _spriteBatch.End();
             // TODO: Add your drawing code here
 
