@@ -54,7 +54,7 @@ namespace gravityProject
         int num = 0;
 
 
-        int selectLevel = 6;
+        int selectLevel = 3;
 
         private int groundAxis =  50 ;
         private double timePassed=2d;
@@ -407,7 +407,7 @@ namespace gravityProject
                 {
                     if (PlayerPos.Intersects(ground[i].GroundPos) )
                     {
-                        if (PlayerPos.Y <= ground[i].GroundPos.Y)
+                        if (PlayerPos.Y <= ground[i].GroundPos.Y - 90 ) 
                         {
                             PlayerPos.Y = ground[i].GroundPos.Y - PlayerPos.Height;
                         }
@@ -416,7 +416,7 @@ namespace gravityProject
                         {
                             if (isFlipped)
                             {
-                                PlayerPos.X = ground[i].GroundPos.X + PlayerPos.Width + 15;
+                                PlayerPos.X = ground[i].GroundPos.X + PlayerPos.Width - 15;
                             }
                             else
                             {
