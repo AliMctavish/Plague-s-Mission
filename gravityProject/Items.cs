@@ -11,11 +11,12 @@ namespace gravityProject
 {
     internal class Items
     {
-        public Texture2D chestTexture;
-        public Texture2D coinsTexture;
-        public  Rectangle chestPos;
-        public Rectangle coinsPos;
-        private double timer = 0;
+        public Texture2D chestTexture { get; set; }
+        public Texture2D coinsTexture { get; set; }
+        public Rectangle chestPos  {get; set; }
+        public Rectangle coinsPos { get; set; }
+
+
 
 
      

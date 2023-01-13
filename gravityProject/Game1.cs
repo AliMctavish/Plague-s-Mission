@@ -25,7 +25,11 @@ namespace gravityProject
         private Rectangle PlayerPos;
         private Rectangle chestPos;
         private Texture2D  EnemyTexture;
-        private Ground[] ground = null;
+
+        private Animate animate;
+        private Ground[] ground;
+        private Enemy[] enemies;
+        private EnemyCollider[] enemyColliders;
         int moveCounter = 5;
         private Items[] items;
         float waitingTime = 0;
@@ -51,10 +55,11 @@ namespace gravityProject
         private int velocity = 10;
         private int jumpConuter = 0;
         private bool isFlipped = false;
+        
         int num = 0;
 
 
-        int selectLevel = 3;
+        int selectLevel = 6;
 
         private int groundAxis =  50 ;
         private double timePassed=2d;
@@ -87,7 +92,8 @@ namespace gravityProject
 
             items = new Items[sumOfArrays];
            ground = new Ground[sumOfArrays];
-           // items = new Items[sumOfArrays];
+           enemies = new Enemy[sumOfArrays];
+            enemyColliders = new EnemyCollider[sumOfArrays];
 
 
 
@@ -105,19 +111,16 @@ namespace gravityProject
             texture2D = Content.Load<Texture2D>("animations/playerMovement1");
             backgroundColor = Content.Load<Texture2D>("background-export");
             EnemyTexture = Content.Load<Texture2D>("EnemyIdle1");
-            
-
             coinSound = Content.Load<SoundEffect>("coinSound");
             chestSound = Content.Load<SoundEffect>("sound");
             coinTexture = Content.Load<Texture2D>("coin1");
-       
-
             _font = Content.Load<SpriteFont>("File");
 
-            ballPos = new Rectangle(300,100 , 32 ,32);
+
+
+        
             PlayerPos = new Rectangle(500 , 200 , 76, 98);
-            chestPos = new Rectangle(930, 346, 64, 64);
-            coinPos = new Rectangle(800, 360, 64, 64);
+           
                 
             base.Initialize();
 
@@ -171,12 +174,12 @@ namespace gravityProject
                             num++;
                          
                         }
-                        if (map[i][j] == '.')
-                        {
-                            ground[num] = new Ground(900,900);
-                            ground[num].groundTexture = Content.Load<Texture2D>("groundBase");
-                            num++;
-                        }
+                    if (map[i][j] == '.')
+                    {
+                        //ground[num] = new Ground(900, 900);
+                        //ground[num].groundTexture = Content.Load<Texture2D>("groundBase");
+                        num++;
+                    }
                     if (map[i][j] == '@')
                     {
                         items[num] = new Items();
@@ -190,6 +193,19 @@ namespace gravityProject
                         items[num] = new Items();
                         items[num].chestPos = new Rectangle(64 * j, i * 64 + 61, 60, 60);
                         items[num].chestTexture = Content.Load<Texture2D>("chest1");
+                        num++;
+                    }
+                    if (map[i][j] == '!')
+                    {
+                        enemies[num] = new Enemy();
+                        enemies[num].enemyPos = new Rectangle(64 * j, i * 64, 61, 75);
+                        enemies[num].enemyTexture = Content.Load<Texture2D>("EnemyIdle1");
+                        num++;
+                    }
+                    if (map[i][j] == '|')
+                    {
+                        enemyColliders[num] = new EnemyCollider();
+                        enemyColliders[num].ColliderPos = new Rectangle(64 * j, i * 64, 60, 60);
                         num++;
                     }
 
@@ -307,6 +323,8 @@ namespace gravityProject
 
 
 
+
+
             if (isInside)
             {
                 for(int i = 2; i < items.Length; i++) 
@@ -338,7 +356,7 @@ namespace gravityProject
                     if (PlayerPos.Intersects(items[i].coinsPos))
                     {
                         items[i] = null;
-                        coinSound.Play();
+                       // coinSound.Play();
                         numberOfcoins++;
                     }
                 }
@@ -356,7 +374,11 @@ namespace gravityProject
                         items[i].coinsTexture = Content.Load<Texture2D>($"coin{Counter}");
                     }
                 }
-                if(waitingTime <= 0.8)
+            
+                    
+                
+
+                    if (waitingTime <= 0.8)
                 {
                     if( !Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A))
                     {
@@ -365,7 +387,14 @@ namespace gravityProject
                     }
                     if (Counter < 4)
                     {
-                        EnemyTexture = Content.Load<Texture2D>($"EnemyIdle{Counter}");
+                        for (int i = 0; i < enemies.Length; i++)
+                        {
+                            if (enemies[i] != null)
+                            {
+                            enemies[i].enemyTexture = Content.Load<Texture2D>($"EnemyIdle{Counter}");
+                            }
+
+                        }
 
                     }
                 }
@@ -405,7 +434,7 @@ namespace gravityProject
             {
                 if (ground[i] != null)
                 {
-                    if (PlayerPos.Intersects(ground[i].GroundPos) )
+                    if (PlayerPos.Intersects(ground[i].GroundPos))
                     {
                         if (PlayerPos.Y <= ground[i].GroundPos.Y - 90 ) 
                         {
@@ -430,9 +459,47 @@ namespace gravityProject
                             hasJump = true;
                         }
                     }
+
                 }
             
+       
             }
+            for(int i = 0; i < enemies.Length; i++) 
+            {
+                if (enemies[i] != null )
+                {
+                   if(!enemies[i].enemyIsFlipped)
+                    {
+                    enemies[i].enemyPos.X += 1;
+                    }
+                    else
+                    {
+                        enemies[i].enemyPos.X -= 1;
+                    }
+                    for(int j = 0; j < enemyColliders.Length; j++)
+                    {
+                        if (enemyColliders[j] != null)
+                        {
+                            if (enemies[i].enemyPos.Intersects(enemyColliders[j].ColliderPos))
+                            {
+                                if (!enemies[i].enemyIsFlipped)
+                                {
+                                enemies[i].enemyIsFlipped = true;
+                                }
+                                else
+                                {
+                                    enemies[i].enemyIsFlipped = false;
+                                }
+                            }
+                        }
+                
+                    }
+                 
+                }
+
+
+            }
+
             //falling
             PlayerPos.Y += 4 ;
 
@@ -493,19 +560,15 @@ namespace gravityProject
                
             }
 
-            _spriteBatch.Draw(EnemyTexture, new Rectangle(100,240 , 90,100) , Color.White);
-          
-
-            //gameInfo
+            //Game Debugging Is Here
             _spriteBatch.DrawString(_font,"Player Position On Y : " + PlayerPos.Y , new Vector2(10, 0), color: Color.White);
             _spriteBatch.DrawString(_font,"Player Position On X : " + PlayerPos.X , new Vector2(10, 20), color: Color.White);
             _spriteBatch.DrawString(_font,"Ability To Jump : " + hasJump , new Vector2(10, 40), color: Color.White);
             _spriteBatch.DrawString(_font,"Time Since Jumped : " + timePassed , new Vector2(10,60), color: Color.White);
             _spriteBatch.DrawString(_font,"Jump Counter : " + jumpConuter , new Vector2(10,80), color: Color.White);
             _spriteBatch.DrawString(_font,"number of coins: " + numberOfcoins , new Vector2(10,100), color: Color.Black ,0 , new Vector2(0,0) ,2, 0 , 0);
-            //gameInfo
-
-            for(int i = 0; i < ground.Length; i++)
+            //Game Debugging Is Here
+            for (int i = 0; i < ground.Length; i++)
             {
                 if (ground[i] != null)
                 {
@@ -513,8 +576,8 @@ namespace gravityProject
                 }
                     
             }
-           
-                for (int i = 0; i < items.Length; i++)
+
+            for (int i = 0; i < items.Length; i++)
                 {
                 if (items[i] != null)
                 {
@@ -528,6 +591,15 @@ namespace gravityProject
                     }
                 }
                 }
+
+            for(int i = 0; i < enemies.Length; i++)
+            {
+                if (enemies[i] != null)
+                {
+                    _spriteBatch.Draw(enemies[i].enemyTexture, new Rectangle(enemies[i].enemyPos.X - 35, enemies[i].enemyPos.Y  - 20, 90 , 100), Color.White);
+                }
+
+            }
               
             
             _spriteBatch.End();
