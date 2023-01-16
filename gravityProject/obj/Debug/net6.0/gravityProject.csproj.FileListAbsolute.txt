@@ -135,3 +135,7 @@ C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debu
 C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\EnemyIdle2.xnb
 C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\EnemyIdle3.xnb
 C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\EnemyIdle4.xnb
+C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\EnemyMoving1.xnb
+C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\EnemyMoving2.xnb
+C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\EnemyMoving3.xnb
+C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\EnemyMoving4.xnb

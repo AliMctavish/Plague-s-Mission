@@ -21,30 +21,27 @@ namespace gravityProject
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
-        private Texture2D texture2D;
+        private Texture2D PlayerTexture;
         private Rectangle PlayerPos;
-        private Rectangle chestPos;
-        private Texture2D  EnemyTexture;
+        double timeTest = 1;
 
-        private Animate animate;
         private Ground[] ground;
         private Enemy[] enemies;
         private EnemyCollider[] enemyColliders;
         int moveCounter = 5;
         private Items[] items;
-        float waitingTime = 0;
         float waitingTime2 = 0;
         int Counter = 1;
+        int Counter2 = 1;
+        double EnemyCounter = 4;
 
-        
-        private Rectangle ballPos;
-        private Rectangle coinPos;
-        private Texture2D ballTexture;
-        private Texture2D coinTexture;
-        private SoundEffect coinSound;
         private SoundEffect chestSound;
         double moveTimer = 1;
+
+        float waitingTime = 0;
         float animateCounter2 = 0.1f;
+        GamePhysics GamePhysics; 
+
         private int numberOfcoins = 0;
 
         private bool isInside = false;
@@ -106,14 +103,10 @@ namespace gravityProject
 
             // TODO: Add your initialization logic here
 
-            ballTexture = Content.Load<Texture2D>("ball");
 
-            texture2D = Content.Load<Texture2D>("animations/playerMovement1");
+            PlayerTexture = Content.Load<Texture2D>("animations/playerMovement1");
             backgroundColor = Content.Load<Texture2D>("background-export");
-            EnemyTexture = Content.Load<Texture2D>("EnemyIdle1");
-            coinSound = Content.Load<SoundEffect>("coinSound");
             chestSound = Content.Load<SoundEffect>("sound");
-            coinTexture = Content.Load<Texture2D>("coin1");
             _font = Content.Load<SpriteFont>("File");
 
 
@@ -130,7 +123,7 @@ namespace gravityProject
         {
 
 
-
+            GamePhysics = new GamePhysics();
             
            
 
@@ -253,11 +246,11 @@ namespace gravityProject
                 {
                     if (moveTimer > i)
                     {
-                        texture2D = Content.Load<Texture2D>($"animations/PlayerWalking{i}");
+                        PlayerTexture = Content.Load<Texture2D>($"animations/PlayerWalking{i}");
                     }
                     if (moveTimer > 5)
                     {
-                        texture2D = Content.Load<Texture2D>($"animations/PlayerWalking5");
+                        PlayerTexture = Content.Load<Texture2D>($"animations/PlayerWalking5");
                         moveTimer = 1;
                     }
                 }
@@ -284,11 +277,11 @@ namespace gravityProject
                 {
                     if (moveTimer > i)
                     {
-                        texture2D = Content.Load<Texture2D>($"animations/PlayerWalking{i}");
+                        PlayerTexture = Content.Load<Texture2D>($"animations/PlayerWalking{i}");
                     }
                     if(moveTimer > 5)
                     {
-                        texture2D = Content.Load<Texture2D>($"animations/PlayerWalking5");
+                        PlayerTexture = Content.Load<Texture2D>($"animations/PlayerWalking5");
                         moveTimer = 1;
                     }   
                 }
@@ -365,39 +358,35 @@ namespace gravityProject
                 
 
         
-                if (waitingTime >= animateCounter2 )
+                if (waitingTime > animateCounter2 )
                 {
                 for(int i = 0; i < items.Length; i++)
                 {
                     if (items[i] != null)
                     {
                         items[i].coinsTexture = Content.Load<Texture2D>($"coin{Counter}");
+                      
                     }
                 }
-            
-                    
-                
-
                     if (waitingTime <= 0.8)
-                {
+                    {
                     if( !Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A))
                     {
-                      texture2D = Content.Load<Texture2D>($"animations/playerMovement{Counter}");
+                      PlayerTexture = Content.Load<Texture2D>($"animations/playerMovement{Counter}");
                      
                     }
-                    if (Counter < 4)
+                    if (Counter <= 4)
                     {
                         for (int i = 0; i < enemies.Length; i++)
                         {
-                            if (enemies[i] != null)
-                            {
-                            enemies[i].enemyTexture = Content.Load<Texture2D>($"EnemyIdle{Counter}");
-                            }
+                            //if (enemies[i] != null)
+                            //{
+                            //enemies[i].enemyTexture = Content.Load<Texture2D>($"EnemyMoving{Counter2}");
+                            //}
 
                         }
-
                     }
-                }
+                    }
                     if (waitingTime >= 1)
                     {
                     for(int i = 0; i < items.Length; i++)
@@ -409,8 +398,7 @@ namespace gravityProject
                     }
                     if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A))
                     {
-                        texture2D = Content.Load<Texture2D>("animations/playerMovement8");
-                        EnemyTexture = Content.Load<Texture2D>($"EnemyIdle4");
+                        PlayerTexture = Content.Load<Texture2D>("animations/playerMovement8");
                     }
 
                         waitingTime = 0;
@@ -422,83 +410,55 @@ namespace gravityProject
                 }
 
 
+            timeTest += gameTime.TotalGameTime.TotalSeconds;
 
-
-
-
-
-
-            
-
-            for (int i = 0; i < ground.Length; i++)
+            for (int i = 0; i < enemies.Length; i++)
             {
-                if (ground[i] != null)
-                {
-                    if (PlayerPos.Intersects(ground[i].GroundPos))
+               
+                    if (timeTest >= 1)
                     {
-                        if (PlayerPos.Y <= ground[i].GroundPos.Y - 90 ) 
-                        {
-                            PlayerPos.Y = ground[i].GroundPos.Y - PlayerPos.Height;
-                        }
-
-                        else
-                        {
-                            if (isFlipped)
-                            {
-                                PlayerPos.X = ground[i].GroundPos.X + PlayerPos.Width - 15;
-                            }
-                            else
-                            {
-                                PlayerPos.X = ground[i].GroundPos.X - PlayerPos.Width;
-                            }
-                        }
-
-
-                        if (Keyboard.GetState().IsKeyDown(Keys.Space))
-                        {
-                            hasJump = true;
-                        }
+                    if (enemies[i] != null)
+                    {
+                        enemies[i].enemyTexture = Content.Load<Texture2D>($"EnemyMoving1");
+                    }
+                    }
+                    if (timeTest >= 2)
+                    {
+                    if (enemies[i] != null)
+                    {
+                        enemies[i].enemyTexture = Content.Load<Texture2D>($"EnemyMoving2");
+                    }
+                    }
+                    if (timeTest >= 3)
+                    {
+                    if (enemies[i] != null)
+                    {
+                        enemies[i].enemyTexture = Content.Load<Texture2D>($"EnemyMoving3");
+                    }
+                    }
+                    if (timeTest >= 4)
+                    {
+                    if (enemies[i] != null)
+                    {
+                        enemies[i].enemyTexture = Content.Load<Texture2D>($"EnemyMoving4");
+                        timeTest = 4;
+                    }
                     }
 
-                }
-            
-       
-            }
-            for(int i = 0; i < enemies.Length; i++) 
-            {
-                if (enemies[i] != null )
-                {
-                   if(!enemies[i].enemyIsFlipped)
-                    {
-                    enemies[i].enemyPos.X += 1;
-                    }
-                    else
-                    {
-                        enemies[i].enemyPos.X -= 1;
-                    }
-                    for(int j = 0; j < enemyColliders.Length; j++)
-                    {
-                        if (enemyColliders[j] != null)
-                        {
-                            if (enemies[i].enemyPos.Intersects(enemyColliders[j].ColliderPos))
-                            {
-                                if (!enemies[i].enemyIsFlipped)
-                                {
-                                enemies[i].enemyIsFlipped = true;
-                                }
-                                else
-                                {
-                                    enemies[i].enemyIsFlipped = false;
-                                }
-                            }
-                        }
                 
-                    }
-                 
-                }
 
-
+               
             }
+
+
+
+
+
+            GamePhysics.PlayerBoundries(PlayerPos, ground, hasJump, isFlipped);
+
+            GamePhysics.EnemyBoundaries(enemies,enemyColliders);
+
+           
 
             //falling
             PlayerPos.Y += 4 ;
@@ -524,8 +484,7 @@ namespace gravityProject
                 
             }
 
-
-
+      
             base.Update(gameTime);
         }
         protected override void Draw(GameTime gameTime)
@@ -540,7 +499,7 @@ namespace gravityProject
             {
                 case false:
                     {
-                        _spriteBatch.Draw(texture2D, new Rectangle(PlayerPos.X - 34, PlayerPos.Y - 34, PlayerPos.Width, PlayerPos.Height), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
+                        _spriteBatch.Draw(PlayerTexture, new Rectangle(PlayerPos.X - 34, PlayerPos.Y - 34, PlayerPos.Width, PlayerPos.Height), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
                         if (Keyboard.GetState().IsKeyDown(Keys.A))
                         {
                             isFlipped = true;
@@ -549,7 +508,7 @@ namespace gravityProject
                     }
                 case true:
                     {
-                        _spriteBatch.Draw(texture2D, new Rectangle(PlayerPos.X - 34, PlayerPos.Y - 34, PlayerPos.Width, PlayerPos.Height), null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+                        _spriteBatch.Draw(PlayerTexture, new Rectangle(PlayerPos.X - 34, PlayerPos.Y - 34, PlayerPos.Width, PlayerPos.Height), null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
                         if (Keyboard.GetState().IsKeyDown(Keys.D))
                         {
                             isFlipped = false;
@@ -596,7 +555,20 @@ namespace gravityProject
             {
                 if (enemies[i] != null)
                 {
-                    _spriteBatch.Draw(enemies[i].enemyTexture, new Rectangle(enemies[i].enemyPos.X - 35, enemies[i].enemyPos.Y  - 20, 90 , 100), Color.White);
+                    switch (enemies[i].enemyIsFlipped)
+                    {
+                        case false :
+                            {
+                                _spriteBatch.Draw(enemies[i].enemyTexture, new Rectangle(enemies[i].enemyPos.X - 35, enemies[i].enemyPos.Y - 20, 90, 100), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
+                                break;
+                            }
+                        case true:
+                            {
+                                _spriteBatch.Draw(enemies[i].enemyTexture, new Rectangle(enemies[i].enemyPos.X - 35, enemies[i].enemyPos.Y - 20, 90, 100), null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+                                break;
+                            }
+                    }
+                  
                 }
 
             }

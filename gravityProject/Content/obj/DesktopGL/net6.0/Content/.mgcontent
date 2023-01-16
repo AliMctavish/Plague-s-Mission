@@ -48,6 +48,10 @@
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/EnemyIdle2.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/EnemyIdle3.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/EnemyIdle4.png</File>
+    <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/EnemyMoving1.png</File>
+    <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/EnemyMoving2.png</File>
+    <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/EnemyMoving3.png</File>
+    <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/EnemyMoving4.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/File.spritefont</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/ground1.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/ground3.png</File>
@@ -60,6 +64,10 @@
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/sound.wav</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
