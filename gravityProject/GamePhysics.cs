@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -49,37 +50,48 @@ namespace gravityProject
             }
         }
 
+        public void getItems(Items[] items)
+        {
+
+        }
 
 
-        public void PlayerBoundries(Rectangle PlayerPos ,Ground[] ground, bool hasJump, bool isFlipped )
+
+        public void PlayerBoundries(Player player ,Ground[] ground, bool isFlipped )
         {
             for (int i = 0; i < ground.Length; i++)
             {
                 if (ground[i] != null)
                 {
-                    if (PlayerPos.Intersects(ground[i].GroundPos))
+                    if (player.playerPos.Intersects(ground[i].GroundPos))
                     {
-                        if (PlayerPos.Y <= ground[i].GroundPos.Y - 90)
+                        if (player.playerPos.Y <= ground[i].GroundPos.Y - 90)
                         {
-                            PlayerPos.Y = ground[i].GroundPos.Y - PlayerPos.Height;
+                            player.playerPos.Y = ground[i].GroundPos.Y - player.playerPos.Height;
                         }
 
                         else
-                        {
+                        { 
                             if (isFlipped)
                             {
-                                PlayerPos.X = ground[i].GroundPos.X + PlayerPos.Width - 15;
+                                if(player.playerPos.Y <= ground[i].GroundPos.Y )
+                                {
+                                player.playerPos.X = ground[i].GroundPos.X + player.playerPos.Width - 24;
+                                }
                             }
                             else
                             {
-                                PlayerPos.X = ground[i].GroundPos.X - PlayerPos.Width;
-                            }
+                                if (player.playerPos.Y <= ground[i].GroundPos.Y )
+                                {
+                                 player.playerPos.X = ground[i].GroundPos.X - player.playerPos.Width;
+                                }
+                            }  
                         }
 
 
                         if (Keyboard.GetState().IsKeyDown(Keys.Space))
                         {
-                            hasJump = true;
+                             player.hasJump = true;
                         }
                     }
 
@@ -87,11 +99,26 @@ namespace gravityProject
 
 
             }
+    
         }
+        public bool PlayerGravity(Player player)
+        {
+                player.playerPos.Y = player.playerPos.Y - player.playerVelocity;
 
-
-
-
+            if (player.timePassed <= 1.8)
+                {
+                    player.playerVelocity = player.playerVelocity - 1;
+                    player.playerPos.Y = player.playerPos.Y + player.playerVelocity / 2;
+                    if (player.playerVelocity <= 0 && player.timePassed <= 1.5)
+                    {
+                        player.timePassed = 2d;
+                        player.playerVelocity = 10;
+                        return player.hasJump = false;
+                    }
+                    //player.hasJump = false;
+                }
+            return player.hasJump = true;
+        }
 
     }
 }

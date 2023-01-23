@@ -15,15 +15,5 @@ namespace gravityProject
         public bool enemyIsFlipped = false;
 
 
-
-
-
-
-        
-
-
-
-
-
     }
 }

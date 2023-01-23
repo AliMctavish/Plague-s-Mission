@@ -7,18 +7,19 @@ using System.Collections.Generic;
 
 namespace gravityProject
 {
-    internal class Player : Game1
+    internal class Player 
     {
-        Texture2D texture;
+        public Texture2D playerTexture;
+        public Rectangle playerPos;
+        public bool hasJump = false;
+        public int playerVelocity = 10;
+
+        public double timePassed = 2d;
+
 
 
             
-        public void playerTexture(GameTime gameTime)
-        {
-            
-
-        }
-
+       
 
     }
 }
