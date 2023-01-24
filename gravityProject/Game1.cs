@@ -101,6 +101,8 @@ namespace gravityProject
            enemies = new Enemy[sumOfArrays];
             enemyColliders = new EnemyCollider[sumOfArrays];
 
+            animation = new AnimationManager();
+
 
 
 
@@ -144,21 +146,8 @@ namespace gravityProject
 
         protected override void Update(GameTime gameTime)
         {
-
-
-
-
-
-
-
-
-
             float time = (float)gameTime.ElapsedGameTime.TotalSeconds * 140;
             waitingTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-           
-
-
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -245,10 +234,11 @@ namespace gravityProject
 
             if (isInside)
             {
+                float animateCounter = 0.1f;
                 for (int i = 2; i < items.Length; i++)
                 {
                     waitingTime2 += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    float animateCounter = 0.1f;
+                  
 
                     if (waitingTime2 >= animateCounter)
                     {
@@ -283,75 +273,18 @@ namespace gravityProject
 
             //solve this in the future
             // all the animtaions happen here and without methods or classes :"|
-            if(waitingTime > animateCounter2)
-            {
-              // animation.ItemsAnimation(items, waitingTime, Counter);
-            }
+
 
             if (waitingTime > animateCounter2)
             {
-                //for (int i = 0; i < items.Length; i++)
-                //{
-                //    if (items[i] != null)
-                //    {
-                //        items[i].coinsTexture = Content.Load<Texture2D>($"coin{Counter}");
-                //        if(waitingTime >= 1)
-                //        { 
-                //            if (items[i] != null)
-                //            {
-                //                items[i].coinsTexture = Content.Load<Texture2D>("coin11");
-                //            }
-                //        }
-                //    }
-                    
-                //}
-             
-                    for (int i = 0; i < enemies.Length; i++)
-                    {
-                        if (enemies[i] != null)
-                        {
-                            enemies[i].enemyTexture = Content.Load<Texture2D>($"EnemyMoving{countForEnemyMovment}");
-                            if (countForEnemyMovment == 4)
-                            {
-                                if (enemies[i] != null)
-                                {
-                                    enemies[i].enemyTexture = Content.Load<Texture2D>("EnemyMoving4");
-                                    countForEnemyMovment = 1;
-                                }
-                            }
-                        countForEnemyMovment += 1;
-                        }
-                    }
-                
-                if (waitingTime <= 0.8)
-                {
-                    if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A))
-                    {
-                        player.playerTexture = Content.Load<Texture2D>($"animations/playerMovement{Counter}");
-
-                    }
-
-                }
-                if (waitingTime >= 1)
-                   {
-              
-                    if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A))
-                    {
-                        player.playerTexture = Content.Load<Texture2D>("animations/playerMovement8");
-                    }
-
-                    waitingTime = 0;
-                    Counter = 1;
-                    animateCounter2 = 0.001f;
-                }
-                Counter += 1;
+                animation.itemsAnimation(items, Content);
+                animation.enemyAnimation(enemies , Content);
+                animation.playerAnimationIdle(player, Content);
                 animateCounter2 += 0.1f;
             }
 
 
-            AnimationManager animationManager = new AnimationManager();
 
-            animationManager.ItemsAnimation(items, waitingTime,Counter , Content);
             //colliders and physics methods
 
             if (player.hasJump == true)

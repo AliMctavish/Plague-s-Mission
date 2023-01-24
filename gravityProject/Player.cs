@@ -14,6 +14,8 @@ namespace gravityProject
         public bool hasJump = false;
         public int playerVelocity = 10;
 
+        public int PlayerAnimationCounter = 1;
+
         public double timePassed = 2d;
 
 

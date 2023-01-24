@@ -14,6 +14,8 @@ namespace gravityProject
         public Rectangle enemyPos;
         public bool enemyIsFlipped = false;
 
+        public int counter = 1;
+
 
     }
 }

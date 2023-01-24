@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,6 +16,10 @@ namespace gravityProject
         public Texture2D coinsTexture { get; set; }
         public Rectangle chestPos  {get; set; }
         public Rectangle coinsPos { get; set; }
+
+
+        public int CoinCounter = 1;
+        public int ChestCounter = 1; 
 
 
 
