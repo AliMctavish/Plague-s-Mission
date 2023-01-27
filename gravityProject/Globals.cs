@@ -11,16 +11,11 @@ namespace gravityProject
 {
     internal class Globals 
     {
-
-
-      
         public static float TotalSeconds {  get; set; }
 
         private GameServiceContainer _services;
 
         public ContentManager Content { get; set; }
-
-
 
         public ContentManager _content;
 

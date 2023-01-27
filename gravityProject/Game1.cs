@@ -172,11 +172,13 @@ namespace gravityProject
 
                 //for (int i = 0; i < ground.Length; i++)
                 //{
-
+                //    if (ground[i] != null)
+                //    {
                 //    ground[i].GroundPos.X = ground[i].GroundPos.X + 1 - (int)time;
+                //    }
 
                 //}
-                if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+                    if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
                 {
                     player.playerPos.X += 2;
                 }
@@ -201,14 +203,16 @@ namespace gravityProject
                 }
                 //for (int i = 0; i < ground.Length; i++)
                 //{
-                //    ground[i].GroundPos.X = ground[i].GroundPos.X - 1 + (int)time;
+                //    if (ground[i] != null)
+                //    { 
+                //        ground[i].GroundPos.X = ground[i].GroundPos.X - 1 + (int)time;
+                //    }
                 //}
                 if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
                 {
                     player.playerPos.X -= 2;
                 }
             }
-
 
             for (int i = 0; i < items.Length; i++)
             {
@@ -227,11 +231,6 @@ namespace gravityProject
                 }
 
             }
-
-
-
-
-
             if (isInside)
             {
                 float animateCounter = 0.1f;
@@ -293,7 +292,10 @@ namespace gravityProject
 
                 GamePhysics.PlayerGravity(player);
             }
-            GamePhysics.PlayerBoundries(player, ground,isFlipped);
+            GamePhysics.PlayerIntersectsWithGround(player, ground,isFlipped);
+
+            GamePhysics.PlayerIntersectsWithEnemy(player , enemies, Content);
+
             GamePhysics.EnemyBoundaries(enemies,enemyColliders);
 
             player.playerPos.Y += 4 ;

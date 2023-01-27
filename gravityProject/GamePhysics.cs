@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -15,31 +17,32 @@ namespace gravityProject
 
         public void EnemyBoundaries(Enemy[] enemies , EnemyCollider[] enemyColliders )
         {
-            for (int i = 0; i < enemies.Length; i++)
+            foreach(var enemy in enemies)
             {
-                if (enemies[i] != null)
+                if (enemy != null && !enemy.isStopped)
                 {
-                    if (!enemies[i].enemyIsFlipped)
+                    
+                    if (!enemy.enemyIsFlipped )
                     {
-                        enemies[i].enemyPos.X += 1;
+                        enemy.enemyPos.X += 1;
                     }
                     else
                     {
-                        enemies[i].enemyPos.X -= 1;
+                        enemy.enemyPos.X -= 1;
                     }
-                    for (int j = 0; j < enemyColliders.Length; j++)
+                    foreach(var enemyCollider in enemyColliders)
                     {
-                        if (enemyColliders[j] != null)
+                        if (enemyCollider != null)
                         {
-                            if (enemies[i].enemyPos.Intersects(enemyColliders[j].ColliderPos))
+                            if (enemy.enemyPos.Intersects(enemyCollider.ColliderPos))
                             {
-                                if (!enemies[i].enemyIsFlipped)
+                                if (!enemy.enemyIsFlipped)
                                 {
-                                    enemies[i].enemyIsFlipped = true;
+                                    enemy.enemyIsFlipped = true;
                                 }
                                 else
                                 {
-                                    enemies[i].enemyIsFlipped = false;
+                                    enemy.enemyIsFlipped = false;
                                 }
                             }
                         }
@@ -50,40 +53,33 @@ namespace gravityProject
             }
         }
 
-        public void getItems(Items[] items)
+        public void PlayerIntersectsWithGround(Player player ,Ground[] grounds, bool isFlipped)
         {
-
-        }
-
-
-
-        public void PlayerBoundries(Player player ,Ground[] ground, bool isFlipped )
-        {
-            for (int i = 0; i < ground.Length; i++)
+            foreach(var ground in grounds)
             {
-                if (ground[i] != null)
+                if (ground != null)
                 {
-                    if (player.playerPos.Intersects(ground[i].GroundPos))
+                    if (player.playerPos.Intersects(ground.GroundPos))
                     {
-                        if (player.playerPos.Y <= ground[i].GroundPos.Y - 90)
+                        if (player.playerPos.Y <= ground.GroundPos.Y - 90)
                         {
-                            player.playerPos.Y = ground[i].GroundPos.Y - player.playerPos.Height;
+                            player.playerPos.Y = ground.GroundPos.Y - player.playerPos.Height;
                         }
 
                         else
                         { 
                             if (isFlipped)
                             {
-                                if(player.playerPos.Y <= ground[i].GroundPos.Y )
+                                if(player.playerPos.Y <= ground.GroundPos.Y )
                                 {
-                                player.playerPos.X = ground[i].GroundPos.X + player.playerPos.Width - 24;
+                                player.playerPos.X = ground.GroundPos.X + player.playerPos.Width - 24;
                                 }
                             }
                             else
                             {
-                                if (player.playerPos.Y <= ground[i].GroundPos.Y )
+                                if (player.playerPos.Y <= ground.GroundPos.Y )
                                 {
-                                 player.playerPos.X = ground[i].GroundPos.X - player.playerPos.Width;
+                                 player.playerPos.X = ground.GroundPos.X - player.playerPos.Width - 10;
                                 }
                             }  
                         }
@@ -101,6 +97,7 @@ namespace gravityProject
             }
     
         }
+
         public bool PlayerGravity(Player player)
         {
                 player.playerPos.Y = player.playerPos.Y - player.playerVelocity;
@@ -119,6 +116,41 @@ namespace gravityProject
                 }
             return player.hasJump = true;
         }
+
+
+
+
+        public void PlayerIntersectsWithEnemy(Player player , Enemy[] enemies , ContentManager content )
+        {
+
+            foreach(var enemy in enemies)
+            {
+                if(enemy != null)
+                {
+                   if(player.playerPos.Intersects(enemy.enemyPos))
+                   {
+                        enemy.enemyIsFlipped = false;
+                        if(enemy.enemyIsFlipped)
+                        {
+                           // enemy.enemyTexture = content.Load<Texture2D>("");
+                            enemy.enemyPos.X = enemy.enemyPos.X;
+                            player.playerPos.X -= 5;
+                        }
+                        else
+                        {
+                            player.playerPos.X += 5;
+                        }
+
+                   }
+                }
+
+            }
+
+
+
+
+        }
+
 
     }
 }

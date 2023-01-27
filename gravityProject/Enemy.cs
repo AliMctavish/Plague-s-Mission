@@ -11,10 +11,15 @@ namespace gravityProject
     internal class Enemy
     {
         public Texture2D enemyTexture;
+
         public Rectangle enemyPos;
+
         public bool enemyIsFlipped = false;
 
         public int counter = 1;
+
+
+        public bool isStopped = false; 
 
 
     }

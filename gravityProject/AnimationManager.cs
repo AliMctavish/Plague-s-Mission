@@ -15,48 +15,39 @@ using System.Threading.Tasks;
 
 namespace gravityProject
 {
-
-    
     internal class AnimationManager
     {
-
-    
-        
-
         public void itemsAnimation(Items[] items, ContentManager Content)
         {
-
-            for (int i = 0; i < items.Length; i++)
+            foreach(var item in items) 
             {
-                if (items[i] != null)
+                if (item != null)
                 {
-                    items[i].coinsTexture = Content.Load<Texture2D>($"coin{items[i].CoinCounter}");
-                    if (items[i].CoinCounter == 11 )
+                    item.coinsTexture = Content.Load<Texture2D>($"coin{item.CoinCounter}");
+                    if (item.CoinCounter == 11 )
                     {
-                     items[i].coinsTexture = Content.Load<Texture2D>("coin11");
-                     items[i].CoinCounter = 1;
+                      item.coinsTexture = Content.Load<Texture2D>("coin11");
+                      item.CoinCounter = 1;
                     }
-                    items[i].CoinCounter += 1;
+                    item.CoinCounter += 1;
                 }
-
             }
-
         }  
         
         public void enemyAnimation(Enemy[] enemies, ContentManager Content)
         {
 
-            for (int i = 0; i < enemies.Length; i++)
+            foreach(var enemy in enemies) 
             {
-                if (enemies[i] != null)
+                if (enemy != null)
                 {
-                    enemies[i].enemyTexture = Content.Load<Texture2D>($"EnemyMoving{enemies[i].counter}");
-                    if (enemies[i].counter == 4)
+                    enemy.enemyTexture = Content.Load<Texture2D>($"EnemyMoving{enemy.counter}");
+                    if (enemy.counter == 4)
                     {
-                      enemies[i].enemyTexture = Content.Load<Texture2D>("EnemyMoving4");
-                      enemies[i].counter = 1;
+                      enemy.enemyTexture = Content.Load<Texture2D>("EnemyMoving4");
+                      enemy.counter = 1;
                     }
-                    enemies[i].counter += 1;
+                    enemy.counter += 1;
                 }
             }
 
@@ -75,17 +66,5 @@ namespace gravityProject
             }
                
         }
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
