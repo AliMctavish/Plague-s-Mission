@@ -4,6 +4,12 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/animations/EnemyAttack1.png</File>
+    <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/animations/EnemyAttack2.png</File>
+    <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/animations/EnemyAttack3.png</File>
+    <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/animations/EnemyAttack4.png</File>
+    <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/animations/EnemyAttack5.png</File>
+    <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/animations/EnemyAttack6.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/animations/playerMovement1.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/animations/playerMovement2.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/animations/playerMovement3.png</File>
@@ -17,8 +23,10 @@
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/animations/PlayerWalking3.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/animations/PlayerWalking4.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/animations/PlayerWalking5.png</File>
+    <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/back.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/background-export.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/background.png</File>
+    <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/backJana.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/ball.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/chest1.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/chest10.png</File>
@@ -59,11 +67,23 @@
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/ground4x.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/groundBase.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/half-life.png</File>
+    <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/Health.png</File>
+    <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/HealthBar.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/playerCharacter.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/sky-export.png</File>
     <File>C:/Users/pc/Source/Repos/AliMctavish/firstGameRepository/gravityProject/Content/sound.wav</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

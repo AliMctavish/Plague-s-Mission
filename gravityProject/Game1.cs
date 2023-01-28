@@ -21,12 +21,9 @@ namespace gravityProject
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
- 
-       
-        float timeTest = 0;
-
+        private Texture2D HealthBar ;
+        private Texture2D coinCounter;
         private LevelMapper levelMapper = new LevelMapper();
-
         private Ground[] ground;
         private Enemy[] enemies;
         private EnemyCollider[] enemyColliders;
@@ -35,39 +32,22 @@ namespace gravityProject
         private Items[] items;
         float waitingTime2 = 0;
         int Counter = 1;
-        int Counter2 = 1;
-        double EnemyCounter = 4;
-
-        private int countForEnemyMovment = 1;
-        
-
         private SoundEffect chestSound;
         private SoundEffect coinSound;
         double moveTimer = 1;
-
         float animateCounter2 = 0.1f;
-   
         GamePhysics GamePhysics; 
-        private float changingTimer = 0.1f;
         float waitingTime = 0;
-        private int animateCounter = 1;
         private int numberOfcoins = 0;
-
         private bool isInside = false;
         private bool played = false;
-
         Maps level =  new Maps();
         AnimationManager animation;
-
         private int jumpConuter = 0;
         private bool isFlipped = false;
-        
-        int num = 0;
-
-
         int selectLevel = 6;
+        bool lol = false;
 
-        private int groundAxis =  50 ;
         private double timePassed=2d;
       
         private Texture2D backgroundColor;
@@ -89,16 +69,19 @@ namespace gravityProject
                 sumOfArrays += cell.Length;
             }
             level = new Maps();
-            
-         
+
+
+
+            HealthBar = Content.Load<Texture2D>("HealthBar");
+            coinCounter = Content.Load<Texture2D>("coin1");
 
 
 
             player = new Player();
 
             items = new Items[sumOfArrays];
-           ground = new Ground[sumOfArrays];
-           enemies = new Enemy[sumOfArrays];
+            ground = new Ground[sumOfArrays];
+            enemies = new Enemy[sumOfArrays];
             enemyColliders = new EnemyCollider[sumOfArrays];
 
             animation = new AnimationManager();
@@ -134,11 +117,8 @@ namespace gravityProject
         protected override void LoadContent()
         {
             GamePhysics = new GamePhysics();
-            string[] map = level.LoadLevel(selectLevel);
-
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-      
-            levelMapper.StartMapping(ground , map , items , enemies, Content , enemyColliders);
+
 
             // TODO: use this.Content to load your game content here
         }
@@ -146,162 +126,199 @@ namespace gravityProject
 
         protected override void Update(GameTime gameTime)
         {
-            float time = (float)gameTime.ElapsedGameTime.TotalSeconds * 140;
-            waitingTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+    
+            if(lol == false)
+            {
+            string[] map = level.LoadLevel(selectLevel);
+            levelMapper.StartMapping(ground, map, items, enemies, Content, enemyColliders);
+            }
+
+            lol = true;
+
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            {
+                
+
+                player.isDead = false;
+                player.playerPos.X = 100;
+                player.playerPos.Y = 100;
+                player.playerHealth = 100;
+
+                selectLevel = 1;
+
+
+                
+
+            }
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if(player.isDead == true)
             {
-                moveTimer += gameTime.ElapsedGameTime.TotalSeconds * 6;
-                for (int i = 1; i < 5; i++)
-                {
-                    if (moveTimer > i)
-                    {
-                        player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking{i}");
-                    }
-                    if (moveTimer > 5)
-                    {
-                        player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking5");
-                        moveTimer = 1;
-                    }
-                }
-                player.playerPos.X = player.playerPos.X + (int)time + 2;
 
-                //for (int i = 0; i < ground.Length; i++)
-                //{
-                //    if (ground[i] != null)
-                //    {
-                //    ground[i].GroundPos.X = ground[i].GroundPos.X + 1 - (int)time;
-                //    }
-
-                //}
-                    if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
-                {
-                    player.playerPos.X += 2;
-                }
+                player.hasJump = true;
+                player.playerPos.Y+= 10;
+            
             }
 
-
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            if (player.isDead == false)
             {
-                player.playerPos.X = player.playerPos.X - (int)time - 2;
-                moveTimer += gameTime.ElapsedGameTime.TotalSeconds * 6;
-                for (int i = 1; i < 5; i++)
-                {
-                    if (moveTimer > i)
-                    {
-                        player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking{i}");
-                    }
-                    if (moveTimer > 5)
-                    {
-                        player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking5");
-                        moveTimer = 1;
-                    }
-                }
-                //for (int i = 0; i < ground.Length; i++)
-                //{
-                //    if (ground[i] != null)
-                //    { 
-                //        ground[i].GroundPos.X = ground[i].GroundPos.X - 1 + (int)time;
-                //    }
-                //}
-                if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
-                {
-                    player.playerPos.X -= 2;
-                }
-            }
-
-            for (int i = 0; i < items.Length; i++)
-            {
-                if (items[i] != null)
-                {
-                    if (player.playerPos.Intersects(items[i].chestPos))
-                    {
-                        isInside = true;
-                        if (played == false)
-                        {
-                            chestSound.Play();
-                            played = true;
-                        }
-
-                    }
-                }
-
-            }
-            if (isInside)
-            {
-                float animateCounter = 0.1f;
-                for (int i = 2; i < items.Length; i++)
-                {
-                    waitingTime2 += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                  
-
-                    if (waitingTime2 >= animateCounter)
-                    {
-                        if (items[i] != null)
-                        {
-                            items[i].chestTexture = Content.Load<Texture2D>($"chest{Counter}");
-                        }
-                        if (waitingTime2 >= 1)
-                        {
-                            isInside = false;
-                        }
-                        animateCounter += 0.1f;
-                    }
-                }
-
-
-            }
-
-            for (int i = 0; i < items.Length; i++)
-            {
-                if (items[i] != null)
-                {
-                    if (player.playerPos.Intersects(items[i].coinsPos))
-                    {
-                        items[i] = null;
-                       // coinSound.Play();
-                        numberOfcoins++;
-                    }
-                }
-            }
-
-
-            //solve this in the future
-            // all the animtaions happen here and without methods or classes :"|
-
-
-            if (waitingTime > animateCounter2)
-            {
-                animation.itemsAnimation(items, Content);
-                animation.enemyAnimation(enemies , Content);
-                animation.playerAnimationIdle(player, Content);
-                animateCounter2 += 0.1f;
-            }
-
-
-
-            //colliders and physics methods
-
-            if (player.hasJump == true)
-            {
-                player.timePassed -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-                GamePhysics.PlayerGravity(player);
-            }
-            GamePhysics.PlayerIntersectsWithGround(player, ground,isFlipped);
-
-            GamePhysics.PlayerIntersectsWithEnemy(player , enemies, Content);
-
-            GamePhysics.EnemyBoundaries(enemies,enemyColliders);
-
-            player.playerPos.Y += 4 ;
+                float time = (float)gameTime.ElapsedGameTime.TotalSeconds * 140;
+                waitingTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
            
 
+
+                if (Keyboard.GetState().IsKeyDown(Keys.D))
+                {
+                    moveTimer += gameTime.ElapsedGameTime.TotalSeconds * 6;
+                    for (int i = 1; i < 5; i++)
+                    {
+                        if (moveTimer > i)
+                        {
+                            player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking{i}");
+                        }
+                        if (moveTimer > 5)
+                        {
+                            player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking5");
+                            moveTimer = 1;
+                        }
+                    }
+                    player.playerPos.X = player.playerPos.X + (int)time + 2;
+
+                    //for (int i = 0; i < ground.Length; i++)
+                    //{
+                    //    if (ground[i] != null)
+                    //    {
+                    //    ground[i].GroundPos.X = ground[i].GroundPos.X + 1 - (int)time;
+                    //    }
+
+                    //}
+                    if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+                    {
+                        player.playerPos.X += 2;
+                    }
+                }
+
+
+                if (Keyboard.GetState().IsKeyDown(Keys.A))
+                {
+                    player.playerPos.X = player.playerPos.X - (int)time - 2;
+                    moveTimer += gameTime.ElapsedGameTime.TotalSeconds * 6;
+                    for (int i = 1; i < 5; i++)
+                    {
+                        if (moveTimer > i)
+                        {
+                            player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking{i}");
+                        }
+                        if (moveTimer > 5)
+                        {
+                            player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking5");
+                            moveTimer = 1;
+                        }
+                    }
+                    //for (int i = 0; i < ground.Length; i++)
+                    //{
+                    //    if (ground[i] != null)
+                    //    { 
+                    //        ground[i].GroundPos.X = ground[i].GroundPos.X - 1 + (int)time;
+                    //    }
+                    //}
+                    if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+                    {
+                        player.playerPos.X -= 2;
+                    }
+                }
+
+                for (int i = 0; i < items.Length; i++)
+                {
+                    if (items[i] != null)
+                    {
+                        if (player.playerPos.Intersects(items[i].chestPos))
+                        {
+                            isInside = true;
+                            if (played == false)
+                            {
+                                chestSound.Play();
+                                played = true;
+                            }
+
+                        }
+                    }
+
+                }
+                if (isInside)
+                {
+                    float animateCounter = 0.1f;
+                    for (int i = 2; i < items.Length; i++)
+                    {
+                        waitingTime2 += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+
+                        if (waitingTime2 >= animateCounter)
+                        {
+                            if (items[i] != null)
+                            {
+                                items[i].chestTexture = Content.Load<Texture2D>($"chest{Counter}");
+                            }
+                            if (waitingTime2 >= 1)
+                            {
+                                isInside = false;
+                            }
+                            animateCounter += 0.1f;
+                        }
+                    }
+
+
+                }
+
+                for (int i = 0; i < items.Length; i++)
+                {
+                    if (items[i] != null)
+                    {
+                        if (player.playerPos.Intersects(items[i].coinsPos))
+                        {
+                            items[i] = null;
+                            //coinSound.Play();
+                            numberOfcoins++;
+                        }
+                    }
+                }
+
+                //animations
+
+                if (waitingTime > animateCounter2)
+                {
+                    animation.itemsAnimation(items, Content);
+
+                    animation.enemyAnimation(enemies, Content);
+
+                    animation.playerAnimationIdle(player, Content);
+
+                    animateCounter2 += 0.1f;
+                }
+
+                //colliders and physics methods
+
+                if (player.hasJump == true)
+                {
+                    player.timePassed -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                    GamePhysics.PlayerGravity(player);
+                }
+                GamePhysics.PlayerIntersectsWithGround(player, ground, isFlipped);
+
+                GamePhysics.PlayerIntersectsWithEnemy(player, enemies);
+
+                GamePhysics.EnemyBoundaries(enemies, enemyColliders);
+
+                GamePhysics.playerHealing(player , items);
+
+                player.playerPos.Y += 4;
+
+            }
       
             base.Update(gameTime);
         }
@@ -311,39 +328,57 @@ namespace gravityProject
 
             _spriteBatch.Begin();
 
-            _spriteBatch.Draw(backgroundColor, new Vector2(0, 0), Color.White);
+            _spriteBatch.Draw(backgroundColor, new Rectangle(0, 0 , 1600,900), Color.White);
             //_spriteBatch.Draw(ballTexture, new Vector2( player.playerPos.X -32 ,  player.playerPos.Y - 50), Color.White);
-            switch (isFlipped)
+            if (!isFlipped)
             {
-                case false:
-                    {
-                        _spriteBatch.Draw(player.playerTexture, new Rectangle(player.playerPos.X - 34, player.playerPos.Y - 34, player.playerPos.Width, player.playerPos.Height), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
-                        if (Keyboard.GetState().IsKeyDown(Keys.A))
-                        {
-                            isFlipped = true;
-                        }
-                        break;
-                    }
-                case true:
-                    {
-                        _spriteBatch.Draw(player.playerTexture, new Rectangle(player.playerPos.X - 34, player.playerPos.Y - 34, player.playerPos.Width, player.playerPos.Height), null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
-                        if (Keyboard.GetState().IsKeyDown(Keys.D))
-                        {
-                            isFlipped = false;
-                        }
-
-                        break;
-                    }
-               
+                _spriteBatch.Draw(player.playerTexture, new Rectangle(player.playerPos.X - 34, player.playerPos.Y - 34, player.playerPos.Width, player.playerPos.Height), null, player.playerColor, 0, Vector2.Zero, SpriteEffects.None, 0);
+                if (Keyboard.GetState().IsKeyDown(Keys.A))
+                {
+                    isFlipped = true;
+                }
             }
+            else
+            {
+                _spriteBatch.Draw(player.playerTexture, new Rectangle(player.playerPos.X - 34, player.playerPos.Y - 34, player.playerPos.Width, player.playerPos.Height), null,player.playerColor, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+                if (Keyboard.GetState().IsKeyDown(Keys.D))
+                {
+                    isFlipped = false;
+                }
+            }
+        
 
             //Game Debugging Is Here
             _spriteBatch.DrawString(_font,"Player Position On Y : " + player.playerPos.Y , new Vector2(10, 0), color: Color.White);
+          
+            for(int i = 0; i < player.playerHealth; i++)
+            {
+                if(i == 80)
+                {
+                    _spriteBatch.Draw(HealthBar, new Rectangle(1400, 10, 40, 40), color: Color.White);
+                }
+                if(i == 60)
+                {
+                    _spriteBatch.Draw(HealthBar, new Rectangle(1440, 10, 40, 40), color: Color.White);
+                }
+                if(i == 20)
+                {
+                   _spriteBatch.Draw(HealthBar, new Rectangle(1480, 10, 40, 40), color: Color.White);
+                }
+                if (i == 5)
+                {
+                    _spriteBatch.Draw(HealthBar, new Rectangle(1520, 10, 40, 40), color: Color.White);
+                }
+
+            }
+            _spriteBatch.Draw(coinCounter, new Rectangle(1510, 50, 70, 70), color: Color.White);
+
             _spriteBatch.DrawString(_font,"Player Position On X : " + player.playerPos.X , new Vector2(10, 20), color: Color.White);
             _spriteBatch.DrawString(_font,"Ability To Jump : " + player.hasJump , new Vector2(10, 40), color: Color.White);
             _spriteBatch.DrawString(_font,"Time Since Jumped : " + timePassed , new Vector2(10,60), color: Color.White);
             _spriteBatch.DrawString(_font,"Jump Counter : " + jumpConuter , new Vector2(10,80), color: Color.White);
-            _spriteBatch.DrawString(_font,"number of coins: " + numberOfcoins , new Vector2(10,100), color: Color.Black ,0 , new Vector2(0,0) ,2, 0 , 0);
+            _spriteBatch.DrawString(_font,"Player Health : " + player.playerHealth , new Vector2(10,140), color: Color.White);
+            _spriteBatch.DrawString(_font , numberOfcoins + "x"  , new Vector2(1470,67), color: Color.Black ,0 , new Vector2(0,0) ,2, 0 , 0);
             //Game Debugging Is Here
             for (int i = 0; i < ground.Length; i++)
             {
@@ -365,6 +400,10 @@ namespace gravityProject
                     if (items[i].chestTexture != null)
                     {
                         _spriteBatch.Draw(items[i].chestTexture, new Vector2(items[i].chestPos.X - 35, items[i].chestPos.Y - 35), Color.White);
+                    }
+                    if (items[i].injectTexture != null)
+                    {
+                        _spriteBatch.Draw(items[i].injectTexture, new Vector2(items[i].injectPos.X - 35, items[i].injectPos.Y - 35), Color.White);
                     }
                 }
                 }

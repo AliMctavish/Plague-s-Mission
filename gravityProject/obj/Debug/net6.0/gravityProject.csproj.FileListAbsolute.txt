@@ -139,3 +139,13 @@ C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debu
 C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\EnemyMoving2.xnb
 C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\EnemyMoving3.xnb
 C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\EnemyMoving4.xnb
+C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\animations\EnemyAttack1.xnb
+C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\animations\EnemyAttack2.xnb
+C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\animations\EnemyAttack3.xnb
+C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\animations\EnemyAttack4.xnb
+C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\animations\EnemyAttack5.xnb
+C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\animations\EnemyAttack6.xnb
+C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\back.xnb
+C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\HealthBar.xnb
+C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\backJana.xnb
+C:\Users\pc\Source\Repos\AliMctavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\Health.xnb

@@ -77,12 +77,19 @@ namespace gravityProject
                         items[num].chestPos = new Rectangle(64 * j, i * 64 + 61, 60, 60);
                         items[num].chestTexture = Content.Load<Texture2D>("chest1");
                         num++;
+                    } 
+                    if (map[i][j] == '+')
+                    {
+                        items[num] = new Items();
+                        items[num].injectPos = new Rectangle(64 * j, i * 64 + 61, 60, 60);
+                        items[num].injectTexture = Content.Load<Texture2D>("Health");
+                        num++;
                     }
                     if (map[i][j] == '!')
                     {
                         enemies[num] = new Enemy();
                         enemies[num].enemyPos = new Rectangle(64 * j, i * 64, 61, 75);
-                        enemies[num].enemyTexture = Content.Load<Texture2D>("EnemyIdle1");
+                        enemies[num].enemyTexture = Content.Load<Texture2D>("EnemyMoving1");
                         num++;
                     }
                     if (map[i][j] == '|')

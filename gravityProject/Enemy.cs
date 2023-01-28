@@ -18,6 +18,8 @@ namespace gravityProject
 
         public int counter = 1;
 
+        public int attackCounter = 1;
+
 
         public bool isStopped = false; 
 

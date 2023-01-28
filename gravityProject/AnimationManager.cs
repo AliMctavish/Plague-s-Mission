@@ -24,6 +24,7 @@ namespace gravityProject
                 if (item != null)
                 {
                     item.coinsTexture = Content.Load<Texture2D>($"coin{item.CoinCounter}");
+               
                     if (item.CoinCounter == 11 )
                     {
                       item.coinsTexture = Content.Load<Texture2D>("coin11");
@@ -41,14 +42,28 @@ namespace gravityProject
             {
                 if (enemy != null)
                 {
-                    enemy.enemyTexture = Content.Load<Texture2D>($"EnemyMoving{enemy.counter}");
-                    if (enemy.counter == 4)
+                   if(!enemy.isStopped)
                     {
-                      enemy.enemyTexture = Content.Load<Texture2D>("EnemyMoving4");
-                      enemy.counter = 1;
+                        enemy.enemyTexture = Content.Load<Texture2D>($"EnemyMoving{enemy.counter}");
+                        if (enemy.counter == 4)
+                        {
+                            enemy.enemyTexture = Content.Load<Texture2D>("EnemyMoving4");
+                            enemy.counter = 1;
+                        }
+                        enemy.counter += 1;
                     }
-                    enemy.counter += 1;
+                    else
+                    {
+                        enemy.enemyTexture = Content.Load<Texture2D>($"animations/EnemyAttack{enemy.attackCounter}");
+                        if(enemy.attackCounter == 6)
+                        {
+                            enemy.enemyTexture = Content.Load<Texture2D>("animations/EnemyAttack1");
+                            enemy.attackCounter = 1;
+                        }
+                          enemy.attackCounter += 1;
+                    }
                 }
+               
             }
 
         }

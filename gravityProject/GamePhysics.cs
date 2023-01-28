@@ -14,22 +14,24 @@ namespace gravityProject
 {
     internal class GamePhysics
     {
-
         public void EnemyBoundaries(Enemy[] enemies , EnemyCollider[] enemyColliders )
         {
             foreach(var enemy in enemies)
             {
-                if (enemy != null && !enemy.isStopped)
+                if (enemy != null)
                 {
-                    
-                    if (!enemy.enemyIsFlipped )
+                  if(!enemy.isStopped)
                     {
-                        enemy.enemyPos.X += 1;
+                      if (!enemy.enemyIsFlipped)
+                      {
+                          enemy.enemyPos.X += 1;
+                      }
+                      else
+                      {
+                          enemy.enemyPos.X -= 1;
+                      }
                     }
-                    else
-                    {
-                        enemy.enemyPos.X -= 1;
-                    }
+
                     foreach(var enemyCollider in enemyColliders)
                     {
                         if (enemyCollider != null)
@@ -52,7 +54,6 @@ namespace gravityProject
                 }
             }
         }
-
         public void PlayerIntersectsWithGround(Player player ,Ground[] grounds, bool isFlipped)
         {
             foreach(var ground in grounds)
@@ -83,8 +84,6 @@ namespace gravityProject
                                 }
                             }  
                         }
-
-
                         if (Keyboard.GetState().IsKeyDown(Keys.Space))
                         {
                              player.hasJump = true;
@@ -97,7 +96,6 @@ namespace gravityProject
             }
     
         }
-
         public bool PlayerGravity(Player player)
         {
                 player.playerPos.Y = player.playerPos.Y - player.playerVelocity;
@@ -116,40 +114,77 @@ namespace gravityProject
                 }
             return player.hasJump = true;
         }
-
-
-
-
-        public void PlayerIntersectsWithEnemy(Player player , Enemy[] enemies , ContentManager content )
+        public Color PlayerIntersectsWithEnemy(Player player , Enemy[] enemies)
         {
-
             foreach(var enemy in enemies)
             {
                 if(enemy != null)
                 {
                    if(player.playerPos.Intersects(enemy.enemyPos))
                    {
-                        enemy.enemyIsFlipped = false;
-                        if(enemy.enemyIsFlipped)
+                        enemy.isStopped = true;
+                        PlayerTakingDamage(player);
+                        if (player.playerPos.X > enemy.enemyPos.X)
                         {
-                           // enemy.enemyTexture = content.Load<Texture2D>("");
-                            enemy.enemyPos.X = enemy.enemyPos.X;
-                            player.playerPos.X -= 5;
+                            enemy.enemyIsFlipped = false;
                         }
                         else
                         {
-                            player.playerPos.X += 5;
+                            enemy.enemyIsFlipped = true;
                         }
-
-                   }
+                        return player.playerColor = Color.Red;
+                    }
+                    else
+                    {
+                        enemy.isStopped = false;
+                    }
                 }
+              
+            }
+            return player.playerColor = Color.White;
+
+
+        }
+
+        public void playerHealing(Player player , Items[] items)
+        {
+            foreach(Items item in items) 
+            {
+                if(item != null)
+                {
+                if (player.playerPos.Intersects(item.injectPos))
+                {
+                    player.playerHealth += 20;
+                    item.injectPos.X = 0;
+                }
+                }
+            }
+        }
+
+        private void PlayerTakingDamage(Player player)
+        {
+
+            player.playerHealth-= 1;
+
+
+
+            if(player.playerHealth == 0)
+            {
+
+            
+                player.isDead= true;
+          
+
 
             }
 
+            
 
 
 
         }
+
+
 
 
     }

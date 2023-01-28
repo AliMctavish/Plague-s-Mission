@@ -14,37 +14,21 @@ namespace gravityProject
     {
         public Texture2D chestTexture { get; set; }
         public Texture2D coinsTexture { get; set; }
+
+        public Texture2D injectTexture { get; set; }
         public Rectangle chestPos  {get; set; }
         public Rectangle coinsPos { get; set; }
 
+        public Rectangle injectPos;
+
+
+        public int injectCounter = 1;
 
         public int CoinCounter = 1;
+
         public int ChestCounter = 1; 
 
 
 
-
-     
-
-     
-
-
-        public Rectangle AddChest(int PosX , int PosY)
-
-        {
-            this.chestPos = new Rectangle(PosX, PosY, 64, 64);
-
-            return chestPos;
-
-
-        }
-
-
-        public Rectangle AddCoins(int PosX , int PosY)
-        {
-            this.coinsPos = new Rectangle(PosX, PosY, 35, 35);
-            return coinsPos;
-
-        }
     }
 }
