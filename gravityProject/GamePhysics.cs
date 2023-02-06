@@ -14,7 +14,7 @@ namespace gravityProject
 {
     internal class GamePhysics
     {
-        public void EnemyBoundaries(Enemy[] enemies , EnemyCollider[] enemyColliders )
+        public void EnemyBoundaries(List<Enemy> enemies , List<EnemyCollider> enemyColliders )
         {
             foreach(var enemy in enemies)
             {
@@ -54,7 +54,7 @@ namespace gravityProject
                 }
             }
         }
-        public void PlayerIntersectsWithGround(Player player ,Ground[] grounds, bool isFlipped)
+        public void PlayerIntersectsWithGround(Player player ,List <Ground> grounds, bool isFlipped)
         {
             foreach(var ground in grounds)
             {
@@ -114,7 +114,7 @@ namespace gravityProject
                 }
             return player.hasJump = true;
         }
-        public Color PlayerIntersectsWithEnemy(Player player , Enemy[] enemies)
+        public Color PlayerIntersectsWithEnemy(Player player ,List<Enemy> enemies)
         {
             foreach(var enemy in enemies)
             {
@@ -127,6 +127,7 @@ namespace gravityProject
                         if (player.playerPos.X > enemy.enemyPos.X)
                         {
                             enemy.enemyIsFlipped = false;
+                            enemies.Remove(enemy);
                         }
                         else
                         {
@@ -146,7 +147,7 @@ namespace gravityProject
 
         }
 
-        public void playerHealing(Player player , Items[] items)
+        public void playerHealing(Player player , List <Items> items)
         {
             foreach(Items item in items) 
             {

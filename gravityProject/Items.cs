@@ -26,7 +26,19 @@ namespace gravityProject
 
         public int CoinCounter = 1;
 
-        public int ChestCounter = 1; 
+        public int ChestCounter = 1;
+
+
+        private List<Items> items = new List<Items>();
+
+
+        public void CreateItem()
+        {
+
+
+
+
+        }
 
 
 

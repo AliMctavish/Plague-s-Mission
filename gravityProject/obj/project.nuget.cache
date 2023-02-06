@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LaaXlg3M4WZleNMiLQgFnY9h5b0dnPe3+s2NgroA/ZgMBxEV6OxM4VXT+bFNDXrP/8d8NPF6lDpHoQUdVBSYzA==",
+  "dgSpecHash": "yEb+OB0/0y6QI3jxgN3IvJGLxbS1Fa2KCOl2esmamsXX87wef/Q9AcbxMKiOUa3YCc+/4ZcQp8wc3z2DW+nU8A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\pc\\Source\\Repos\\AliMctavish\\firstGameRepository\\gravityProject\\gravityProject.csproj",
+  "projectFilePath": "C:\\Users\\pc\\source\\repos\\AliMctavish\\firstGameRepository\\gravityProject\\gravityProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pc\\.nuget\\packages\\monogame.content.builder.task\\3.8.1.303\\monogame.content.builder.task.3.8.1.303.nupkg.sha512",
     "C:\\Users\\pc\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.1.303\\monogame.framework.desktopgl.3.8.1.303.nupkg.sha512"

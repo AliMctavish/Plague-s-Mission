@@ -17,31 +17,27 @@ namespace gravityProject
 {
     internal class AnimationManager
     {
-        public void itemsAnimation(Items[] items, ContentManager Content)
+        public void itemsAnimation(List <Items> items, ContentManager Content)
         {
             foreach(var item in items) 
             {
-                if (item != null)
-                {
-                    item.coinsTexture = Content.Load<Texture2D>($"coin{item.CoinCounter}");
-               
-                    if (item.CoinCounter == 11 )
-                    {
-                      item.coinsTexture = Content.Load<Texture2D>("coin11");
-                      item.CoinCounter = 1;
-                    }
-                    item.CoinCounter += 1;
-                }
+            item.coinsTexture = Content.Load<Texture2D>($"coin{item.CoinCounter}");
+       
+            if (item.CoinCounter == 11 )
+            {
+              item.coinsTexture = Content.Load<Texture2D>("coin11");
+              item.CoinCounter = 1;
+            }
+            item.CoinCounter += 1;
             }
         }  
         
-        public void enemyAnimation(Enemy[] enemies, ContentManager Content)
+        public void enemyAnimation(List<Enemy> enemies, ContentManager Content)
         {
 
             foreach(var enemy in enemies) 
             {
-                if (enemy != null)
-                {
+               
                    if(!enemy.isStopped)
                     {
                         enemy.enemyTexture = Content.Load<Texture2D>($"EnemyMoving{enemy.counter}");
@@ -62,7 +58,7 @@ namespace gravityProject
                         }
                           enemy.attackCounter += 1;
                     }
-                }
+                
                
             }
 

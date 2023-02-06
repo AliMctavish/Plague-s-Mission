@@ -24,12 +24,12 @@ namespace gravityProject
         private Texture2D HealthBar ;
         private Texture2D coinCounter;
         private LevelMapper levelMapper = new LevelMapper();
-        private Ground[] ground;
-        private Enemy[] enemies;
-        private EnemyCollider[] enemyColliders;
+        private List<Ground> ground;
+        private List<Enemy> enemies;
+        private List<EnemyCollider> enemyColliders;
         Player player;
         int moveCounter = 5;
-        private Items[] items;
+        private List <Items> items;
         float waitingTime2 = 0;
         int Counter = 1;
         private SoundEffect chestSound;
@@ -79,10 +79,11 @@ namespace gravityProject
 
             player = new Player();
 
-            items = new Items[sumOfArrays];
-            ground = new Ground[sumOfArrays];
-            enemies = new Enemy[sumOfArrays];
-            enemyColliders = new EnemyCollider[sumOfArrays];
+            items = new List<Items>();
+            ground = new List<Ground>();
+            enemies = new List<Enemy>();
+            enemyColliders = new List<EnemyCollider>();
+            
 
             animation = new AnimationManager();
 
@@ -91,11 +92,11 @@ namespace gravityProject
 
 
         
-            Debug.WriteLine(level);
+          
+            
 
 
-
-            // TODO: Add your initialization logic here
+            // TODO: Add your initialization logic here6
 
 
             player.playerTexture = Content.Load<Texture2D>("animations/playerMovement1");
@@ -232,7 +233,7 @@ namespace gravityProject
                     }
                 }
 
-                for (int i = 0; i < items.Length; i++)
+                for (int i = 0; i < items.Count; i++)
                 {
                     if (items[i] != null)
                     {
@@ -252,7 +253,7 @@ namespace gravityProject
                 if (isInside)
                 {
                     float animateCounter = 0.1f;
-                    for (int i = 2; i < items.Length; i++)
+                    for (int i = 2; i < items.Count; i++)
                     {
                         waitingTime2 += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -273,20 +274,21 @@ namespace gravityProject
 
 
                 }
+              
 
-                for (int i = 0; i < items.Length; i++)
+                for (int i = 0; i < items.Count; i++)
                 {
-                    if (items[i] != null)
-                    {
+                  
                         if (player.playerPos.Intersects(items[i].coinsPos))
                         {
-                            items[i] = null;
-                            //coinSound.Play();
+                       items.Remove(items[i]);
+                            coinSound.Play();
                             numberOfcoins++;
+                     
                         }
-                    }
+                    
                 }
-
+                Debug.WriteLine(items.Count);
                 //animations
 
                 if (waitingTime > animateCounter2)
@@ -380,38 +382,26 @@ namespace gravityProject
             _spriteBatch.DrawString(_font,"Player Health : " + player.playerHealth , new Vector2(10,140), color: Color.White);
             _spriteBatch.DrawString(_font , numberOfcoins + "x"  , new Vector2(1470,67), color: Color.Black ,0 , new Vector2(0,0) ,2, 0 , 0);
             //Game Debugging Is Here
-            for (int i = 0; i < ground.Length; i++)
+            for (int i = 0; i < ground.Count; i++)
             {
-                if (ground[i] != null)
-                {
-                    _spriteBatch.Draw(ground[i].groundTexture, new Vector2(ground[i].GroundPos.X - 38 , ground[i].GroundPos.Y - 35), Color.White);
-                }
-                    
+             _spriteBatch.Draw(ground[i].groundTexture, new Vector2(ground[i].GroundPos.X - 38 , ground[i].GroundPos.Y - 35), Color.White);      
             }
 
-            for (int i = 0; i < items.Length; i++)
+            for (int i = 0; i < items.Count; i++)
                 {
-                if (items[i] != null)
-                {
-                    if (items[i].coinsTexture != null)
-                    {
-                    _spriteBatch.Draw(items[i].coinsTexture, new Vector2(items[i].coinsPos.X - 35, items[i].coinsPos.Y - 35), Color.White);
-                    }
-                    if (items[i].chestTexture != null)
-                    {
-                        _spriteBatch.Draw(items[i].chestTexture, new Vector2(items[i].chestPos.X - 35, items[i].chestPos.Y - 35), Color.White);
-                    }
-                    if (items[i].injectTexture != null)
-                    {
-                        _spriteBatch.Draw(items[i].injectTexture, new Vector2(items[i].injectPos.X - 35, items[i].injectPos.Y - 35), Color.White);
-                    }
-                }
+               _spriteBatch.Draw(items[i].coinsTexture, new Vector2(items[i].coinsPos.X - 35, items[i].coinsPos.Y - 35), Color.White);
+
+       
+                    
+                   
+         
+                    
+                
                 }
 
-            for(int i = 0; i < enemies.Length; i++)
+            for(int i = 0; i < enemies.Count; i++)
             {
-                if (enemies[i] != null)
-                {
+               
                     switch (enemies[i].enemyIsFlipped)
                     {
                         case false :
@@ -426,7 +416,7 @@ namespace gravityProject
                             }
                     }
                   
-                }
+                
 
             }
               

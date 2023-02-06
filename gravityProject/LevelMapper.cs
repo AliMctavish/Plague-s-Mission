@@ -3,10 +3,12 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,90 +21,95 @@ namespace gravityProject
         int num = 0;
         private int groundAxis = 50;
 
-        public void StartMapping(Ground[] ground , string[] map , Items[] items , Enemy[] enemies , ContentManager Content , EnemyCollider[] enemyColliders)
-        {
 
+        private Items item = new Items();
+        private Ground ground= new Ground(0,0);
+        private Enemy enemy = new Enemy();
+        private EnemyCollider enemyCollider = new EnemyCollider();
+
+
+
+        public void StartMapping(List <Ground> grounds , string[] map , List <Items> items ,List<Enemy> enemies , ContentManager Content , List<EnemyCollider> enemyColliders)
+        {
             for (int i = 0; i < map.Length; i++)
             {
                 for (int j = 0; j < map[i].Length; j++)
                 {
                     if (map[i][j] == '#')
                     {
-                        ground[num] = new Ground(50 * j, i * 50 + 50);
-                        ground[num].groundTexture = Content.Load<Texture2D>("ground3");
+                        ground = new Ground(50 * j, i * 50 + 50);
+                        ground.groundTexture = Content.Load<Texture2D>("ground3");
                         num++;
                     }
                     if (map[i][j] == '$')
                     {
-                        ground[num] = new Ground(64 * j, i * 64 + 50);
-                        ground[num].groundTexture = Content.Load<Texture2D>("ground1");
-                        num++;
+                        ground = new Ground(64 * j, i * 64 + 50);
+                        ground.groundTexture = Content.Load<Texture2D>("ground1");
+                        grounds.Add(ground);
                     }
                     if (map[i][j] == '%')
                     {
-                        ground[num] = new Ground(64 * j, i * 64 + 50);
-                        ground[num].groundTexture = Content.Load<Texture2D>("groundBase");
-                        num++;
+                        ground = new Ground(64 * j, i * 64 + 50);
+                        ground.groundTexture = Content.Load<Texture2D>("groundBase");
+                        grounds.Add(ground);
 
                     }
                     if (map[i][j] == 'y')
                     {
-                        ground[num] = new Ground(64 * j, i * 64 + 50);
-                        ground[num].groundTexture = Content.Load<Texture2D>("ground4");
-                        num++;
+                        ground = new Ground(64 * j, i * 64 + 50);
+                        ground.groundTexture = Content.Load<Texture2D>("ground4");
+                        grounds.Add(ground);
 
                     }
                     if (map[i][j] == 'x')
                     {
-                        ground[num] = new Ground(64 * j, i * 64 + 50);
-                        ground[num].groundTexture = Content.Load<Texture2D>("ground4x");
-                        num++;
-
-                    }
-                    if (map[i][j] == '.')
-                    {
-                        num++;
+                        ground = new Ground(64 * j, i * 64 + 50);
+                        ground.groundTexture = Content.Load<Texture2D>("ground4x");
+                        grounds.Add(ground);
                     }
                     if (map[i][j] == '@')
                     {
-                        items[num] = new Items();
-                        items[num].coinsPos = new Rectangle(64 * j, i * 64 + 50, 60, 60);
-                        items[num].coinsTexture = Content.Load<Texture2D>("coin1");
-
-                        num++;
+                        item = new Items();
+                        item.coinsPos = new Rectangle(64 * j, i * 64 + 50, 60, 60);
+                        item.coinsTexture = Content.Load<Texture2D>("coin1");
+                        items.Add(item);
                     }
                     if (map[i][j] == '?')
                     {
-                        items[num] = new Items();
-                        items[num].chestPos = new Rectangle(64 * j, i * 64 + 61, 60, 60);
-                        items[num].chestTexture = Content.Load<Texture2D>("chest1");
-                        num++;
+                        item = new Items();
+                        item.coinsPos = new Rectangle(64 * j, i * 64 + 50, 60, 60);
+                        item.coinsTexture = Content.Load<Texture2D>("chest1");
+                        items.Add(item);
                     } 
                     if (map[i][j] == '+')
                     {
-                        items[num] = new Items();
-                        items[num].injectPos = new Rectangle(64 * j, i * 64 + 61, 60, 60);
-                        items[num].injectTexture = Content.Load<Texture2D>("Health");
-                        num++;
+                        item = new Items();
+                        item.coinsPos = new Rectangle(64 * j, i * 64 + 50, 60, 60);
+                        item.coinsTexture = Content.Load<Texture2D>("Health");
+                        items.Add(item);
                     }
                     if (map[i][j] == '!')
                     {
-                        enemies[num] = new Enemy();
-                        enemies[num].enemyPos = new Rectangle(64 * j, i * 64, 61, 75);
-                        enemies[num].enemyTexture = Content.Load<Texture2D>("EnemyMoving1");
-                        num++;
+                        enemy = new Enemy();
+                        enemy.enemyPos = new Rectangle(64 * j, i * 64, 61, 75);
+                        enemy.enemyTexture = Content.Load<Texture2D>("EnemyMoving1");
+                        enemies.Add(enemy);
+                      
                     }
                     if (map[i][j] == '|')
                     {
-                        enemyColliders[num] = new EnemyCollider();
-                        enemyColliders[num].ColliderPos = new Rectangle(64 * j, i * 64, 60, 60);
-                        num++;
+                        enemyCollider = new EnemyCollider();
+                        enemyCollider.ColliderPos = new Rectangle(64 * j, i * 64, 60, 60);
+                        enemyColliders.Add(enemyCollider);
+                    
                     }
 
 
                 }
                 groundAxis += 50;
             }
+    
+        
 
 
 
