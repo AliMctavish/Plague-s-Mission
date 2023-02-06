@@ -81,13 +81,13 @@ namespace gravityProject
                         item.coinsTexture = Content.Load<Texture2D>("chest1");
                         items.Add(item);
                     } 
-                    if (map[i][j] == '+')
-                    {
-                        item = new Items();
-                        item.coinsPos = new Rectangle(64 * j, i * 64 + 50, 60, 60);
-                        item.coinsTexture = Content.Load<Texture2D>("Health");
-                        items.Add(item);
-                    }
+                    //if (map[i][j] == '+')
+                    //{
+                    //    item = new Items();
+                    //    item.injectPos = new Rectangle(64 * j, i * 64 + 50, 60, 60);
+                    //    item.injectTexture = Content.Load<Texture2D>("Health");
+                    //    items.Add(item);
+                    //}
                     if (map[i][j] == '!')
                     {
                         enemy = new Enemy();

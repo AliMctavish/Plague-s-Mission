@@ -63,11 +63,7 @@ namespace gravityProject
 
         protected override void Initialize()
         {
-            int sumOfArrays = -1;
-            foreach(var cell in level.LoadLevel(selectLevel))
-            {
-                sumOfArrays += cell.Length;
-            }
+          
             level = new Maps();
 
 
@@ -127,15 +123,10 @@ namespace gravityProject
 
         protected override void Update(GameTime gameTime)
         {
-    
-            if(lol == false)
-            {
-            string[] map = level.LoadLevel(selectLevel);
-            levelMapper.StartMapping(ground, map, items, enemies, Content, enemyColliders);
-            }
 
-            lol = true;
 
+            
+          
 
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
@@ -145,13 +136,99 @@ namespace gravityProject
                 player.playerPos.X = 100;
                 player.playerPos.Y = 100;
                 player.playerHealth = 100;
-
-                selectLevel = 1;
+                numberOfcoins = 0;
+                enemies.Clear();
+                enemyColliders.Clear();
+                items.Clear();
+                ground.Clear();
+                lol = true;
+                selectLevel = 6;
 
 
                 
 
             }
+            if(Keyboard.GetState().IsKeyDown(Keys.I))
+            {
+                player.isDead = false;
+                player.playerPos.X = 100;
+                player.playerPos.Y = 100;
+                player.playerHealth = 100;
+                numberOfcoins = 0;
+                enemies.Clear();
+                enemyColliders.Clear();
+                items.Clear();
+                ground.Clear();
+                lol = true;
+                selectLevel = 1;
+            } 
+            
+            
+            if(Keyboard.GetState().IsKeyDown(Keys.P))
+            {
+                player.isDead = false;
+                player.playerPos.X = 100;
+                player.playerPos.Y = 100;
+                player.playerHealth = 100;
+                numberOfcoins = 0;
+                enemies.Clear();
+                enemyColliders.Clear();
+                items.Clear();
+                ground.Clear();
+                lol = true;
+                selectLevel = 2;
+            }
+            if(Keyboard.GetState().IsKeyDown(Keys.K))
+
+            {
+                player.isDead = false;
+                player.playerPos.X = 100;
+                player.playerPos.Y = 100;
+                player.playerHealth = 100;
+                numberOfcoins = 0;
+                enemies.Clear();
+                enemyColliders.Clear();
+                items.Clear();
+                ground.Clear();
+                lol = true;
+                selectLevel = 3;
+            } if(Keyboard.GetState().IsKeyDown(Keys.L))
+            {
+                player.isDead = false;
+                player.playerPos.X = 100;
+                player.playerPos.Y = 100;
+                player.playerHealth = 100;
+                numberOfcoins = 0;
+                enemies.Clear();
+                enemyColliders.Clear();
+                items.Clear();
+                ground.Clear();
+                lol = true;
+                selectLevel = 4;
+            } if (Keyboard.GetState().IsKeyDown(Keys.M))
+            {
+                player.isDead = false;
+                player.playerPos.X = 100;
+                player.playerPos.Y = 100;
+                player.playerHealth = 100;
+                numberOfcoins = 0;
+                ground.Clear();
+                enemies.Clear();
+                enemyColliders.Clear();
+                items.Clear();
+                ground.Clear();
+                lol = true;
+                selectLevel = 5;
+            }
+
+            if (lol == true)
+            {
+                string[] map = level.LoadLevel(selectLevel);
+                levelMapper.StartMapping(ground, map, items, enemies, Content, enemyColliders);
+                lol = false;
+            }
+
+
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -389,13 +466,11 @@ namespace gravityProject
 
             for (int i = 0; i < items.Count; i++)
                 {
-               _spriteBatch.Draw(items[i].coinsTexture, new Vector2(items[i].coinsPos.X - 35, items[i].coinsPos.Y - 35), Color.White);
+               
+                _spriteBatch.Draw(items[i].coinsTexture, new Vector2(items[i].coinsPos.X - 35, items[i].coinsPos.Y - 35), Color.White);
 
-       
-                    
-                   
-         
-                    
+                //_spriteBatch.Draw(items[i].injectTexture, new Vector2(items[i].injectPos.X - 35, items[i].injectPos.Y - 35), Color.White);
+
                 
                 }
 

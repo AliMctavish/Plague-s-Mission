@@ -15,12 +15,11 @@ namespace gravityProject
         public Texture2D chestTexture { get; set; }
         public Texture2D coinsTexture { get; set; }
 
-        public Texture2D injectTexture { get; set; }
         public Rectangle chestPos  {get; set; }
         public Rectangle coinsPos { get; set; }
 
         public Rectangle injectPos;
-
+        public Texture2D injectTexture { get; set; }
 
         public int injectCounter = 1;
 
@@ -28,19 +27,12 @@ namespace gravityProject
 
         public int ChestCounter = 1;
 
-
-        private List<Items> items = new List<Items>();
-
-
-        public void CreateItem()
-        {
-
-
-
-
-        }
-
-
-
     }
+
+    class Inject : Items
+    {
+    
+    
+    }
+
 }
