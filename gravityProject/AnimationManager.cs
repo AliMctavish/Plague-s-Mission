@@ -31,13 +31,10 @@ namespace gravityProject
             item.CoinCounter += 1;
             }
         }  
-        
         public void enemyAnimation(List<Enemy> enemies, ContentManager Content)
         {
-
             foreach(var enemy in enemies) 
             {
-               
                    if(!enemy.isStopped)
                     {
                         enemy.enemyTexture = Content.Load<Texture2D>($"EnemyMoving{enemy.counter}");
@@ -58,12 +55,8 @@ namespace gravityProject
                         }
                           enemy.attackCounter += 1;
                     }
-                
-               
             }
-
         }
-
         public void playerAnimationIdle(Player player , ContentManager Content)
         {
             if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A))

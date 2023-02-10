@@ -16,19 +16,12 @@ namespace gravityProject
 {
     internal class LevelMapper
     {
-
-
         int num = 0;
         private int groundAxis = 50;
-
-
         private Items item = new Items();
         private Ground ground= new Ground(0,0);
         private Enemy enemy = new Enemy();
         private EnemyCollider enemyCollider = new EnemyCollider();
-
-
-
         public void StartMapping(List <Ground> grounds , string[] map , List <Items> items ,List<Enemy> enemies , ContentManager Content , List<EnemyCollider> enemyColliders)
         {
             for (int i = 0; i < map.Length; i++)
