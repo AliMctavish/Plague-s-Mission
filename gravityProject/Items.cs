@@ -14,9 +14,8 @@ namespace gravityProject
 {
     internal class Items
     {
-        public Texture2D coinsTexture { get; set; }
-        public Rectangle coinsPos { get; set; }
-        public Rectangle injectPos;
+        public Texture2D texture { get; set; }
+        public Rectangle position { get; set; }
         public Texture2D injectTexture { get; set; }
         public int injectCounter = 1;
         public int CoinCounter = 1;
@@ -29,13 +28,14 @@ namespace gravityProject
     }
     class Chest : Items
     {
-        public Rectangle chestPos { get; set; }
-        public Texture2D chestTexture { get; set; }
         public bool isInside = false;
         public bool soundPlayed = false;
         public int animationCounter  = 1;
         public float animateCounter = 0.1f;
-        
+    }
+    class Trap : Items
+    {
+    
 
     }
 }

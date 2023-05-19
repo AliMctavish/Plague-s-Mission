@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -73,6 +74,16 @@ namespace gravityProject
                 }
             }
         }
+        public void PlayerIntersectsWithTrap(Player player)
+        {
+            foreach(var trap in LevelMapper.traps)
+            {
+                if(player.playerPos.Intersects(trap.position))
+                {
+                    player.isDead = true;
+                }
+            }
+        }
         public bool PlayerGravity(Player player)
         {
             player.playerPos.Y = player.playerPos.Y - player.playerVelocity;
@@ -116,17 +127,17 @@ namespace gravityProject
             }
             return player.playerColor = Color.White;
         }
-        public void playerHealing(Player player, List<Items> items)
-        {
-            foreach (var item in items)
-            {
-                if (player.playerPos.Intersects(item.injectPos))
-                {
-                    player.playerHealth += 20;
-                    item.injectPos.X = 0;
-                }
-            }
-        }
+        //public void playerHealing(Player player, List<Items> items)
+        //{
+        //    foreach (var item in items)
+        //    {
+        //        if (player.playerPos.Intersects(item.injectPos))
+        //        {
+        //            player.playerHealth += 20;
+        //            item.injectPos.X = 0;
+        //        }
+        //    }
+        //}
         private void PlayerTakingDamage(Player player)
         {
             player.playerHealth -= 1;
@@ -135,5 +146,19 @@ namespace gravityProject
                 player.isDead = true;
             }
         }
+
+        public void playerIntersectsWithCoins(Player player, SoundEffect coinSound, List<Items> items)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (player.playerPos.Intersects(items[i].position))
+                {
+                    items.Remove(items[i]);
+                    coinSound.Play();
+                    Game1.numberOfcoins++;
+                }
+            }
+        }
+
     }
 }

@@ -242,3 +242,4 @@ C:\Users\HP\Source\Repos\AliMcavish\firstGameRepository\gravityProject\obj\Debug
 C:\Users\HP\Source\Repos\AliMcavish\firstGameRepository\gravityProject\obj\Debug\net6.0\gravityProject.pdb
 C:\Users\HP\Source\Repos\AliMcavish\firstGameRepository\gravityProject\obj\Debug\net6.0\gravityProject.genruntimeconfig.cache
 C:\Users\HP\Source\Repos\AliMcavish\firstGameRepository\gravityProject\obj\Debug\net6.0\ref\gravityProject.dll
+C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\trap-export.xnb

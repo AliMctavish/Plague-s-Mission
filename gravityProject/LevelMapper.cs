@@ -19,6 +19,7 @@ namespace gravityProject
         int num = 0;
         private int groundAxis = 50;
         public static List<Chest> chests = new List<Chest>();  
+        public static List<Trap> traps = new List<Trap>();
         public void StartMapping(List <Ground> grounds , string[] map , List <Items> items ,List<Enemy> enemies , ContentManager Content , List<EnemyCollider> enemyColliders , Player player)
         {
             for (int i = 0; i < map.Length; i++)
@@ -65,17 +66,24 @@ namespace gravityProject
                     if (map[i][j] == '@')
                     {
                         var item = new Items();
-                        item.coinsPos = new Rectangle(64 * j, i * 64 + 50, 60, 60);
-                        item.coinsTexture = Content.Load<Texture2D>("coin1");
+                        item.position = new Rectangle(64 * j, i * 64 + 50, 60, 60);
+                        item.texture = Content.Load<Texture2D>("coin1");
                         items.Add(item);
                     }
                     if (map[i][j] == '?')
                     {
                         var chest = new Chest();
-                        chest.chestPos = new Rectangle(64 * j, i * 64 + 50, 60, 60);
-                        chest.chestTexture = Content.Load<Texture2D>("chest1");
+                        chest.position = new Rectangle(64 * j, i * 64 + 50, 60, 60);
+                        chest.texture = Content.Load<Texture2D>("chest1");
                         chests.Add(chest);
-                    } 
+                    }
+                    if (map[i][j] == '^')
+                    {
+                        var trap = new Trap();
+                        trap.position = new Rectangle(64 * j, i * 64 + 50,60,60);
+                        trap.texture = Content.Load<Texture2D>("trap-export");
+                        traps.Add(trap);    
+                    }
                     //if (map[i][j] == '+')
                     //{
                     //    item = new Items();

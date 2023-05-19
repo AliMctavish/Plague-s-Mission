@@ -23,11 +23,11 @@ namespace gravityProject
         {
             foreach (var item in items)
             {
-                item.coinsTexture = Content.Load<Texture2D>($"coin{item.CoinCounter}");
+                item.texture = Content.Load<Texture2D>($"coin{item.CoinCounter}");
 
                 if (item.CoinCounter == 11)
                 {
-                    item.coinsTexture = Content.Load<Texture2D>("coin11");
+                    item.texture = Content.Load<Texture2D>("coin11");
                     item.CoinCounter = 1;
                 }
                 item.CoinCounter += 1;
@@ -64,13 +64,17 @@ namespace gravityProject
         {
             for (int i = 0; i < LevelMapper.chests.Count(); i++)
             {
-                if (player.playerPos.Intersects(LevelMapper.chests[i].chestPos))
+                if (player.playerPos.Intersects(LevelMapper.chests[i].position))
                 {
-                    LevelMapper.chests[i].isInside = true;
-                    if (LevelMapper.chests[i].soundPlayed == false)
+
+                    if(Keyboard.GetState().IsKeyDown(Keys.E))
                     {
-                        chestSound.Play();
-                        LevelMapper.chests[i].soundPlayed = true;
+                        LevelMapper.chests[i].isInside = true;
+                        if (LevelMapper.chests[i].soundPlayed == false)
+                        {
+                            chestSound.Play();
+                            LevelMapper.chests[i].soundPlayed = true;
+                        }
                     }
                 }
                 if (LevelMapper.chests[i].isInside)
@@ -78,7 +82,7 @@ namespace gravityProject
                     waitingTime2 += (float)gameTime.ElapsedGameTime.TotalSeconds;
                     if (LevelMapper.chests[i].animationCounter < 9)
                     {
-                        LevelMapper.chests[i].chestTexture = Globals.Content.Load<Texture2D>($"chest{LevelMapper.chests[i].animationCounter}");
+                        LevelMapper.chests[i].texture = Globals.Content.Load<Texture2D>($"chest{LevelMapper.chests[i].animationCounter}");
                         LevelMapper.chests[i].animationCounter++;
                     }
                     if (waitingTime2 >= 1)
@@ -88,8 +92,6 @@ namespace gravityProject
                 }
             }
         }
-
-
         public void playerAnimationIdle(Player player, ContentManager Content)
         {
             if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A))

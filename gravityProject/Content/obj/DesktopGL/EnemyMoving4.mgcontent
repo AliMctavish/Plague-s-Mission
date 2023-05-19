@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/pc/source/repos/AliMctavish/firstGameRepository/gravityProject/Content/EnemyMoving4.png</SourceFile>
-  <SourceTime>2023-01-14T02:30:50.0134148+03:00</SourceTime>
-  <DestFile>C:/Users/pc/source/repos/AliMctavish/firstGameRepository/gravityProject/Content/bin/DesktopGL/EnemyMoving4.xnb</DestFile>
-  <DestTime>2023-01-27T19:17:11.1668401+03:00</DestTime>
+  <SourceFile>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/EnemyMoving4.png</SourceFile>
+  <SourceTime>2023-01-25T10:39:23.9839033+03:00</SourceTime>
+  <DestFile>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/bin/DesktopGL/EnemyMoving4.xnb</DestFile>
+  <DestTime>2023-05-19T18:23:22.8830165+03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T14:44:56+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

@@ -38,9 +38,7 @@ namespace gravityProject
         float animateCounter2 = 0.1f;
         GamePhysics GamePhysics;
         float waitingTime = 0;
-        private int numberOfcoins = 0;
-        private bool isInside = false;
-        private bool played = false;
+        public static int numberOfcoins = 0;
         Maps level = new Maps();
         AnimationManager animation;
         private int jumpConuter = 0;
@@ -103,7 +101,7 @@ namespace gravityProject
         {
             for (int i = 1; i < 6; i++)
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.D1 + i))
+                if (Keyboard.GetState().IsKeyDown(Keys.D0 + i))
                 {
                     ClearGame();
                     selectLevel = i;
@@ -160,7 +158,7 @@ namespace gravityProject
                             player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking{i}");
                         }
                         if (moveTimer > 5)
-                        {
+                        {      
                             player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking5");
                             moveTimer = 1;
                         }
@@ -171,45 +169,9 @@ namespace gravityProject
                     }
                 }
 
-                animation.ChestAnimation(player,chestSound , waitingTime2 , gameTime);
-
-                for (int i = 0; i < LevelMapper.chests.Count(); i++)
-                {
-                    if (player.playerPos.Intersects(LevelMapper.chests[i].chestPos))
-                    {
-                        LevelMapper.chests[i].isInside = true;
-                        if (LevelMapper.chests[i].soundPlayed == false)
-                        {
-                            chestSound.Play();
-                            LevelMapper.chests[i].soundPlayed= true;
-                        }
-                    }
-                    if (LevelMapper.chests[i].isInside)
-                    {
-                        waitingTime2 += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                        if (LevelMapper.chests[i].animationCounter < 9)
-                        {
-                            LevelMapper.chests[i].chestTexture = Content.Load<Texture2D>($"chest{LevelMapper.chests[i].animationCounter}");
-                            LevelMapper.chests[i].animationCounter++;
-                        }
-                        if (waitingTime2 >= 1)
-                        {
-                            LevelMapper.chests[i].isInside = false;
-                        }
-                    }
-                }
-                for (int i = 0; i < items.Count; i++)
-                {
-                    if (player.playerPos.Intersects(items[i].coinsPos))
-                    {
-                        items.Remove(items[i]);
-                        coinSound.Play();
-                        numberOfcoins++;
-                    }
-                }
-                Debug.WriteLine(items.Count);
-                //animations
-
+                //ANIMATIONS
+                GamePhysics.playerIntersectsWithCoins(player , coinSound , items);
+                animation.ChestAnimation(player, chestSound, waitingTime2, gameTime);
                 if (waitingTime > animateCounter2)
                 {
                     animation.itemsAnimation(items, Content);
@@ -218,18 +180,17 @@ namespace gravityProject
                     animateCounter2 += 0.1f;
                 }
 
-                //colliders and physics methods
-
+                //COLLIDERS AND PLAYER METHODS 
                 if (player.hasJump == true)
                 {
                     player.timePassed -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-
                     GamePhysics.PlayerGravity(player);
                 }
+                GamePhysics.PlayerIntersectsWithTrap(player);
                 GamePhysics.PlayerIntersectsWithGround(player, ground, isFlipped);
                 GamePhysics.PlayerIntersectsWithEnemy(player, enemies);
                 GamePhysics.EnemyBoundaries(enemies, enemyColliders);
-                GamePhysics.playerHealing(player, items);
+                //GamePhysics.playerHealing(player, items);
                 player.playerPos.Y += 4;
             }
 
@@ -296,11 +257,22 @@ namespace gravityProject
 
 
             for (int i = 0; i < items.Count; i++)
-                _spriteBatch.Draw(items[i].coinsTexture, new Vector2(items[i].coinsPos.X - 35, items[i].coinsPos.Y - 35), Color.White);
+                _spriteBatch.Draw(items[i].texture, new Vector2(items[i].position.X - 35, items[i].position.Y - 35), Color.White);
 
 
             foreach (var chest in LevelMapper.chests)
-                _spriteBatch.Draw(chest.chestTexture, new Vector2(chest.chestPos.X - 35, chest.chestPos.Y - 20), Color.White);
+            {
+                if (player.playerPos.Intersects(chest.position) && !chest.isInside)
+                {
+                    _spriteBatch.DrawString(_font, "Press 'E' To Open", new Vector2(chest.position.X,chest.position.Y - 40), color: Color.GreenYellow);
+                    //_spriteBatch.DrawString(_font, "You Need 10 Coins", new Vector2(chest.position.X, chest.position.Y - 20), color: Color.GreenYellow);
+                    //_spriteBatch.Draw(coinCounter, new Rectangle(chest.position.X + 140, chest.position.Y - 10, 40, 40), color: Color.Wheat);
+                }
+                _spriteBatch.Draw(chest.texture, new Vector2(chest.position.X - 35, chest.position.Y - 20), Color.White);
+            }
+
+            foreach (var trap in LevelMapper.traps)
+                _spriteBatch.Draw(trap.texture, new Vector2(trap.position.X - 38, trap.position.Y - 35), Color.White);
 
 
             for (int i = 0; i < enemies.Count; i++)

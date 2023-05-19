@@ -11,6 +11,11 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Content\CoinAnimation\**" />
+    <EmbeddedResource Remove="Content\CoinAnimation\**" />
+    <None Remove="Content\CoinAnimation\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
   </ItemGroup>
@@ -24,7 +29,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\animations\" />
-    <Folder Include="Content\CoinAnimation\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
