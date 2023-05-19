@@ -158,7 +158,7 @@ namespace gravityProject
                             player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking{i}");
                         }
                         if (moveTimer > 5)
-                        {      
+                        {
                             player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking5");
                             moveTimer = 1;
                         }
@@ -170,7 +170,7 @@ namespace gravityProject
                 }
 
                 //ANIMATIONS
-                GamePhysics.playerIntersectsWithCoins(player , coinSound , items);
+                GamePhysics.playerIntersectsWithCoins(player, coinSound, items);
                 animation.ChestAnimation(player, chestSound, waitingTime2, gameTime);
                 if (waitingTime > animateCounter2)
                 {
@@ -203,7 +203,6 @@ namespace gravityProject
             _spriteBatch.Begin();
 
             _spriteBatch.Draw(backgroundColor, new Rectangle(0, 0, 1600, 900), Color.White);
-            //_spriteBatch.Draw(ballTexture, new Vector2( player.playerPos.X -32 ,  player.playerPos.Y - 50), Color.White);
             if (!isFlipped)
             {
                 _spriteBatch.Draw(player.playerTexture, new Rectangle(player.playerPos.X - 34, player.playerPos.Y - 34, player.playerPos.Width, player.playerPos.Height), null, player.playerColor, 0, Vector2.Zero, SpriteEffects.None, 0);
@@ -264,7 +263,7 @@ namespace gravityProject
             {
                 if (player.playerPos.Intersects(chest.position) && !chest.isInside)
                 {
-                    _spriteBatch.DrawString(_font, "Press 'E' To Open", new Vector2(chest.position.X,chest.position.Y - 40), color: Color.GreenYellow);
+                    _spriteBatch.DrawString(_font, "Press 'E' To Open", new Vector2(chest.position.X, chest.position.Y - 40), color: Color.GreenYellow);
                     //_spriteBatch.DrawString(_font, "You Need 10 Coins", new Vector2(chest.position.X, chest.position.Y - 20), color: Color.GreenYellow);
                     //_spriteBatch.Draw(coinCounter, new Rectangle(chest.position.X + 140, chest.position.Y - 10, 40, 40), color: Color.Wheat);
                 }
