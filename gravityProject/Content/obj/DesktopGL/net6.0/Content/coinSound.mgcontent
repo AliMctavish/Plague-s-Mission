@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/pc/source/repos/AliMctavish/firstGameRepository/gravityProject/Content/coinSound.wav</SourceFile>
-  <SourceTime>2023-01-06T18:42:46.2758826+03:00</SourceTime>
-  <DestFile>C:/Users/pc/source/repos/AliMctavish/firstGameRepository/gravityProject/Content/bin/DesktopGL/Content/coinSound.xnb</DestFile>
-  <DestTime>2023-01-30T21:21:10.2970611+03:00</DestTime>
+  <SourceFile>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/coinSound.wav</SourceFile>
+  <SourceTime>2023-01-25T10:39:24.1995983+03:00</SourceTime>
+  <DestFile>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/bin/DesktopGL/Content/coinSound.xnb</DestFile>
+  <DestTime>2023-05-06T15:05:29.7262571+03:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2022-07-26T14:44:56+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

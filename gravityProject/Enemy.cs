@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace gravityProject
 {
-    internal class Enemy
+    public class Enemy
     {
         public Texture2D enemyTexture;
 
@@ -20,9 +20,7 @@ namespace gravityProject
 
         public int attackCounter = 1;
 
-
         public bool isStopped = false; 
-
 
     }
 }

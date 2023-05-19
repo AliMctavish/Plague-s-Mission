@@ -12,15 +12,10 @@ namespace gravityProject
     internal class Globals 
     {
         public static float TotalSeconds {  get; set; }
-
         private GameServiceContainer _services;
-
-        public ContentManager Content { get; set; }
-
+        static public ContentManager Content { get; set; }
         public ContentManager _content;
-
         public static SpriteBatch spriteBatch { get; set; }
-
         public static void Update(GameTime gameTime)
         {
             TotalSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;

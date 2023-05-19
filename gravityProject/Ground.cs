@@ -15,33 +15,16 @@ namespace gravityProject
     {
         public Rectangle GroundPos;
         public Texture2D groundTexture = null;
-
         public Rectangle groundWall;
-
-
-      
-        
-
         public Ground(int posX, int posY)
         {
-            
             this.GroundPos = new Rectangle(posX, posY, 50 ,64);
-
         }
-      
-      
-
         public Rectangle Walls(int posX , int posY)
         {
             groundWall = new Rectangle(posX, posY, 64, 64);
 
             return groundWall;
         }
-     
-            
-
-
-
-
     }
 }

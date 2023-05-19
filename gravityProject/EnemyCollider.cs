@@ -11,13 +11,5 @@ namespace gravityProject
     internal class EnemyCollider
     {
         public Rectangle ColliderPos;
-
-
-
-
-
-
-
-
     }
 }

@@ -27,13 +27,6 @@ namespace gravityProject
 
         public int playerHealth = 100;
 
-
         public bool isDead = false;
-
-
-
-            
-       
-
     }
 }

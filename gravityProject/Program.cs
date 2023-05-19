@@ -1,3 +1,3 @@
 ﻿
-using var game = new gravityProject.Game1();
+using var game = new    gravityProject.Game1();
 game.Run();
