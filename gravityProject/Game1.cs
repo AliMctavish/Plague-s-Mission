@@ -94,6 +94,7 @@ namespace gravityProject
             enemyColliders.Clear();
             items.Clear();
             ground.Clear();
+            LevelMapper.traps.Clear();
             LevelMapper.chests.Clear();
             lol = true;
         }
@@ -271,7 +272,7 @@ namespace gravityProject
             }
 
             foreach (var trap in LevelMapper.traps)
-                _spriteBatch.Draw(trap.texture, new Vector2(trap.position.X - 38, trap.position.Y - 35), Color.White);
+                _spriteBatch.Draw(trap.texture, new Vector2(trap.position.X , trap.position.Y - 45), Color.White);
 
 
             for (int i = 0; i < enemies.Count; i++)
