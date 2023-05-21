@@ -112,7 +112,6 @@ namespace gravityProject
                     if (player.playerPos.X > enemy.enemyPos.X)
                     {
                         enemy.enemyIsFlipped = false;
-                        enemies.Remove(enemy);
                     }
                     else
                     {
