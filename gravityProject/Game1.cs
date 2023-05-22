@@ -32,7 +32,6 @@ namespace gravityProject
         private List<Items> items;
         float waitingTime2 = 0;
         int Counter = 1;
-        private SoundEffect chestSound;
         private SoundEffect coinSound;
         double moveTimer = 1;
         float animateCounter2 = 0.1f;
@@ -71,7 +70,6 @@ namespace gravityProject
             // TODO: Add your initialization logic here6
             player.playerTexture = Content.Load<Texture2D>("animations/playerMovement1");
             backgroundColor = Content.Load<Texture2D>("background-export");
-            chestSound = Content.Load<SoundEffect>("sound");
             _font = Content.Load<SpriteFont>("File");
             coinSound = Content.Load<SoundEffect>("coinSound");
             player.playerPos = new Rectangle(500, 200, 76, 98);
@@ -96,6 +94,7 @@ namespace gravityProject
             ground.Clear();
             LevelMapper.traps.Clear();
             LevelMapper.chests.Clear();
+            LevelMapper.Items.Clear();
             lol = true;
         }
         protected override void Update(GameTime gameTime)
@@ -112,7 +111,7 @@ namespace gravityProject
             if (lol == true)
             {
                 string[] map = level.LoadLevel(selectLevel);
-                levelMapper.StartMapping(ground, map, items, enemies, Content, enemyColliders, player);
+                levelMapper.StartMapping(ground, map, enemies, Content, enemyColliders, player);
                 lol = false;
             }
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -171,11 +170,11 @@ namespace gravityProject
                 }
 
                 //ANIMATIONS
-                GamePhysics.playerIntersectsWithCoins(player, coinSound, items);
-                animation.ChestAnimation(player, chestSound, waitingTime2, gameTime);
+                GamePhysics.playerIntersectsWithCoins(player, coinSound);
+                animation.ChestAnimation(player ,waitingTime2, gameTime);
                 if (waitingTime > animateCounter2)
                 {
-                    animation.itemsAnimation(items, Content);
+                    animation.itemsAnimation(Content);
                     animation.enemyAnimation(enemies, Content);
                     animation.playerAnimationIdle(player, Content);
                     animateCounter2 += 0.1f;
@@ -187,6 +186,7 @@ namespace gravityProject
                     player.timePassed -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                     GamePhysics.PlayerGravity(player);
                 }
+                GamePhysics.PlayerIntersectsWithChest(player);
                 GamePhysics.PlayerIntersectsWithTrap(player);
                 GamePhysics.PlayerIntersectsWithGround(player, ground, isFlipped);
                 GamePhysics.PlayerIntersectsWithEnemy(player, enemies);
@@ -256,8 +256,9 @@ namespace gravityProject
                 _spriteBatch.Draw(ground[i].groundTexture, new Vector2(ground[i].GroundPos.X - 38, ground[i].GroundPos.Y - 35), Color.White);
 
 
-            for (int i = 0; i < items.Count; i++)
-                _spriteBatch.Draw(items[i].texture, new Vector2(items[i].position.X - 35, items[i].position.Y - 35), Color.White);
+            foreach(var item in LevelMapper.Items.ToList())
+                if(item != null)
+                _spriteBatch.Draw(item.texture, new Vector2(item.position.X - 35, item.position.Y - 35), Color.White);
 
 
             foreach (var chest in LevelMapper.chests)

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -76,9 +77,9 @@ namespace gravityProject
         }
         public void PlayerIntersectsWithTrap(Player player)
         {
-            foreach(var trap in LevelMapper.traps)
+            foreach (var trap in LevelMapper.traps)
             {
-                if(player.playerPos.Intersects(trap.position))
+                if (player.playerPos.Intersects(trap.position))
                 {
                     player.isDead = true;
                 }
@@ -107,6 +108,10 @@ namespace gravityProject
             {
                 if (player.playerPos.Intersects(enemy.enemyPos))
                 {
+                    if (Keyboard.GetState().IsKeyDown(Keys.RightControl))
+                    {
+
+                    }
                     enemy.isStopped = true;
                     PlayerTakingDamage(player);
                     if (player.playerPos.X > enemy.enemyPos.X)
@@ -145,14 +150,39 @@ namespace gravityProject
                 player.isDead = true;
             }
         }
-
-        public void playerIntersectsWithCoins(Player player, SoundEffect coinSound, List<Items> items)
+        public void PlayerIntersectsWithChest(Player player)
         {
-            for (int i = 0; i < items.Count; i++)
+            foreach (var chest in LevelMapper.chests)
             {
-                if (player.playerPos.Intersects(items[i].position))
+                if (player.playerPos.Intersects(chest.position))
                 {
-                    items.Remove(items[i]);
+                    if (Keyboard.GetState().IsKeyDown(Keys.E))
+                    {
+                        chest.isInside = true;
+
+                        if (chest.soundPlayed == false)
+                        {
+                            for (int j = 0; j < 4; j++)
+                            {
+                                Items item = new Items();
+                                item.position = new Rectangle(chest.position.X, chest.position.Y * j, 40, 40);
+                                item.texture = Globals.Content.Load<Texture2D>("coin1");
+                                LevelMapper.Items.Add(item);
+                            }
+                            Chest.chestSound.Play();
+                            chest.soundPlayed = true;
+                        }
+                    }
+                }
+            }
+        }
+        public void playerIntersectsWithCoins(Player player, SoundEffect coinSound)
+        {
+            foreach (var item in LevelMapper.Items.ToList())
+            {
+                if (player.playerPos.Intersects(item.position))
+                {
+                    LevelMapper.Items.Remove(item);
                     coinSound.Play();
                     Game1.numberOfcoins++;
                 }

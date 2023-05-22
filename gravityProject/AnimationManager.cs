@@ -19,9 +19,9 @@ namespace gravityProject
 {
     internal class AnimationManager
     {
-        public void itemsAnimation(List<Items> items, ContentManager Content)
+        public void itemsAnimation(ContentManager Content)
         {
-            foreach (var item in items)
+            foreach (var item in LevelMapper.Items)
             {
                 item.texture = Content.Load<Texture2D>($"coin{item.CoinCounter}");
 
@@ -60,23 +60,10 @@ namespace gravityProject
             }
         }
 
-        public void ChestAnimation(Player player, SoundEffect chestSound, float waitingTime2, GameTime gameTime)
+        public void ChestAnimation(Player player, float waitingTime2, GameTime gameTime)
         {
             for (int i = 0; i < LevelMapper.chests.Count(); i++)
             {
-                if (player.playerPos.Intersects(LevelMapper.chests[i].position))
-                {
-
-                    if(Keyboard.GetState().IsKeyDown(Keys.E))
-                    {
-                        LevelMapper.chests[i].isInside = true;
-                        if (LevelMapper.chests[i].soundPlayed == false)
-                        {
-                            chestSound.Play();
-                            LevelMapper.chests[i].soundPlayed = true;
-                        }
-                    }
-                }
                 if (LevelMapper.chests[i].isInside)
                 {
                     waitingTime2 += (float)gameTime.ElapsedGameTime.TotalSeconds;

@@ -30,12 +30,13 @@ namespace gravityProject
     {
         public bool isInside = false;
         public bool soundPlayed = false;
-        public int animationCounter  = 1;
+        public int animationCounter = 1;
         public float animateCounter = 0.1f;
+        public static SoundEffect chestSound = Globals.Content.Load<SoundEffect>("sound");
     }
     class Trap : Items
     {
-    
+
 
     }
 }

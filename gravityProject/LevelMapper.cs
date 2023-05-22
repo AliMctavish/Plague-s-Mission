@@ -20,7 +20,8 @@ namespace gravityProject
         private int groundAxis = 50;
         public static List<Chest> chests = new List<Chest>();  
         public static List<Trap> traps = new List<Trap>();
-        public void StartMapping(List <Ground> grounds , string[] map , List <Items> items ,List<Enemy> enemies , ContentManager Content , List<EnemyCollider> enemyColliders , Player player)
+        public static List<Items> Items = new List<Items>();
+        public void StartMapping(List <Ground> grounds , string[] map ,List<Enemy> enemies , ContentManager Content , List<EnemyCollider> enemyColliders , Player player)
         {
             for (int i = 0; i < map.Length; i++)
             {
@@ -68,7 +69,7 @@ namespace gravityProject
                         var item = new Items();
                         item.position = new Rectangle(64 * j, i * 64 + 50, 60, 60);
                         item.texture = Content.Load<Texture2D>("coin1");
-                        items.Add(item);
+                        Items.Add(item);
                     }
                     if (map[i][j] == '?')
                     {

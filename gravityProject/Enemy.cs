@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace gravityProject
 {
-    public class Enemy : IDisposable
+    public class Enemy
     {
         public Texture2D enemyTexture;
 
