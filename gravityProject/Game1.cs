@@ -42,7 +42,7 @@ namespace gravityProject
         AnimationManager animation;
         private int jumpConuter = 0;
         private bool isFlipped = false;
-        int selectLevel = 6;
+        int selectLevel = 1;
         bool lol = false;
         private double timePassed = 2d;
         private Texture2D backgroundColor;
@@ -79,6 +79,8 @@ namespace gravityProject
         {
             GamePhysics = new GamePhysics();
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            string[] map = level.LoadLevel(selectLevel);
+            levelMapper.StartMapping(ground, map, enemies, Content, enemyColliders, player);
             // TODO: use this.Content to load your game content here
         }
         public void ClearGame()
@@ -86,8 +88,8 @@ namespace gravityProject
             player.isDead = false;
             player.playerPos.X = 100;
             player.playerPos.Y = 100;
-            player.playerHealth = 100;
-            numberOfcoins = 0;
+            //player.playerHealth = 100;
+            //numberOfcoins = 0;
             enemies.Clear();
             enemyColliders.Clear();
             items.Clear();
@@ -95,17 +97,21 @@ namespace gravityProject
             LevelMapper.traps.Clear();
             LevelMapper.chests.Clear();
             LevelMapper.Items.Clear();
+            LevelMapper.injects.Clear();
             lol = true;
         }
         protected override void Update(GameTime gameTime)
         {
-            for (int i = 1; i < 6; i++)
+
+            if(player.playerPos.X > _graphics.PreferredBackBufferWidth)
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.D0 + i))
-                {
-                    ClearGame();
-                    selectLevel = i;
-                }
+                selectLevel++;
+                ClearGame();
+            }
+            if(player.playerPos.X < -10)
+            {
+                selectLevel--;
+                ClearGame();
             }
 
             if (lol == true)
@@ -175,6 +181,7 @@ namespace gravityProject
                 if (waitingTime > animateCounter2)
                 {
                     animation.itemsAnimation(Content);
+                    animation.injectAnimation(gameTime);
                     animation.enemyAnimation(enemies, Content);
                     animation.playerAnimationIdle(player, Content);
                     animateCounter2 += 0.1f;
@@ -187,6 +194,7 @@ namespace gravityProject
                     GamePhysics.PlayerGravity(player);
                 }
                 GamePhysics.PlayerIntersectsWithChest(player);
+                GamePhysics.playerHealing(player);
                 GamePhysics.PlayerIntersectsWithTrap(player);
                 GamePhysics.PlayerIntersectsWithGround(player, ground, isFlipped);
                 GamePhysics.PlayerIntersectsWithEnemy(player, enemies);
@@ -274,6 +282,9 @@ namespace gravityProject
 
             foreach (var trap in LevelMapper.traps)
                 _spriteBatch.Draw(trap.texture, new Vector2(trap.position.X , trap.position.Y - 45), Color.White);
+
+            foreach(var inject in  LevelMapper.injects)
+                _spriteBatch.Draw(inject.texture, new Vector2(inject.position.X, inject.position.Y - 45), Color.White);
 
 
             for (int i = 0; i < enemies.Count; i++)

@@ -131,17 +131,18 @@ namespace gravityProject
             }
             return player.playerColor = Color.White;
         }
-        //public void playerHealing(Player player, List<Items> items)
-        //{
-        //    foreach (var item in items)
-        //    {
-        //        if (player.playerPos.Intersects(item.injectPos))
-        //        {
-        //            player.playerHealth += 20;
-        //            item.injectPos.X = 0;
-        //        }
-        //    }
-        //}
+        public void playerHealing(Player player)
+        {
+            foreach (var inject in LevelMapper.injects.ToList())
+            {
+                if (player.playerPos.Intersects(inject.position))
+                {
+                    player.playerHealth += 20;
+                    player.playerColor = Color.Green;
+                    LevelMapper.injects.Remove(inject);
+                }
+            }
+        }
         private void PlayerTakingDamage(Player player)
         {
             player.playerHealth -= 1;
@@ -162,13 +163,11 @@ namespace gravityProject
 
                         if (chest.soundPlayed == false)
                         {
-                            for (int j = 0; j < 4; j++)
-                            {
-                                Items item = new Items();
-                                item.position = new Rectangle(chest.position.X, chest.position.Y * j, 40, 40);
-                                item.texture = Globals.Content.Load<Texture2D>("coin1");
-                                LevelMapper.Items.Add(item);
-                            }
+                            Items item = new Items();
+                            item.position = 
+                                new Rectangle(chest.position.X + 20, chest.position.Y, 40, 40);
+                            item.texture = Globals.Content.Load<Texture2D>("coin1");
+                            LevelMapper.Items.Add(item);
                             Chest.chestSound.Play();
                             chest.soundPlayed = true;
                         }

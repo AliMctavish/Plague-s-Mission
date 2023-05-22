@@ -19,6 +19,8 @@ namespace gravityProject
 {
     internal class AnimationManager
     {
+        float counte = 1;
+
         public void itemsAnimation(ContentManager Content)
         {
             foreach (var item in LevelMapper.Items)
@@ -32,6 +34,16 @@ namespace gravityProject
                 }
                 item.CoinCounter += 1;
             }
+        }
+        public void injectAnimation(GameTime gameTime)
+        {
+            float posY = MathF.Sin(counte++) * 2f;
+            foreach (var inject in LevelMapper.injects)
+            {
+                inject.position = new Rectangle(inject.position.X,inject.position.Y + (int)posY, 40, 40);
+            }
+            if(counte > 10000)
+                counte = 1;
         }
         public void enemyAnimation(List<Enemy> enemies, ContentManager Content)
         {

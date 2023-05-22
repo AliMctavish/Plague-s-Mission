@@ -16,11 +16,10 @@ namespace gravityProject
 {
     internal class LevelMapper
     {
-        int num = 0;
-        private int groundAxis = 50;
         public static List<Chest> chests = new List<Chest>();  
         public static List<Trap> traps = new List<Trap>();
         public static List<Items> Items = new List<Items>();
+        public static List<Inject> injects = new List<Inject>();
         public void StartMapping(List <Ground> grounds , string[] map ,List<Enemy> enemies , ContentManager Content , List<EnemyCollider> enemyColliders , Player player)
         {
             for (int i = 0; i < map.Length; i++)
@@ -31,7 +30,6 @@ namespace gravityProject
                     {
                         var ground = new Ground(50 * j, i * 50 + 50);
                         ground.groundTexture = Content.Load<Texture2D>("ground3");
-                        num++;
                     }
                     if (map[i][j] == '$')
                     {
@@ -85,13 +83,13 @@ namespace gravityProject
                         trap.texture = Content.Load<Texture2D>("trap-export");
                         traps.Add(trap);    
                     }
-                    //if (map[i][j] == '+')
-                    //{
-                    //    item = new Items();
-                    //    item.injectPos = new Rectangle(64 * j, i * 64 + 50, 60, 60);
-                    //    item.injectTexture = Content.Load<Texture2D>("Health");
-                    //    items.Add(item);
-                    //}
+                    if (map[i][j] == '+')
+                    {
+                        var inject = new Inject();
+                        inject.position = new Rectangle(62 * j, i * 64 + 50, 160, 160);
+                        inject.texture = Content.Load<Texture2D>("Health");
+                        injects.Add(inject);
+                    }
                     if (map[i][j] == '!')
                     {
                         var enemy = new Enemy();
@@ -107,7 +105,6 @@ namespace gravityProject
                         enemyColliders.Add(enemyCollider);
                     }
                 }
-                groundAxis += 50;
             }
         }
     }
