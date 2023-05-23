@@ -20,6 +20,7 @@ namespace gravityProject
         public static List<Trap> traps = new List<Trap>();
         public static List<Items> Items = new List<Items>();
         public static List<Inject> injects = new List<Inject>();
+        public static List<Platform> platforms = new List<Platform>();  
         public void StartMapping(List <Ground> grounds , string[] map ,List<Enemy> enemies , ContentManager Content , List<EnemyCollider> enemyColliders , Player player)
         {
             for (int i = 0; i < map.Length; i++)
@@ -75,6 +76,13 @@ namespace gravityProject
                         chest.position = new Rectangle(64 * j, i * 64 + 50, 60, 60);
                         chest.texture = Content.Load<Texture2D>("chest1");
                         chests.Add(chest);
+                    }
+                    if (map[i][j] == '-')
+                    {
+                        var platform = new Platform();
+                        platform.position = new Rectangle(64 * j, i * 64 + 50, 140,60);
+                        platform.texture = Content.Load<Texture2D>("ground1");
+                        platforms.Add(platform);
                     }
                     if (map[i][j] == '^')
                     {

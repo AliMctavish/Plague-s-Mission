@@ -43,6 +43,25 @@ namespace gravityProject
         }
         public void PlayerIntersectsWithGround(Player player, List<Ground> grounds, bool isFlipped)
         {
+            foreach (var platform in LevelMapper.platforms)
+            {
+                if (player.playerPos.Intersects(platform.position))
+                {
+                    if (player.playerPos.Y <= platform.position.Y - 90)
+                    {
+                        player.playerPos.Y = platform.position.Y - player.playerPos.Height;
+                        if(Keyboard.GetState().IsKeyDown(Keys.Space))
+                        {
+                            player.hasJump = true;
+                        }
+                        else
+                        {
+                        player.playerPos.X = platform.position.X;
+                        }
+                    }
+                }
+            }
+
             foreach (var ground in grounds)
             {
                 if (player.playerPos.Intersects(ground.GroundPos))
@@ -164,7 +183,7 @@ namespace gravityProject
                         if (chest.soundPlayed == false)
                         {
                             Items item = new Items();
-                            item.position = 
+                            item.position =
                                 new Rectangle(chest.position.X + 20, chest.position.Y, 40, 40);
                             item.texture = Globals.Content.Load<Texture2D>("coin1");
                             LevelMapper.Items.Add(item);

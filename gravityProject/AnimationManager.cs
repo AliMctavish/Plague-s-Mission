@@ -35,12 +35,21 @@ namespace gravityProject
                 item.CoinCounter += 1;
             }
         }
+
+        public void PlatformMoving()
+        {
+            float sinTheta = MathF.Sin(counte++/120) * 2f;
+            foreach(var platform in LevelMapper.platforms.ToList())
+            { 
+                platform.position = new Rectangle(platform.position.X + (int)sinTheta , platform.position.Y ,40,40);
+            }
+        }
         public void injectAnimation(GameTime gameTime)
         {
-            float posY = MathF.Sin(counte++) * 2f;
+            float posY = MathF.Sin(counte++/10) * 2f;
             foreach (var inject in LevelMapper.injects)
             {
-                inject.position = new Rectangle(inject.position.X,inject.position.Y + (int)posY, 40, 40);
+                inject.position = new Rectangle(inject.position.X,inject.position.Y + (int)posY, 40, 40 );
             }
             if(counte > 10000)
                 counte = 1;
@@ -93,6 +102,7 @@ namespace gravityProject
         }
         public void playerAnimationIdle(Player player, ContentManager Content)
         {
+            player.playerPos = new Rectangle(player.playerPos.X, player.playerPos.Y, player.playerPos.Width , player.playerPos.Height );
             if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A))
             {
                 player.playerTexture = Content.Load<Texture2D>($"animations/playerMovement{player.PlayerAnimationCounter}");

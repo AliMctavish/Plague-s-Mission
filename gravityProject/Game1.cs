@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -42,7 +43,7 @@ namespace gravityProject
         AnimationManager animation;
         private int jumpConuter = 0;
         private bool isFlipped = false;
-        int selectLevel = 1;
+        int selectLevel = 4;
         bool lol = false;
         private double timePassed = 2d;
         private Texture2D backgroundColor;
@@ -180,12 +181,13 @@ namespace gravityProject
                 animation.ChestAnimation(player ,waitingTime2, gameTime);
                 if (waitingTime > animateCounter2)
                 {
-                    animation.itemsAnimation(Content);
                     animation.injectAnimation(gameTime);
+                    animation.itemsAnimation(Content);
                     animation.enemyAnimation(enemies, Content);
                     animation.playerAnimationIdle(player, Content);
                     animateCounter2 += 0.1f;
                 }
+                animation.PlatformMoving();
 
                 //COLLIDERS AND PLAYER METHODS 
                 if (player.hasJump == true)
@@ -285,6 +287,9 @@ namespace gravityProject
 
             foreach(var inject in  LevelMapper.injects)
                 _spriteBatch.Draw(inject.texture, new Vector2(inject.position.X, inject.position.Y - 45), Color.White);
+
+            foreach(var platform in LevelMapper.platforms.ToList())
+                _spriteBatch.Draw(platform.texture, new Rectangle(platform.position.X - 80, platform.position.Y - 40,140,64), Color.White);
 
 
             for (int i = 0; i < enemies.Count; i++)

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace gravityProject
 {
-    internal class Items
+    public class Items
     {
         public Texture2D texture { get; set; }
         public Rectangle position { get; set; }
