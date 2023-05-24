@@ -1,25 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.Metrics;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Reflection.Metadata;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace gravityProject
 {
     internal class AnimationManager
     {
-        float counte = 1;
+        public static float counte = 1;
 
         public void itemsAnimation(ContentManager Content)
         {
@@ -48,9 +39,8 @@ namespace gravityProject
         {
             float posY = MathF.Sin(counte++/10) * 2f;
             foreach (var inject in LevelMapper.injects)
-            {
                 inject.position = new Rectangle(inject.position.X,inject.position.Y + (int)posY, 40, 40 );
-            }
+
             if(counte > 10000)
                 counte = 1;
         }
@@ -112,6 +102,10 @@ namespace gravityProject
             {
                 player.PlayerAnimationCounter = 1;
             }
+        }
+        public void PlayerHitAnimation()
+        {
+            //foreach()
         }
     }
 }

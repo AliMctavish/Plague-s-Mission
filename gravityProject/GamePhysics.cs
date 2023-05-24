@@ -1,16 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace gravityProject
 {
@@ -123,14 +116,35 @@ namespace gravityProject
         }
         public Color PlayerIntersectsWithEnemy(Player player, List<Enemy> enemies)
         {
-            foreach (var enemy in enemies)
+            foreach (var enemy in enemies.ToList())
             {
+                if (Keyboard.GetState().IsKeyDown(Keys.RightControl))
+                {
+                    player.isShooting = true;
+                    if (player.playerPos.Intersects(enemy.enemyPos))
+                    {
+                        enemy.Health -= 5;
+                        enemy.Color = Color.Red;
+                        if(!player.isFlipped)
+                        {
+                            enemy.enemyPos = new Rectangle(enemy.enemyPos.X + 1, enemy.enemyPos.Y, 40, 40);
+                        }
+                        else
+                        {
+                            enemy.enemyPos = new Rectangle(enemy.enemyPos.X - 1, enemy.enemyPos.Y, 40, 40);
+                        }
+
+                        if (enemy.Health <= 0)
+                            enemies.Remove(enemy);
+                    }
+                }
+                else
+                {
+                    enemy.Color = Color.White;
+                }
+
                 if (player.playerPos.Intersects(enemy.enemyPos))
                 {
-                    if (Keyboard.GetState().IsKeyDown(Keys.RightControl))
-                    {
-
-                    }
                     enemy.isStopped = true;
                     PlayerTakingDamage(player);
                     if (player.playerPos.X > enemy.enemyPos.X)

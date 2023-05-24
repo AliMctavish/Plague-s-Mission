@@ -20,6 +20,8 @@ namespace gravityProject
 
         public int attackCounter = 1;
 
+        public Color Color = Color.White;
+
         public bool isStopped = false;
 
         public int Health = 100;
