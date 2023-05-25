@@ -73,17 +73,22 @@ namespace gravityProject
             levelMapper.StartMapping(ground, map, enemies, Content, enemyColliders, player);
             // TODO: use this.Content to load your game content here
         }
-        public void ClearGame()
+        public void ClearGame(int? level)
         {
             player.isDead = false;
             player.playerPos.X = 100;
             player.playerPos.Y = 100;
-            //player.playerHealth = 100;
-            //numberOfcoins = 0;
+            if(level.HasValue)
+            {
+                selectLevel = level.Value;
+                player.playerHealth = 100;
+                numberOfcoins = 0;
+            }
             enemies.Clear();
             enemyColliders.Clear();
             items.Clear();
             ground.Clear();
+            AnimationManager.counte = 1;
             LevelMapper.traps.Clear();
             LevelMapper.chests.Clear();
             LevelMapper.Items.Clear();
@@ -92,16 +97,18 @@ namespace gravityProject
         }
         protected override void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+                ClearGame(selectLevel);
 
             if(player.playerPos.X > _graphics.PreferredBackBufferWidth)
             {
                 selectLevel++;
-                ClearGame();
+                ClearGame(null);
             }
             if(player.playerPos.X < -10)
             {
                 selectLevel--;
-                ClearGame();
+                ClearGame(null);
             }
 
             if (lol == true)

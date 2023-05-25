@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace gravityProject
 {
@@ -43,13 +44,13 @@ namespace gravityProject
                     if (player.playerPos.Y <= platform.position.Y - 90)
                     {
                         player.playerPos.Y = platform.position.Y - player.playerPos.Height;
-                        if(Keyboard.GetState().IsKeyDown(Keys.Space))
+                        if (Keyboard.GetState().IsKeyDown(Keys.Space))
                         {
                             player.hasJump = true;
                         }
                         else
                         {
-                        player.playerPos.X = platform.position.X;
+                            player.playerPos.X = platform.position.X;
                         }
                     }
                 }
@@ -61,7 +62,7 @@ namespace gravityProject
                 {
                     if (player.playerPos.Y <= ground.GroundPos.Y - 90)
                     {
-                        player.playerPos.Y = ground.GroundPos.Y - player.playerPos.Height;
+                     player.playerPos.Y = ground.GroundPos.Y -player.playerPos.Height;
                     }
                     else
                     {
@@ -125,7 +126,7 @@ namespace gravityProject
                     {
                         enemy.Health -= 5;
                         enemy.Color = Color.Red;
-                        if(!player.isFlipped)
+                        if (!player.isFlipped)
                         {
                             enemy.enemyPos = new Rectangle(enemy.enemyPos.X + 1, enemy.enemyPos.Y, 40, 40);
                         }
