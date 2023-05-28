@@ -18,6 +18,8 @@ namespace gravityProject
 
         public int counter = 1;
 
+        public bool isDead = false;
+
         public int attackCounter = 1;
 
         public Color Color = Color.White;

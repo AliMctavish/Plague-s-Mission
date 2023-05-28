@@ -13,6 +13,7 @@ namespace gravityProject
         public static List<Inject> injects = new List<Inject>();
         public static List<Platform> platforms = new List<Platform>();  
         public static List<Human> humans = new List<Human>();
+        public static List<Enemy> enemies = new List<Enemy>();
         public void StartMapping(List <Ground> grounds , string[] map ,List<Enemy> enemies , ContentManager Content , List<EnemyCollider> enemyColliders , Player player)
         {
             for (int i = 0; i < map.Length; i++)

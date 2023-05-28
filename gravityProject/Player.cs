@@ -32,5 +32,7 @@ namespace gravityProject
         public bool isShooting = false;
 
         public bool isFlipped = false;
+
+        public bool hasSyringe = false;
     }
 }

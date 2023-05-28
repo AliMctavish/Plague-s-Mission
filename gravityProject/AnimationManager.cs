@@ -103,7 +103,6 @@ namespace gravityProject
                 player.PlayerAnimationCounter = 1;
             }
         }
-
         public void HumanAnimation()
         {
             foreach(var human in LevelMapper.humans.ToList())

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 
@@ -11,6 +12,11 @@ namespace gravityProject
 {
     internal class GamePhysics
     {
+        private Player player;
+        public GamePhysics(Player player)
+        {
+            this.player = player;
+        }
         public void EnemyBoundaries(List<Enemy> enemies, List<EnemyCollider> enemyColliders)
         {
             foreach (var enemy in enemies)
@@ -36,7 +42,7 @@ namespace gravityProject
                 }
             }
         }
-        public void PlayerIntersectsWithGround(Player player, List<Ground> grounds, bool isFlipped)
+        public void PlayerIntersectsWithGround(List<Ground> grounds, bool isFlipped)
         {
             foreach (var platform in LevelMapper.platforms)
             {
@@ -63,7 +69,7 @@ namespace gravityProject
                 {
                     if (player.playerPos.Y <= ground.GroundPos.Y - 90)
                     {
-                     player.playerPos.Y = ground.GroundPos.Y -player.playerPos.Height;
+                        player.playerPos.Y = ground.GroundPos.Y - player.playerPos.Height;
                     }
                     else
                     {
@@ -89,7 +95,7 @@ namespace gravityProject
                 }
             }
         }
-        public void PlayerIntersectsWithTrap(Player player)
+        public void PlayerIntersectsWithTrap()
         {
             foreach (var trap in LevelMapper.traps)
             {
@@ -99,7 +105,32 @@ namespace gravityProject
                 }
             }
         }
-        public bool PlayerGravity(Player player)
+        public void PlayerIntersectWithHumans()
+        {
+            foreach (var human in LevelMapper.humans.ToList())
+            {
+                if (player.playerPos.Intersects(human.Position))
+                {
+                    if (Keyboard.GetState().IsKeyDown(Keys.E) && player.hasSyringe)
+                    {
+                        player.hasSyringe = false;
+                        LevelMapper.humans.Remove(human);
+                    }
+                }
+            }
+        }
+        public void EnemyIsDead()
+        {
+            foreach (var enemy in LevelMapper.enemies.ToList())
+            {
+                if (enemy.isDead)
+                    enemy.enemyPos.Y += 30;
+
+                if(enemy.enemyPos.Y < 800)
+                    LevelMapper.enemies.Remove(enemy);
+            }
+        }
+        public bool PlayerGravity()
         {
             player.playerPos.Y = player.playerPos.Y - player.playerVelocity;
             if (player.timePassed <= 1.8)
@@ -116,7 +147,7 @@ namespace gravityProject
             }
             return player.hasJump = true;
         }
-        public Color PlayerIntersectsWithEnemy(Player player, List<Enemy> enemies)
+        public Color PlayerIntersectsWithEnemy(List<Enemy> enemies)
         {
             foreach (var enemy in enemies.ToList())
             {
@@ -137,7 +168,7 @@ namespace gravityProject
                         }
 
                         if (enemy.Health <= 0)
-                            enemies.Remove(enemy);
+                            enemy.isDead = true;
                     }
                 }
                 else
@@ -148,7 +179,7 @@ namespace gravityProject
                 if (player.playerPos.Intersects(enemy.enemyPos))
                 {
                     enemy.isStopped = true;
-                    PlayerTakingDamage(player);
+                    PlayerTakingDamage();
                     if (player.playerPos.X > enemy.enemyPos.X)
                     {
                         enemy.enemyIsFlipped = false;
@@ -166,7 +197,7 @@ namespace gravityProject
             }
             return player.playerColor = Color.White;
         }
-        public void playerHealing(Player player)
+        public void playerHealing()
         {
             foreach (var inject in LevelMapper.injects.ToList())
             {
@@ -174,11 +205,12 @@ namespace gravityProject
                 {
                     player.playerHealth += 20;
                     player.playerColor = Color.Green;
+                    player.hasSyringe = true;
                     LevelMapper.injects.Remove(inject);
                 }
             }
         }
-        private void PlayerTakingDamage(Player player)
+        private void PlayerTakingDamage()
         {
             player.playerHealth -= 1;
             if (player.playerHealth == 0)
@@ -186,7 +218,7 @@ namespace gravityProject
                 player.isDead = true;
             }
         }
-        public void PlayerIntersectsWithChest(Player player)
+        public void PlayerIntersectsWithChest()
         {
             foreach (var chest in LevelMapper.chests)
             {
@@ -210,7 +242,7 @@ namespace gravityProject
                 }
             }
         }
-        public void playerIntersectsWithCoins(Player player, SoundEffect coinSound)
+        public void playerIntersectsWithCoins(SoundEffect coinSound)
         {
             foreach (var item in LevelMapper.Items.ToList())
             {

@@ -67,7 +67,7 @@ namespace gravityProject
         }
         protected override void LoadContent()
         {
-            GamePhysics = new GamePhysics();
+            GamePhysics = new GamePhysics(player);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             string[] map = level.LoadLevel(selectLevel);
             levelMapper.StartMapping(ground, map, enemies, Content, enemyColliders, player);
@@ -93,6 +93,7 @@ namespace gravityProject
             LevelMapper.chests.Clear();
             LevelMapper.Items.Clear();
             LevelMapper.injects.Clear();
+            LevelMapper.humans.Clear();
             lol = true;
         }
         protected override void Update(GameTime gameTime)
@@ -173,7 +174,7 @@ namespace gravityProject
                 }
 
                 //ANIMATIONS
-                GamePhysics.playerIntersectsWithCoins(player, coinSound);
+                GamePhysics.playerIntersectsWithCoins(coinSound);
                 animation.ChestAnimation(player ,waitingTime2, gameTime);
                 if (waitingTime > animateCounter2)
                 {
@@ -193,15 +194,16 @@ namespace gravityProject
                 if (player.hasJump == true)
                 {
                     player.timePassed -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    GamePhysics.PlayerGravity(player);
+                    GamePhysics.PlayerGravity();
                 }
-
-                GamePhysics.PlayerIntersectsWithChest(player);
-                GamePhysics.playerHealing(player);
-                GamePhysics.PlayerIntersectsWithTrap(player);
-                GamePhysics.PlayerIntersectsWithGround(player, ground, player.isFlipped);
-                GamePhysics.PlayerIntersectsWithEnemy(player, enemies);
+                GamePhysics.PlayerIntersectsWithChest();
+                GamePhysics.playerHealing();
+                GamePhysics.PlayerIntersectsWithTrap();
+                GamePhysics.PlayerIntersectsWithGround(ground, player.isFlipped);
+                GamePhysics.PlayerIntersectsWithEnemy(enemies);
                 GamePhysics.EnemyBoundaries(enemies, enemyColliders);
+                GamePhysics.PlayerIntersectWithHumans();
+                GamePhysics.EnemyIsDead();
                 //GamePhysics.playerHealing(player, items);
                 player.playerPos.Y += 4;
             }
@@ -257,12 +259,16 @@ namespace gravityProject
 
             //GAME DEGUGGING IS HERE 
 
-            _spriteBatch.DrawString(_font, "Player Position On X : " + player.playerPos.X, new Vector2(10, 20), color: Color.White);
-            _spriteBatch.DrawString(_font, "Ability To Jump : " + player.hasJump, new Vector2(10, 40), color: Color.White);
-            _spriteBatch.DrawString(_font, "Time Since Jumped : " + timePassed, new Vector2(10, 60), color: Color.White);
-            _spriteBatch.DrawString(_font, "Jump Counter : " + jumpConuter, new Vector2(10, 80), color: Color.White);
-            _spriteBatch.DrawString(_font, "Player Health : " + player.playerHealth, new Vector2(10, 140), color: Color.White);
-            _spriteBatch.DrawString(_font, numberOfcoins + "x", new Vector2(1470, 67), color: Color.Black, 0, new Vector2(0, 0), 2, 0, 0);
+            //_spriteBatch.DrawString(_font, "Player Position On X : " + player.playerPos.X, new Vector2(10, 20), color: Color.White);
+            //_spriteBatch.DrawString(_font, "Ability To Jump : " + player.hasJump, new Vector2(10, 40), color: Color.White);
+            //_spriteBatch.DrawString(_font, "Time Since Jumped : " + timePassed, new Vector2(10, 60), color: Color.White);
+            //_spriteBatch.DrawString(_font, "Jump Counter : " + jumpConuter, new Vector2(10, 80), color: Color.White);
+            //_spriteBatch.DrawString(_font, "Player Health : " + player.playerHealth, new Vector2(10, 140), color: Color.White);
+            //_spriteBatch.DrawString(_font, numberOfcoins + "x", new Vector2(1470, 67), color: Color.Black, 0, new Vector2(0, 0), 2, 0, 0);
+            //_spriteBatch.DrawString(_font, "Number Of Humans: " + LevelMapper.humans.Count(), new Vector2(1100, 10), color: Color.White);
+            if(player.hasSyringe)
+                _spriteBatch.Draw(Content.Load<Texture2D>("Health"), new Rectangle(10, 10, 140, 140), color: Color.White);
+
 
             for (int i = 0; i < ground.Count; i++)
                 _spriteBatch.Draw(ground[i].groundTexture, new Vector2(ground[i].GroundPos.X - 38, ground[i].GroundPos.Y - 35), Color.White);
@@ -270,6 +276,18 @@ namespace gravityProject
             foreach(var item in LevelMapper.Items.ToList())
                 if(item != null)
                 _spriteBatch.Draw(item.texture, new Vector2(item.position.X - 35, item.position.Y - 35), Color.White);
+
+
+            foreach (var human in LevelMapper.humans)
+            {
+                if (player.playerPos.Intersects(human.Position))
+                {
+                    if(!player.hasSyringe)
+                    _spriteBatch.DrawString(_font, "Syringe Needed!", new Vector2(human.Position.X-40, human.Position.Y - 20), color: Color.Yellow);
+                    else
+                        _spriteBatch.DrawString(_font, "Press 'E' To Heal!", new Vector2(human.Position.X - 40, human.Position.Y - 20), color: Color.Yellow);
+                }
+            }
 
 
             foreach (var chest in LevelMapper.chests)
