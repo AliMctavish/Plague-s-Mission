@@ -103,9 +103,20 @@ namespace gravityProject
                 player.PlayerAnimationCounter = 1;
             }
         }
+
+        public void HumanAnimation()
+        {
+            foreach(var human in LevelMapper.humans.ToList())
+            {
+                human.Texture = Globals.Content.Load<Texture2D>($"sick{human.animationCounter}");
+                human.animationCounter++;
+                if(human.animationCounter == 8 ) { human.animationCounter = 1; }
+            }
+        }
         public void PlayerHitAnimation()
         {
             //foreach()
         }
+
     }
 }

@@ -12,6 +12,7 @@ namespace gravityProject
         public static List<Items> Items = new List<Items>();
         public static List<Inject> injects = new List<Inject>();
         public static List<Platform> platforms = new List<Platform>();  
+        public static List<Human> humans = new List<Human>();
         public void StartMapping(List <Ground> grounds , string[] map ,List<Enemy> enemies , ContentManager Content , List<EnemyCollider> enemyColliders , Player player)
         {
             for (int i = 0; i < map.Length; i++)
@@ -102,6 +103,13 @@ namespace gravityProject
                         var enemyCollider = new EnemyCollider();
                         enemyCollider.ColliderPos = new Rectangle(64 * j, i * 64, 60, 60);
                         enemyColliders.Add(enemyCollider);
+                    }
+                    if (map[i][j] == 'h')
+                    {
+                        var human = new Human();    
+                        human.Position = new Rectangle(64 * j, i * 64, 60, 60);
+                        human.Texture = Content.Load<Texture2D>("sick1");
+                        humans.Add(human);
                     }
                 }
             }

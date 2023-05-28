@@ -183,6 +183,7 @@ namespace gravityProject
                     animation.injectAnimation(gameTime);
                     animation.itemsAnimation(Content);
                     animation.enemyAnimation(enemies, Content);
+                    animation.HumanAnimation();
                     animation.playerAnimationIdle(player, Content);
                     animateCounter2 += 0.1f;
                 }
@@ -291,6 +292,9 @@ namespace gravityProject
 
             foreach(var platform in LevelMapper.platforms.ToList())
                 _spriteBatch.Draw(platform.texture, new Rectangle(platform.position.X - 80, platform.position.Y - 40,140,64), Color.White);
+
+            foreach(var human in LevelMapper.humans.ToList())
+                _spriteBatch.Draw(human.Texture, new Rectangle(human.Position.X - 80, human.Position.Y + 10, 70, 75), Color.White);
 
             //WATCH OUT ! DIRTY CODE A HEAD....
             //RENDERING ENEMIES WITH FLIPING ANIMATION

@@ -70,11 +70,27 @@
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/Health.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/HealthBar.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/playerCharacter.png</File>
+    <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/sick1.png</File>
+    <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/sick2.png</File>
+    <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/sick3.png</File>
+    <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/sick4.png</File>
+    <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/sick5.png</File>
+    <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/sick6.png</File>
+    <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/sick7.png</File>
+    <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/sick8.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/sky-export.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/sound.wav</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/trap-export.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
