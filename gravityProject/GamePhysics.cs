@@ -10,14 +10,14 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace gravityProject
 {
-    internal class GamePhysics
+    public class GamePhysics
     {
         private Player player;
         public GamePhysics(Player player)
         {
             this.player = player;
         }
-        public void EnemyBoundaries(List<Enemy> enemies, List<EnemyCollider> enemyColliders)
+        public void EnemyBoundaries(List<Enemy> enemies,List<EnemyCollider> enemyColliders)
         {
             foreach (var enemy in enemies)
             {
@@ -119,12 +119,12 @@ namespace gravityProject
                 }
             }
         }
-        public void EnemyIsDead()
+        public void EnemyIsDead(List<Enemy> enemies)
         {
-            foreach (var enemy in LevelMapper.enemies.ToList())
+            foreach (var enemy in enemies)
             {
                 if (enemy.isDead)
-                    enemy.enemyPos.Y += 30;
+                    enemy.enemyPos.Y += 10;
 
                 if(enemy.enemyPos.Y < 800)
                     LevelMapper.enemies.Remove(enemy);
@@ -201,7 +201,7 @@ namespace gravityProject
         {
             foreach (var inject in LevelMapper.injects.ToList())
             {
-                if (player.playerPos.Intersects(inject.position))
+                if (player.playerPos.Intersects(inject.position) && !player.hasSyringe)
                 {
                     player.playerHealth += 20;
                     player.playerColor = Color.Green;
@@ -248,6 +248,9 @@ namespace gravityProject
             {
                 if (player.playerPos.Intersects(item.position))
                 {
+                    Effects effect = new Effects();
+                    effect.CoinEffect(item.position.X, item.position.Y);
+                    LevelMapper.effects.Add(effect);
                     LevelMapper.Items.Remove(item);
                     coinSound.Play();
                     Game1.numberOfcoins++;

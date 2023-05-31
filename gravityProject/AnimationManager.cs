@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace gravityProject
 {
-    internal class AnimationManager
+    public class AnimationManager
     {
         public static float counte = 1;
 

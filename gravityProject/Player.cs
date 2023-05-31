@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace gravityProject
 {
-    internal class Player 
+    public class Player 
     {
         public Texture2D playerTexture;
 

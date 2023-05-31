@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace gravityProject
 {
-    internal class Ground 
+    public class Ground 
     {
         public Rectangle GroundPos;
         public Texture2D groundTexture = null;

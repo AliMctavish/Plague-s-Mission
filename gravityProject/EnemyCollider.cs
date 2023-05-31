@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace gravityProject
 {
-    internal class EnemyCollider
+    public class EnemyCollider
     {
         public Rectangle ColliderPos;
     }
