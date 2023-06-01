@@ -17,7 +17,7 @@ namespace gravityProject
         {
             this.player = player;
         }
-        public void EnemyBoundaries(List<Enemy> enemies,List<EnemyCollider> enemyColliders)
+        public void EnemyBoundaries(List<Enemy> enemies, List<EnemyCollider> enemyColliders)
         {
             foreach (var enemy in enemies)
             {
@@ -126,7 +126,7 @@ namespace gravityProject
                 if (enemy.isDead)
                     enemy.enemyPos.Y += 10;
 
-                if(enemy.enemyPos.Y < 800)
+                if (enemy.enemyPos.Y < 800)
                     LevelMapper.enemies.Remove(enemy);
             }
         }
@@ -234,6 +234,7 @@ namespace gravityProject
                             item.position =
                                 new Rectangle(chest.position.X + 20, chest.position.Y, 40, 40);
                             item.texture = Globals.Content.Load<Texture2D>("coin1");
+
                             LevelMapper.Items.Add(item);
                             Chest.chestSound.Play();
                             chest.soundPlayed = true;

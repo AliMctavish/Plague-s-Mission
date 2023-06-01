@@ -98,6 +98,7 @@ namespace gravityProject
             LevelMapper.Items.Clear();
             LevelMapper.injects.Clear();
             LevelMapper.humans.Clear();
+            LevelMapper.platforms.Clear();
             player.hasSyringe = false;
             lol = true;
         }
@@ -106,15 +107,20 @@ namespace gravityProject
             if (Keyboard.GetState().IsKeyDown(Keys.R))
                 ClearGame(selectLevel);
 
-            if (player.playerPos.X > _graphics.PreferredBackBufferWidth)
+            if (player.playerPos.X > _graphics.PreferredBackBufferWidth - 30)
             {
+                if(LevelMapper.humans.Count() <= 0)
+                {
                 selectLevel++;
                 ClearGame(null);
+                }
+                else
+                    player.playerPos.X -= 6;
             }
-            if (player.playerPos.X < -10)
+           
+            if (player.playerPos.X < 10)
             {
-                selectLevel--;
-                ClearGame(null);
+                player.playerPos.X += 6;
             }
 
             if (lol == true)
@@ -261,7 +267,8 @@ namespace gravityProject
             _spriteBatch.DrawString(_font, "Number Of Humans: " + LevelMapper.humans.Count(), new Vector2(1100, 10), color: Color.White);
             if (player.hasSyringe)
                 _spriteBatch.Draw(Content.Load<Texture2D>("Health"), new Rectangle(10, 10, 140, 140), color: Color.White);
-
+            if(player.playerPos.X > 1500 && LevelMapper.humans.Count > 0)
+                _spriteBatch.DrawString(_font, "You Should Heal All Of The Humans To Pass !", new Vector2(1150, 140),color: Color.White);
 
             for (int i = 0; i < ground.Count; i++)
                 _spriteBatch.Draw(ground[i].groundTexture, new Vector2(ground[i].GroundPos.X - 38, ground[i].GroundPos.Y - 35), Color.White);

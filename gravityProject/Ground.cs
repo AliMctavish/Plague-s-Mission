@@ -20,11 +20,5 @@ namespace gravityProject
         {
             this.GroundPos = new Rectangle(posX, posY, 50 ,64);
         }
-        public Rectangle Walls(int posX , int posY)
-        {
-            groundWall = new Rectangle(posX, posY, 64, 64);
-
-            return groundWall;
-        }
     }
 }

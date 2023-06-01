@@ -74,7 +74,7 @@ namespace gravityProject
                     if (map[i][j] == '-')
                     {
                         var platform = new Platform();
-                        platform.position = new Rectangle(64 * j, i * 64 + 50, 140,60);
+                        platform.position = new Rectangle(64 * j, i * 64 + 100 , 140,60);
                         platform.texture = Content.Load<Texture2D>("ground1");
                         platforms.Add(platform);
                     }

@@ -14,6 +14,5 @@ namespace gravityProject
         public Rectangle Position { get; set; }
         public int Healing = 0;
         public int animationCounter = 1;
-
     }
 }
