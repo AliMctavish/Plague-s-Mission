@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace gravityProject
 {
@@ -36,6 +37,24 @@ namespace gravityProject
         public bool isFlipped = false;
 
         public bool hasSyringe = false;
+        public void Update()
+        {
+            if (playerPos.X > Globals._graphics.PreferredBackBufferWidth - 30)
+            {
+                if (LevelMapper.humans.Count() <= 0)
+                {
+                    //selectLevel++;
+                    //ClearGame(null);
+                }
+                else
+                    playerPos.X -= 6;
+            }
+
+            if (playerPos.X < 10)
+            {
+                playerPos.X += 6;
+            }
+        }
 
 
         public void Draw(int flipState)

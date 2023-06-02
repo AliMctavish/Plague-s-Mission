@@ -20,23 +20,23 @@ namespace gravityProject
             _animationManager = animationManager;
         }
 
-        public void PhysicsService(List<Enemy> enemies, List<Ground> ground, Player player, List<EnemyCollider> enemyColliders, SoundEffect coinSound)
+        public void PhysicsService(List<Ground> ground, Player player, List<EnemyCollider> enemyColliders, SoundEffect coinSound)
         {
             _gamePhysics.playerIntersectsWithCoins(coinSound);
             _gamePhysics.PlayerIntersectsWithChest();
             _gamePhysics.playerHealing();
             _gamePhysics.PlayerIntersectsWithTrap();
             _gamePhysics.PlayerIntersectsWithGround(ground, player.isFlipped);
-            _gamePhysics.PlayerIntersectsWithEnemy(enemies);
-            _gamePhysics.EnemyBoundaries(enemies, enemyColliders);
+            _gamePhysics.PlayerIntersectsWithEnemy();
+            _gamePhysics.EnemyBoundaries(enemyColliders);
             _gamePhysics.PlayerIntersectWithHumans();
-            _gamePhysics.EnemyIsDead(enemies);
+            _gamePhysics.EnemyIsDead();
         }
 
-        public void AnimationService(List<Enemy> enemies , Player player , GameTime gameTime)
+        public void AnimationService(Player player , GameTime gameTime)
         {
-            _animationManager.itemsAnimation(Globals.Content);
-            _animationManager.enemyAnimation(enemies, Globals.Content);
+            _animationManager.itemsAnimation();
+            _animationManager.enemyAnimation();
             _animationManager.HumanAnimation();
             _animationManager.playerAnimationIdle(player, Globals.Content);
             _animationManager.injectAnimation(gameTime);

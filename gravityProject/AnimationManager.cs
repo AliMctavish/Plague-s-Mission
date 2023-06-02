@@ -12,15 +12,15 @@ namespace gravityProject
     {
         public static float counte = 1;
 
-        public void itemsAnimation(ContentManager Content)
+        public void itemsAnimation()
         {
             foreach (var item in LevelMapper.Items)
             {
-                item.texture = Content.Load<Texture2D>($"coin{item.CoinCounter}");
+                item.texture = Globals.Content.Load<Texture2D>($"coin{item.CoinCounter}");
 
                 if (item.CoinCounter == 11)
                 {
-                    item.texture = Content.Load<Texture2D>("coin11");
+                    item.texture = Globals.Content.Load<Texture2D>("coin11");
                     item.CoinCounter = 1;
                 }
                 item.CoinCounter += 1;
@@ -44,26 +44,26 @@ namespace gravityProject
             if(counte > 10000)
                 counte = 1;
         }
-        public void enemyAnimation(List<Enemy> enemies, ContentManager Content)
+        public void enemyAnimation()
         {
-            foreach (var enemy in enemies)
+            foreach (var enemy in LevelMapper.enemies)
             {
                 if (!enemy.isStopped)
                 {
-                    enemy.enemyTexture = Content.Load<Texture2D>($"EnemyMoving{enemy.counter}");
+                    enemy.enemyTexture = Globals.Content.Load<Texture2D>($"EnemyMoving{enemy.counter}");
                     if (enemy.counter == 4)
                     {
-                        enemy.enemyTexture = Content.Load<Texture2D>("EnemyMoving4");
+                        enemy.enemyTexture = Globals.Content.Load<Texture2D>("EnemyMoving4");
                         enemy.counter = 1;
                     }
                     enemy.counter += 1;
                 }
                 else
                 {
-                    enemy.enemyTexture = Content.Load<Texture2D>($"animations/EnemyAttack{enemy.attackCounter}");
+                    enemy.enemyTexture = Globals.Content.Load<Texture2D>($"animations/EnemyAttack{enemy.attackCounter}");
                     if (enemy.attackCounter == 6)
                     {
-                        enemy.enemyTexture = Content.Load<Texture2D>("animations/EnemyAttack1");
+                        enemy.enemyTexture = Globals.Content.Load<Texture2D>("animations/EnemyAttack1");
                         enemy.attackCounter = 1;
                     }
                     enemy.attackCounter += 1;
@@ -107,7 +107,7 @@ namespace gravityProject
         {
             foreach(var human in LevelMapper.humans.ToList())
             {
-                human.Texture = Globals.Content.Load<Texture2D>($"sick{human.animationCounter}");
+                human.texture = Globals.Content.Load<Texture2D>($"sick{human.animationCounter}");
                 human.animationCounter++;
                 if(human.animationCounter == 8 ) { human.animationCounter = 1; }
             }

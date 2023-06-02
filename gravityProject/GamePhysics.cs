@@ -17,9 +17,9 @@ namespace gravityProject
         {
             this.player = player;
         }
-        public void EnemyBoundaries(List<Enemy> enemies, List<EnemyCollider> enemyColliders)
+        public void EnemyBoundaries(List<EnemyCollider> enemyColliders)
         {
-            foreach (var enemy in enemies)
+            foreach (var enemy in LevelMapper.enemies.ToList())
             {
                 if (!enemy.isStopped)
                 {
@@ -109,7 +109,7 @@ namespace gravityProject
         {
             foreach (var human in LevelMapper.humans.ToList())
             {
-                if (player.playerPos.Intersects(human.Position))
+                if (player.playerPos.Intersects(human.position))
                 {
                     if (Keyboard.GetState().IsKeyDown(Keys.E) && player.hasSyringe)
                     {
@@ -119,9 +119,9 @@ namespace gravityProject
                 }
             }
         }
-        public void EnemyIsDead(List<Enemy> enemies)
+        public void EnemyIsDead()
         {
-            foreach (var enemy in enemies)
+            foreach (var enemy in LevelMapper.enemies.ToList())
             {
                 if (enemy.isDead)
                     enemy.enemyPos.Y += 10;
@@ -147,9 +147,9 @@ namespace gravityProject
             }
             return player.hasJump = true;
         }
-        public Color PlayerIntersectsWithEnemy(List<Enemy> enemies)
+        public Color PlayerIntersectsWithEnemy()
         {
-            foreach (var enemy in enemies.ToList())
+            foreach (var enemy in LevelMapper.enemies.ToList())
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.RightControl))
                 {

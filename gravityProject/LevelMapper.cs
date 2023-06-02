@@ -15,7 +15,8 @@ namespace gravityProject
         public static List<Human> humans = new List<Human>();
         public static List<Enemy> enemies = new List<Enemy>();
         public static List<Effects> effects = new List<Effects>();  
-        public void StartMapping(List <Ground> grounds , string[] map ,List<Enemy> enemies , ContentManager Content , List<EnemyCollider> enemyColliders , Player player)
+        public static List<Ground> grounds = new List<Ground>();
+        public void StartMapping(string[] map ,ContentManager Content , List<EnemyCollider> enemyColliders , Player player)
         {
             for (int i = 0; i < map.Length; i++)
             {
@@ -98,7 +99,6 @@ namespace gravityProject
                         enemy.enemyPos = new Rectangle(64 * j, i * 64, 61, 75);
                         enemy.enemyTexture = Content.Load<Texture2D>("EnemyMoving1");
                         enemies.Add(enemy);
-                      
                     }
                     if (map[i][j] == '|')
                     {
@@ -109,8 +109,8 @@ namespace gravityProject
                     if (map[i][j] == 'h')
                     {
                         var human = new Human();    
-                        human.Position = new Rectangle(64 * j, i * 64, 60, 60);
-                        human.Texture = Content.Load<Texture2D>("sick1");
+                        human.position = new Rectangle(64 * j, i * 64, 60, 60);
+                        human.texture = Content.Load<Texture2D>("sick1");
                         humans.Add(human);
                     }
                 }

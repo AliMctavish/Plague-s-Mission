@@ -20,5 +20,9 @@ namespace gravityProject
         {
             this.GroundPos = new Rectangle(posX, posY, 50 ,64);
         }
+        public void Draw()
+        {
+            Globals.spriteBatch.Draw(groundTexture, new Vector2(GroundPos.X - 38,GroundPos.Y - 35), Color.White);
+        }
     }
 }

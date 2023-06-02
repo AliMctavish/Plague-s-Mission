@@ -22,7 +22,7 @@ namespace gravityProject
         public int ChestCounter = 1;
 
 
-        public void Draw()
+        public virtual void Draw()
         {
             Globals.spriteBatch.Draw(texture, new Vector2(position.X - 35,position.Y - 35), Color.White);
         }
@@ -31,6 +31,10 @@ namespace gravityProject
     class Inject : Items
     {
 
+        public override void Draw()
+        {
+            Globals.spriteBatch.Draw(texture, new Vector2(position.X, position.Y - 45), Color.White);
+        }
 
     }
     class Chest : Items
@@ -42,9 +46,9 @@ namespace gravityProject
         public static SoundEffect chestSound = Globals.Content.Load<SoundEffect>("sound");
 
 
-        public void Update()
+        public override void Draw()
         {
-
+            Globals.spriteBatch.Draw(texture, new Vector2(position.X - 35, position.Y - 20), Color.White);
         }
     }
     class Trap : Items
@@ -52,6 +56,15 @@ namespace gravityProject
         public void Draw()
         {
             Globals.spriteBatch.Draw(texture, new Vector2(position.X, position.Y - 45), Color.White);
+        }
+    }
+
+
+    public class Platform : Items
+    {
+        public void Draw()
+        {
+            Globals.spriteBatch.Draw(texture, new Rectangle(position.X - 80, position.Y - 40, 140, 64), Color.White);
         }
     }
 }
