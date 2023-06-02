@@ -20,7 +20,14 @@ namespace gravityProject
         public int injectCounter = 1;
         public int CoinCounter = 1;
         public int ChestCounter = 1;
+
+
+        public void Draw()
+        {
+            Globals.spriteBatch.Draw(texture, new Vector2(position.X - 35,position.Y - 35), Color.White);
+        }
     }
+
     class Inject : Items
     {
 
@@ -33,10 +40,18 @@ namespace gravityProject
         public int animationCounter = 1;
         public float animateCounter = 0.1f;
         public static SoundEffect chestSound = Globals.Content.Load<SoundEffect>("sound");
+
+
+        public void Update()
+        {
+
+        }
     }
     class Trap : Items
     {
-
-
+        public void Draw()
+        {
+            Globals.spriteBatch.Draw(texture, new Vector2(position.X, position.Y - 45), Color.White);
+        }
     }
 }

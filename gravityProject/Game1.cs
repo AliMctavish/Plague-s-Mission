@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace gravityProject
 {
@@ -14,7 +15,6 @@ namespace gravityProject
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
-        private Texture2D HealthBar;
         private Texture2D coinCounter;
         private LevelMapper levelMapper = new LevelMapper();
         private List<Ground> ground;
@@ -52,9 +52,9 @@ namespace gravityProject
         {
             Globals.Content = Content;
             level = new Maps();
-            HealthBar = Content.Load<Texture2D>("HealthBar");
             coinCounter = Content.Load<Texture2D>("coin1");
             player = new Player();
+            player.HealthBar = Content.Load<Texture2D>("HealthBar");
             items = new List<Items>();
             ground = new List<Ground>();
             enemies = new List<Enemy>();
@@ -73,6 +73,7 @@ namespace gravityProject
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
             string[] map = level.LoadLevel(selectLevel);
             levelMapper.StartMapping(ground, map, enemies, Content, enemyColliders, player);
             // TODO: use this.Content to load your game content here
@@ -214,46 +215,28 @@ namespace gravityProject
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
+            Globals.spriteBatch.Begin();
 
             _spriteBatch.Draw(backgroundColor, new Rectangle(0, 0, 1600, 900), Color.White);
             if (!player.isFlipped)
             {
-                _spriteBatch.Draw(player.playerTexture, new Rectangle(player.playerPos.X - 34, player.playerPos.Y - 34, player.playerPos.Width, player.playerPos.Height), null, player.playerColor, 0, Vector2.Zero, SpriteEffects.None, 0);
+                player.Draw(0);
                 if (Keyboard.GetState().IsKeyDown(Keys.A))
-                {
                     player.isFlipped = true;
-                }
             }
             else
             {
-                _spriteBatch.Draw(player.playerTexture, new Rectangle(player.playerPos.X - 34, player.playerPos.Y - 34, player.playerPos.Width, player.playerPos.Height), null, player.playerColor, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+                player.Draw(1);
                 if (Keyboard.GetState().IsKeyDown(Keys.D))
-                {
                     player.isFlipped = false;
-                }
             }
             //Game Debugging Is Here
             _spriteBatch.DrawString(_font, "Player Position On Y : " + player.playerPos.Y, new Vector2(10, 0), color: Color.White);
 
-            for (int i = 0; i < player.playerHealth; i++)
-            {
-                if (i == 80)
-                {
-                    _spriteBatch.Draw(HealthBar, new Rectangle(1400, 10, 40, 40), color: Color.White);
-                }
-                if (i == 60)
-                {
-                    _spriteBatch.Draw(HealthBar, new Rectangle(1440, 10, 40, 40), color: Color.White);
-                }
-                if (i == 20)
-                {
-                    _spriteBatch.Draw(HealthBar, new Rectangle(1480, 10, 40, 40), color: Color.White);
-                }
-                if (i == 5)
-                {
-                    _spriteBatch.Draw(HealthBar, new Rectangle(1520, 10, 40, 40), color: Color.White);
-                }
-            }
+            //LOAD PLAYER HEALTH BAR
+            player.DrawHealthBar();
+
+            
             _spriteBatch.Draw(coinCounter, new Rectangle(1510, 50, 70, 70), color: Color.White);
 
             //GAME DEGUGGING IS HERE 
@@ -268,25 +251,22 @@ namespace gravityProject
             if (player.hasSyringe)
                 _spriteBatch.Draw(Content.Load<Texture2D>("Health"), new Rectangle(10, 10, 140, 140), color: Color.White);
             if(player.playerPos.X > 1500 && LevelMapper.humans.Count > 0)
-                _spriteBatch.DrawString(_font, "You Should Heal All Of The Humans To Pass !", new Vector2(1150, 140),color: Color.White);
+                _spriteBatch.DrawString(_font, "You Should Cure All Of The Humans To Pass !", new Vector2(1150, 140),color: Color.White);
 
             for (int i = 0; i < ground.Count; i++)
                 _spriteBatch.Draw(ground[i].groundTexture, new Vector2(ground[i].GroundPos.X - 38, ground[i].GroundPos.Y - 35), Color.White);
 
             foreach (var item in LevelMapper.Items.ToList())
-                if (item != null)
-                    _spriteBatch.Draw(item.texture, new Vector2(item.position.X - 35, item.position.Y - 35), Color.White);
+                    item.Draw();
 
             foreach (Effects effect in LevelMapper.effects.ToList())
             {
                 _spriteBatch.DrawString(_font, "100", new Vector2(effect.position.X, effect.position.Y -= 3), color: Color.Yellow);
-
                 
                 if (effect.position.Y < effect.origin.Y - 100)
                     LevelMapper.effects.Remove(effect);
 
             }
-
 
             foreach (var human in LevelMapper.humans)
             {
@@ -313,7 +293,7 @@ namespace gravityProject
             //LOOPING ON OBJECTS TO RENDER ON WINDOW
 
             foreach (var trap in LevelMapper.traps)
-                _spriteBatch.Draw(trap.texture, new Vector2(trap.position.X, trap.position.Y - 45), Color.White);
+                trap.Draw();
 
             foreach (var inject in LevelMapper.injects)
                 _spriteBatch.Draw(inject.texture, new Vector2(inject.position.X, inject.position.Y - 45), Color.White);
@@ -343,6 +323,7 @@ namespace gravityProject
                 }
             }
             _spriteBatch.End();
+            Globals.spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
