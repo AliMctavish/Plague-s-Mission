@@ -33,9 +33,8 @@ namespace gravityProject
                 }
 
                 if(player.isClimbing)
-                player.playerPos = new Rectangle(ladder.position.X, player.playerPos.Y - 5, player.playerPos.Width, player.playerPos.Height);
+                player.playerPos = new Rectangle(ladder.position.X - 10, player.playerPos.Y - 5, player.playerPos.Width, player.playerPos.Height);
             }
-
         }
 
         public void EnemyBoundaries(List<EnemyCollider> enemyColliders)
@@ -96,14 +95,14 @@ namespace gravityProject
                     {
                         if (isFlipped)
                         {
-                            if (player.playerPos.Y <= ground.GroundPos.Y)
+                            if (player.playerPos.Y <= ground.GroundPos.Y && player.playerPos.X > ground.GroundPos.X - 45)
                             {
                                 player.playerPos.X = ground.GroundPos.X + player.playerPos.Width - 24;
                             }
                         }
                         else
                         {
-                            if (player.playerPos.Y <= ground.GroundPos.Y)
+                            if (player.playerPos.Y <= ground.GroundPos.Y && player.playerPos.X < ground.GroundPos.X + 45)
                             {
                                 player.playerPos.X = ground.GroundPos.X - player.playerPos.Width - 10;
                             }

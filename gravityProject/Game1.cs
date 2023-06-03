@@ -84,6 +84,7 @@ namespace gravityProject
             LevelMapper.injects.Clear();
             LevelMapper.humans.Clear();
             LevelMapper.platforms.Clear();
+            LevelMapper.ladders.Clear();
             player.hasSyringe = false;
             lol = true;
         }
