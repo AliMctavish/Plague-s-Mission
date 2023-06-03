@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -56,9 +57,14 @@ namespace gravityProject
             coinSound = Content.Load<SoundEffect>("coinSound");
             player.playerPos = new Rectangle(500, 200, 76, 98);
             base.Initialize();
+
+
+
+
         }
         protected override void LoadContent()
         {
+
             Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
             string[] map = level.LoadLevel(selectLevel);
             levelMapper.StartMapping(map, Content, enemyColliders, player);
@@ -91,9 +97,22 @@ namespace gravityProject
         {
             if (Keyboard.GetState().IsKeyDown(Keys.R))
                 ClearGame(selectLevel);
+            if (player.playerPos.X > Globals._graphics.PreferredBackBufferWidth - 30)
+            {
+                if (LevelMapper.humans.Count() <= 0)
+                {
+                    selectLevel++;
+                    ClearGame(null);
+                }
+                else
+                    player.playerPos.X -= 6;
+            }
 
+            if (player.playerPos.X < 10)
+            {
+                player.playerPos.X += 6;
+            }
 
-            player.Update();
 
             if (lol == true)
             {
@@ -261,6 +280,7 @@ namespace gravityProject
                 chest.Draw();
             }
             //LOOPING ON OBJECTS TO RENDER ON WINDOW
+
             Globals.DrawObjects();
 
             Globals.spriteBatch.End();

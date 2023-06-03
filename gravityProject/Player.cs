@@ -39,21 +39,7 @@ namespace gravityProject
         public bool hasSyringe = false;
         public void Update()
         {
-            if (playerPos.X > Globals._graphics.PreferredBackBufferWidth - 30)
-            {
-                if (LevelMapper.humans.Count() <= 0)
-                {
-                    //selectLevel++;
-                    //ClearGame(null);
-                }
-                else
-                    playerPos.X -= 6;
-            }
-
-            if (playerPos.X < 10)
-            {
-                playerPos.X += 6;
-            }
+            
         }
 
 

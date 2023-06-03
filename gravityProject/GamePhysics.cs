@@ -119,17 +119,7 @@ namespace gravityProject
                 }
             }
         }
-        public void EnemyIsDead()
-        {
-            foreach (var enemy in LevelMapper.enemies.ToList())
-            {
-                if (enemy.isDead)
-                    enemy.enemyPos.Y += 10;
 
-                if (enemy.enemyPos.Y < 800)
-                    LevelMapper.enemies.Remove(enemy);
-            }
-        }
         public bool PlayerGravity()
         {
             player.playerPos.Y = player.playerPos.Y - player.playerVelocity;
@@ -146,6 +136,14 @@ namespace gravityProject
                 //player.hasJump = false;
             }
             return player.hasJump = true;
+        }
+        public void EnemyIsDead(Enemy enemy)
+        {
+            if (enemy.isDead)
+                enemy.enemyPos.Y += 10;
+
+            if (enemy.enemyPos.Y > 800)
+                LevelMapper.enemies.Remove(enemy);
         }
         public Color PlayerIntersectsWithEnemy()
         {
@@ -168,13 +166,18 @@ namespace gravityProject
                         }
 
                         if (enemy.Health <= 0)
+                        {
                             enemy.isDead = true;
+                        }
                     }
                 }
                 else
                 {
                     enemy.Color = Color.White;
                 }
+
+                if (enemy.isDead)
+                    EnemyIsDead(enemy);
 
                 if (player.playerPos.Intersects(enemy.enemyPos))
                 {
