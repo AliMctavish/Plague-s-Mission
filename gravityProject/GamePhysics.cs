@@ -17,6 +17,27 @@ namespace gravityProject
         {
             this.player = player;
         }
+
+        public void ClimbLadder()
+        {
+            foreach(var ladder in LevelMapper.ladders.ToList())
+            {
+                if (player.playerPos.Intersects(ladder.position))
+                {
+                    if (Keyboard.GetState().IsKeyDown(Keys.E))
+                        player.isClimbing = true;
+                }
+                else
+                {
+                    player.isClimbing = false;
+                }
+
+                if(player.isClimbing)
+                player.playerPos = new Rectangle(ladder.position.X, player.playerPos.Y - 5, player.playerPos.Width, player.playerPos.Height);
+            }
+
+        }
+
         public void EnemyBoundaries(List<EnemyCollider> enemyColliders)
         {
             foreach (var enemy in LevelMapper.enemies.ToList())

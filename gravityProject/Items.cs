@@ -24,13 +24,11 @@ namespace gravityProject
 
         public virtual void Draw()
         {
-            Globals.spriteBatch.Draw(texture, new Vector2(position.X - 35,position.Y - 35), Color.White);
+            Globals.spriteBatch.Draw(texture, new Vector2(position.X - 35, position.Y - 35), Color.White);
         }
     }
-
     class Inject : Items
     {
-
         public override void Draw()
         {
             Globals.spriteBatch.Draw(texture, new Vector2(position.X, position.Y - 45), Color.White);
@@ -65,6 +63,14 @@ namespace gravityProject
         public void Draw()
         {
             Globals.spriteBatch.Draw(texture, new Rectangle(position.X - 80, position.Y - 40, 140, 64), Color.White);
+        }
+    }
+
+    public class Ladder : Items
+    {
+        public void Draw()
+        {
+            Globals.spriteBatch.Draw(texture, new Rectangle(position.X - 35, position.Y + 10, 47, 72), Color.White);
         }
     }
 }

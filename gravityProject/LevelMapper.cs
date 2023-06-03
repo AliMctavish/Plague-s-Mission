@@ -16,6 +16,7 @@ namespace gravityProject
         public static List<Enemy> enemies = new List<Enemy>();
         public static List<Effects> effects = new List<Effects>();  
         public static List<Ground> grounds = new List<Ground>();
+        public static List<Ladder> ladders = new List<Ladder>();
         public void StartMapping(string[] map ,ContentManager Content , List<EnemyCollider> enemyColliders , Player player)
         {
             for (int i = 0; i < map.Length; i++)
@@ -112,6 +113,13 @@ namespace gravityProject
                         human.position = new Rectangle(64 * j, i * 64, 60, 60);
                         human.texture = Content.Load<Texture2D>("sick1");
                         humans.Add(human);
+                    }
+                    if (map[i][j] == 'H')
+                    {
+                        var ladder = new Ladder();
+                        ladder.position = new Rectangle(64 * j , i * 64, 60, 60);
+                        ladder.texture = Content.Load<Texture2D>("Ladder");
+                        ladders.Add(ladder);    
                     }
                 }
             }

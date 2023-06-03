@@ -30,6 +30,7 @@ namespace gravityProject
             _gamePhysics.PlayerIntersectsWithEnemy();
             _gamePhysics.EnemyBoundaries(enemyColliders);
             _gamePhysics.PlayerIntersectWithHumans();
+            _gamePhysics.ClimbLadder();
         }
 
         public void AnimationService(Player player , GameTime gameTime)

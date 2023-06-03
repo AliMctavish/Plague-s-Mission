@@ -69,6 +69,7 @@
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/half-life.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/Health.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/HealthBar.png</File>
+    <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/Ladder.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/playerCharacter.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/sick1.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/sick2.png</File>
@@ -83,6 +84,7 @@
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/trap-export.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

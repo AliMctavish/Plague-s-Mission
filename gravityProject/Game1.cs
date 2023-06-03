@@ -10,7 +10,6 @@ namespace gravityProject
 {
     public class Game1 : Game
     {
-        private SpriteBatch _spriteBatch;
         private SpriteFont _font;
         private Texture2D coinCounter;
         private LevelMapper levelMapper = new LevelMapper();
@@ -57,14 +56,9 @@ namespace gravityProject
             coinSound = Content.Load<SoundEffect>("coinSound");
             player.playerPos = new Rectangle(500, 200, 76, 98);
             base.Initialize();
-
-
-
-
         }
         protected override void LoadContent()
         {
-
             Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
             string[] map = level.LoadLevel(selectLevel);
             levelMapper.StartMapping(map, Content, enemyColliders, player);
@@ -206,18 +200,7 @@ namespace gravityProject
             Globals.spriteBatch.Begin();
 
             Globals.spriteBatch.Draw(backgroundColor, new Rectangle(0, 0, 1600, 900), Color.White);
-            if (!player.isFlipped)
-            {
-                player.Draw(0);
-                if (Keyboard.GetState().IsKeyDown(Keys.A))
-                    player.isFlipped = true;
-            }
-            else
-            {
-                player.Draw(1);
-                if (Keyboard.GetState().IsKeyDown(Keys.D))
-                    player.isFlipped = false;
-            }
+            
             //Game Debugging Is Here
             Globals.spriteBatch.DrawString(_font, "Player Position On Y : " + player.playerPos.Y, new Vector2(10, 0), color: Color.White);
 
@@ -281,7 +264,7 @@ namespace gravityProject
             }
             //LOOPING ON OBJECTS TO RENDER ON WINDOW
 
-            Globals.DrawObjects();
+            Globals.DrawObjects(player);
 
             Globals.spriteBatch.End();
 
