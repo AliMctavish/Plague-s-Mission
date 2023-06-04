@@ -51,7 +51,7 @@ namespace gravityProject
     }
     class Trap : Items
     {
-        public void Draw()
+        public override void Draw()
         {
             Globals.spriteBatch.Draw(texture, new Vector2(position.X, position.Y - 45), Color.White);
         }
@@ -60,7 +60,7 @@ namespace gravityProject
 
     public class Platform : Items
     {
-        public void Draw()
+        public override void Draw()
         {
             Globals.spriteBatch.Draw(texture, new Rectangle(position.X - 80, position.Y - 40, 140, 64), Color.White);
         }
@@ -68,7 +68,7 @@ namespace gravityProject
 
     public class Ladder : Items
     {
-        public void Draw()
+        public override void Draw()
         {
             Globals.spriteBatch.Draw(texture, new Rectangle(position.X - 35, position.Y + 10, 47, 72), Color.White);
         }

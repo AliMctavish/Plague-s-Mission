@@ -26,7 +26,7 @@ namespace gravityProject
         Maps level = new Maps();
         AnimationManager animation;
         private int jumpConuter = 0;
-        int selectLevel = 1;
+        int selectLevel = 5;
         bool lol = false;
         private double timePassed = 2d;
         private Texture2D backgroundColor;
@@ -258,8 +258,8 @@ namespace gravityProject
                 if (player.playerPos.Intersects(chest.position) && !chest.isInside)
                 {
                     Globals.spriteBatch.DrawString(_font, "Press 'E' To Open", new Vector2(chest.position.X, chest.position.Y - 40), color: Color.GreenYellow);
-                    //Globals.spriteBatch.DrawString(_font, "You Need 10 Coins", new Vector2(chest.position.X, chest.position.Y - 20), color: Color.GreenYellow);
-                    //Globals.spriteBatch.Draw(coinCounter, new Rectangle(chest.position.X + 140, chest.position.Y - 10, 40, 40), color: Color.Wheat);
+                    Globals.spriteBatch.DrawString(_font, "You Need 10 Coins", new Vector2(chest.position.X, chest.position.Y - 20), color: Color.GreenYellow);
+                    Globals.spriteBatch.Draw(coinCounter, new Rectangle(chest.position.X + 140, chest.position.Y - 10, 40, 40), color: Color.Wheat);
                 }
                 chest.Draw();
             }

@@ -247,10 +247,10 @@ namespace gravityProject
             {
                 if (player.playerPos.Intersects(chest.position))
                 {
-                    if (Keyboard.GetState().IsKeyDown(Keys.E))
+                    if (Keyboard.GetState().IsKeyDown(Keys.E) && Game1.numberOfcoins > 5)
                     {
                         chest.isInside = true;
-
+                        Game1.numberOfcoins -= 5;
                         if (chest.soundPlayed == false)
                         {
                             Items item = new Items();
