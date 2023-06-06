@@ -26,7 +26,7 @@ namespace gravityProject
         Maps level = new Maps();
         AnimationManager animation;
         private int jumpConuter = 0;
-        int selectLevel = 5;
+        int selectLevel = 1;
         bool lol = false;
         private double timePassed = 2d;
         private Texture2D backgroundColor;

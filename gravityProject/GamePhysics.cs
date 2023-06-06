@@ -276,7 +276,7 @@ namespace gravityProject
                     effect.CoinEffect(item.position.X, item.position.Y);
                     LevelMapper.effects.Add(effect);
                     LevelMapper.Items.Remove(item);
-                    coinSound.Play();
+                    //coinSound.Play();
                     Game1.numberOfcoins++;
                 }
             }
