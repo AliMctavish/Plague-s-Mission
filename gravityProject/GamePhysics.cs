@@ -95,7 +95,7 @@ namespace gravityProject
                     {
                         if (isFlipped)
                         {
-                            if (player.playerPos.Y <= ground.GroundPos.Y && player.playerPos.X > ground.GroundPos.X - 45)
+                            if (player.playerPos.Y <= ground.GroundPos.Y  && player.playerPos.X > ground.GroundPos.X - 45)
                             {
                                 player.playerPos.X = ground.GroundPos.X + player.playerPos.Width - 24;
                             }
