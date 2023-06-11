@@ -252,3 +252,4 @@ C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug
 C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\sick7.xnb
 C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\sick8.xnb
 C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\Ladder.xnb
+C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\MonoGame.Penumbra.DesktopGL.dll

@@ -48,6 +48,10 @@
             "MonoGame.Framework.DesktopGL": {
               "target": "Package",
               "version": "[3.8.1.303, )"
+            },
+            "MonoGame.Penumbra.DesktopGL": {
+              "target": "Package",
+              "version": "[3.0.0, )"
             }
           },
           "imports": [

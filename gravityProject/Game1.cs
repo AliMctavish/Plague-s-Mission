@@ -51,7 +51,7 @@ namespace gravityProject
             GamePhysics = new GamePhysics(player);
             services = new Services(GamePhysics, animation);
             player.playerTexture = Content.Load<Texture2D>("animations/playerMovement1");
-            backgroundColor = Content.Load<Texture2D>("background-export");
+            backgroundColor = Content.Load<Texture2D>("backJana");
             _font = Content.Load<SpriteFont>("File");
             coinSound = Content.Load<SoundEffect>("coinSound");
             player.playerPos = new Rectangle(500, 200, 76, 98);
@@ -198,6 +198,7 @@ namespace gravityProject
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
+
             Globals.spriteBatch.Begin();
 
             Globals.spriteBatch.Draw(backgroundColor, new Rectangle(0, 0, 1600, 900), Color.White);
@@ -211,7 +212,6 @@ namespace gravityProject
             Globals.spriteBatch.Draw(coinCounter, new Rectangle(1510, 50, 70, 70), color: Color.White);
 
             Globals.spriteBatch.DrawString(_font, "Number Of Humans: " + LevelMapper.humans.Count(), new Vector2(1100, 10), color: Color.White);
-
 
             //GAME DEGUGGING IS HERE 
 
@@ -231,7 +231,11 @@ namespace gravityProject
                 ground.Draw();
 
             foreach (var item in LevelMapper.Items.ToList())
+            {
                 item.Draw();
+            }
+
+
 
             foreach (Effects effect in LevelMapper.effects.ToList())
             {

@@ -253,6 +253,7 @@ namespace gravityProject
                         Game1.numberOfcoins -= 5;
                         if (chest.soundPlayed == false)
                         {
+
                             Items item = new Items();
                             item.position =
                                 new Rectangle(chest.position.X + 20, chest.position.Y, 40, 40);

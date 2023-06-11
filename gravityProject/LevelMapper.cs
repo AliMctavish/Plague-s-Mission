@@ -83,7 +83,7 @@ namespace gravityProject
                     if (map[i][j] == '^')
                     {
                         var trap = new Trap();
-                        trap.position = new Rectangle(64 * j - 35, i * 64 + 70,60,60);
+                        trap.position = new Rectangle(64 * j - 38, i * 64 + 70,60,60);
                         trap.texture = Content.Load<Texture2D>("trap-export");
                         traps.Add(trap);    
                     }
