@@ -38,6 +38,7 @@ namespace gravityProject
             _animationManager.itemsAnimation();
             _animationManager.enemyAnimation();
             _animationManager.HumanAnimation();
+            _animationManager.playerAttackAnimation(player, Globals.Content);
             _animationManager.playerAnimationIdle(player, Globals.Content);
             _animationManager.injectAnimation(gameTime);
         }

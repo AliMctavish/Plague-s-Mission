@@ -93,7 +93,7 @@ namespace gravityProject
         public void playerAnimationIdle(Player player, ContentManager Content)
         {
             player.playerPos = new Rectangle(player.playerPos.X, player.playerPos.Y, player.playerPos.Width , player.playerPos.Height );
-            if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A))
+            if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A) && !Keyboard.GetState().IsKeyDown(Keys.RightControl))
             {
                 player.playerTexture = Content.Load<Texture2D>($"animations/playerMovement{player.PlayerAnimationCounter}");
             }
@@ -103,6 +103,20 @@ namespace gravityProject
                 player.PlayerAnimationCounter = 1;
             }
         }
+        public void playerAttackAnimation(Player player , ContentManager content)
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.RightControl))
+            {
+                player.playerTexture = content.Load<Texture2D>($"Attack{player.playerAttackAnimationCounter}");
+
+                player.playerAttackAnimationCounter += 1;
+
+                if(player.playerAttackAnimationCounter == 4)
+                    player.playerAttackAnimationCounter = 1;
+            }
+
+        }
+
         public void HumanAnimation()
         {
             foreach(var human in LevelMapper.humans.ToList())

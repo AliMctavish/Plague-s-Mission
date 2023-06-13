@@ -19,6 +19,7 @@ namespace gravityProject
         public int playerVelocity = 10;
 
         public int PlayerAnimationCounter = 1;
+        public int playerAttackAnimationCounter = 1; 
 
         public double timePassed = 2d;
 

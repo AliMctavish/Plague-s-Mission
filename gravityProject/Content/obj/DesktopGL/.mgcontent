@@ -23,6 +23,10 @@
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/animations/PlayerWalking3.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/animations/PlayerWalking4.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/animations/PlayerWalking5.png</File>
+    <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/Attack1.png</File>
+    <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/Attack2.png</File>
+    <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/Attack3.png</File>
+    <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/Attack4.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/back.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/background-export.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/background.png</File>
@@ -84,6 +88,10 @@
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/trap-export.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

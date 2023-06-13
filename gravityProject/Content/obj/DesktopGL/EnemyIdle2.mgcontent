@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/EnemyIdle2.png</SourceFile>
-  <SourceTime>2023-01-25T10:39:23.9829059+03:00</SourceTime>
+  <SourceTime>2023-06-11T20:17:00.709796+03:00</SourceTime>
   <DestFile>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/bin/DesktopGL/EnemyIdle2.xnb</DestFile>
-  <DestTime>2023-06-03T21:48:55.9088775+03:00</DestTime>
+  <DestTime>2023-06-13T22:30:12.6759044+03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T14:44:56+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
