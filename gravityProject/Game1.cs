@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 
 namespace gravityProject
@@ -19,6 +20,7 @@ namespace gravityProject
         float waitingTime2 = 0;
         private SoundEffect coinSound;
         double moveTimer = 1;
+        bool[] selectButtons = { false, false, false };
         float animateCounter2 = 0.1f;
         GamePhysics GamePhysics;
         float waitingTime = 0;
@@ -27,7 +29,8 @@ namespace gravityProject
         AnimationManager animation;
         private int jumpConuter = 0;
         int selectLevel = 1;
-        bool lol = false;
+        public bool gameStarted = false;
+        bool restartCurrentLevel = false;
         private double timePassed = 2d;
         private Texture2D backgroundColor;
         public Game1()
@@ -51,7 +54,7 @@ namespace gravityProject
             GamePhysics = new GamePhysics(player);
             services = new Services(GamePhysics, animation);
             player.playerTexture = Content.Load<Texture2D>("animations/playerMovement1");
-            backgroundColor = Content.Load<Texture2D>("backJana");
+            backgroundColor = Content.Load<Texture2D>("background-export");
             _font = Content.Load<SpriteFont>("File");
             coinSound = Content.Load<SoundEffect>("coinSound");
             player.playerPos = new Rectangle(500, 200, 76, 98);
@@ -86,12 +89,13 @@ namespace gravityProject
             LevelMapper.platforms.Clear();
             LevelMapper.ladders.Clear();
             player.hasSyringe = false;
-            lol = true;
+            restartCurrentLevel = true;
         }
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.R))
                 ClearGame(selectLevel);
+
             if (player.playerPos.X > Globals._graphics.PreferredBackBufferWidth - 30)
             {
                 if (LevelMapper.humans.Count() <= 0)
@@ -103,17 +107,17 @@ namespace gravityProject
                     player.playerPos.X -= 6;
             }
 
+            //boundaries for the player to not get out of bounds
             if (player.playerPos.X < 10)
             {
                 player.playerPos.X += 6;
             }
 
-
-            if (lol == true)
+            if (restartCurrentLevel == true)
             {
                 string[] map = level.LoadLevel(selectLevel);
                 levelMapper.StartMapping(map, Content, enemyColliders, player);
-                lol = false;
+                restartCurrentLevel = false;
             }
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -123,23 +127,33 @@ namespace gravityProject
                 player.hasJump = true;
                 player.playerPos.Y += 10;
             }
-            if (player.isDead == false)
+
+            if (gameStarted == false)
+            {
+
+            }
+
+
+            if (!player.isDead && gameStarted)
             {
                 float time = (float)gameTime.ElapsedGameTime.TotalSeconds * 140;
                 waitingTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (Keyboard.GetState().IsKeyDown(Keys.D))
                 {
                     moveTimer += gameTime.ElapsedGameTime.TotalSeconds * 6;
-                    for (int i = 1; i < 5; i++)
+                    if (!Keyboard.GetState().IsKeyDown(Keys.RightControl))
                     {
-                        if (moveTimer > i)
+                        for (int i = 1; i < 5; i++)
                         {
-                            player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking{i}");
-                        }
-                        if (moveTimer > 5)
-                        {
-                            player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking5");
-                            moveTimer = 1;
+                            if (moveTimer > i)
+                            {
+                                player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking{i}");
+                            }
+                            if (moveTimer > 5)
+                            {
+                                player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking5");
+                                moveTimer = 1;
+                            }
                         }
                     }
                     player.playerPos.X = player.playerPos.X + (int)time + 2;
@@ -152,16 +166,19 @@ namespace gravityProject
                 {
                     player.playerPos.X = player.playerPos.X - (int)time - 2;
                     moveTimer += gameTime.ElapsedGameTime.TotalSeconds * 6;
-                    for (int i = 1; i < 5; i++)
+                    if (!Keyboard.GetState().IsKeyDown(Keys.RightControl))
                     {
-                        if (moveTimer > i)
+                        for (int i = 1; i < 5; i++)
                         {
-                            player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking{i}");
-                        }
-                        if (moveTimer > 5)
-                        {
-                            player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking5");
-                            moveTimer = 1;
+                            if (moveTimer > i)
+                            {
+                                player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking{i}");
+                            }
+                            if (moveTimer > 5)
+                            {
+                                player.playerTexture = Content.Load<Texture2D>($"animations/PlayerWalking5");
+                                moveTimer = 1;
+                            }
                         }
                     }
                     if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
@@ -202,7 +219,7 @@ namespace gravityProject
             Globals.spriteBatch.Begin();
 
             Globals.spriteBatch.Draw(backgroundColor, new Rectangle(0, 0, 1600, 900), Color.White);
-            
+
             //Game Debugging Is Here
             Globals.spriteBatch.DrawString(_font, "Player Position On Y : " + player.playerPos.Y, new Vector2(10, 0), color: Color.White);
 
@@ -235,8 +252,6 @@ namespace gravityProject
                 item.Draw();
             }
 
-
-
             foreach (Effects effect in LevelMapper.effects.ToList())
             {
                 Globals.spriteBatch.DrawString(_font, "100", new Vector2(effect.position.X, effect.position.Y -= 3), color: Color.Yellow);
@@ -268,8 +283,32 @@ namespace gravityProject
                 chest.Draw();
             }
             //LOOPING ON OBJECTS TO RENDER ON WINDOW
-
             Globals.DrawObjects(player);
+
+            if (gameStarted == false)
+            {
+                Globals.spriteBatch.Draw(Content.Load<Texture2D>("backJana"), new Rectangle(0, 0, 1600, 900), Color.White);
+
+
+                if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                    selectButtons[0] = true;
+
+                if (selectButtons[0] == true)
+                {
+                    Globals.spriteBatch.Draw(Content.Load<Texture2D>("start-export"), new Rectangle(1400 / 2, 600 / 2, 200, 100), Color.Yellow);
+
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                        gameStarted = true;
+                }
+
+                if (selectButtons[0] == false)
+                {
+                    Globals.spriteBatch.Draw(Content.Load<Texture2D>("start-export"), new Rectangle(1400 / 2, 600 / 2, 200, 100), Color.White);
+                }
+
+                Globals.spriteBatch.Draw(Content.Load<Texture2D>("start-export"), new Rectangle(1400 / 2, 900 / 2, 200, 100), Color.White);
+                Globals.spriteBatch.Draw(Content.Load<Texture2D>("start-export"), new Rectangle(1400 / 2, 1200 / 2, 200, 100), Color.White);
+            }
 
             Globals.spriteBatch.End();
 

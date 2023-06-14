@@ -257,3 +257,6 @@ C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug
 C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\Attack2.xnb
 C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\Attack3.xnb
 C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\Attack4.xnb
+C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\Attack5.xnb
+C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\start.xnb
+C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\start-export.xnb

@@ -111,7 +111,7 @@ namespace gravityProject
 
                 player.playerAttackAnimationCounter += 1;
 
-                if(player.playerAttackAnimationCounter == 4)
+                if(player.playerAttackAnimationCounter == 5)
                     player.playerAttackAnimationCounter = 1;
             }
 
