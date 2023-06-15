@@ -5,22 +5,28 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Diagnostics;
+using System.Diagnostics.Tracing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace gravityProject
 {
     public class Game1 : Game
     {
+        public static bool gameInfo = false;
+        public static bool exitGame = false;
+        public static bool gameOver = false;
         private SpriteFont _font;
         private Texture2D coinCounter;
         private LevelMapper levelMapper = new LevelMapper();
         private List<EnemyCollider> enemyColliders;
+        private MainMenu menu;
         Services services;
         Player player;
         float waitingTime2 = 0;
         private SoundEffect coinSound;
         double moveTimer = 1;
-        bool[] selectButtons = { false, false, false };
         float animateCounter2 = 0.1f;
         GamePhysics GamePhysics;
         float waitingTime = 0;
@@ -29,21 +35,23 @@ namespace gravityProject
         AnimationManager animation;
         private int jumpConuter = 0;
         int selectLevel = 1;
-        public bool gameStarted = false;
+        public static bool gameStarted = false;
         bool restartCurrentLevel = false;
+        float mouseAngle = 0;
         private double timePassed = 2d;
         private Texture2D backgroundColor;
         public Game1()
         {
             Globals._graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
             Globals._graphics.PreferredBackBufferWidth = 1600;
             Globals._graphics.PreferredBackBufferHeight = 800;
             Globals._graphics.ApplyChanges();
         }
         protected override void Initialize()
         {
+            menu = new MainMenu();
             Globals.Content = Content;
             level = new Maps();
             coinCounter = Content.Load<Texture2D>("coin1");
@@ -54,7 +62,7 @@ namespace gravityProject
             GamePhysics = new GamePhysics(player);
             services = new Services(GamePhysics, animation);
             player.playerTexture = Content.Load<Texture2D>("animations/playerMovement1");
-            backgroundColor = Content.Load<Texture2D>("background-export");
+            backgroundColor = Content.Load<Texture2D>("backjana");
             _font = Content.Load<SpriteFont>("File");
             coinSound = Content.Load<SoundEffect>("coinSound");
             player.playerPos = new Rectangle(500, 200, 76, 98);
@@ -120,17 +128,16 @@ namespace gravityProject
                 restartCurrentLevel = false;
             }
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                gameStarted = false;
+
+            if (exitGame)
                 Exit();
 
             if (player.isDead == true)
             {
                 player.hasJump = true;
                 player.playerPos.Y += 10;
-            }
-
-            if (gameStarted == false)
-            {
-
+                gameOver = true;
             }
 
 
@@ -218,7 +225,11 @@ namespace gravityProject
 
             Globals.spriteBatch.Begin();
 
-            Globals.spriteBatch.Draw(backgroundColor, new Rectangle(0, 0, 1600, 900), Color.White);
+            if (!gameOver)
+                Globals.spriteBatch.Draw(backgroundColor, new Rectangle(0, 0, 1600, 900), Color.White);
+
+            if (gameOver)
+                Globals.spriteBatch.Draw(backgroundColor, new Rectangle(0, 0, 1600, 900), new Color(43, 34, 53, 7));
 
             //Game Debugging Is Here
             Globals.spriteBatch.DrawString(_font, "Player Position On Y : " + player.playerPos.Y, new Vector2(10, 0), color: Color.White);
@@ -281,34 +292,14 @@ namespace gravityProject
                     Globals.spriteBatch.Draw(coinCounter, new Rectangle(chest.position.X + 140, chest.position.Y - 10, 40, 40), color: Color.Wheat);
                 }
                 chest.Draw();
-            }
+            }          
+
             //LOOPING ON OBJECTS TO RENDER ON WINDOW
             Globals.DrawObjects(player);
 
-            if (gameStarted == false)
-            {
-                Globals.spriteBatch.Draw(Content.Load<Texture2D>("backJana"), new Rectangle(0, 0, 1600, 900), Color.White);
-
-
-                if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                    selectButtons[0] = true;
-
-                if (selectButtons[0] == true)
-                {
-                    Globals.spriteBatch.Draw(Content.Load<Texture2D>("start-export"), new Rectangle(1400 / 2, 600 / 2, 200, 100), Color.Yellow);
-
-                    if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-                        gameStarted = true;
-                }
-
-                if (selectButtons[0] == false)
-                {
-                    Globals.spriteBatch.Draw(Content.Load<Texture2D>("start-export"), new Rectangle(1400 / 2, 600 / 2, 200, 100), Color.White);
-                }
-
-                Globals.spriteBatch.Draw(Content.Load<Texture2D>("start-export"), new Rectangle(1400 / 2, 900 / 2, 200, 100), Color.White);
-                Globals.spriteBatch.Draw(Content.Load<Texture2D>("start-export"), new Rectangle(1400 / 2, 1200 / 2, 200, 100), Color.White);
-            }
+            //MainMenu
+            if (gameStarted is false)
+                menu.ButtonSelect();
 
             Globals.spriteBatch.End();
 
