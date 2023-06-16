@@ -262,3 +262,5 @@ C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug
 C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\start-export.xnb
 C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\about-export.xnb
 C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\exit-export.xnb
+C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\backButton-export.xnb
+C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\backJanaAbout.xnb

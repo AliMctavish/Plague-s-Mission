@@ -30,9 +30,11 @@
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/animations/PlayerWalking4.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/animations/PlayerWalking5.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/back.png</File>
+    <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/backButton-export.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/background-export.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/background.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/backJana.png</File>
+    <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/backJanaAbout.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/ball.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/chest1.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/chest10.png</File>
@@ -98,6 +100,8 @@
     <File>Attack3.png</File>
     <File>Attack4.png</File>
     <File>Attack5.png</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
