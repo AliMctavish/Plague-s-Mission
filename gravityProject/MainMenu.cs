@@ -23,8 +23,8 @@ namespace gravityProject
         private MainMenuButtons backButton = new MainMenuButtons();
 
         //DECLARING HIGHT AND WIDTH FOR THE BUTTONS
-        private int hight = 100;
-        private int width = 200;
+        private int hight = 90;
+        private int width = 170;
 
 
         //DECLARING GLOBALS
@@ -41,13 +41,13 @@ namespace gravityProject
             mousePos = new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 20, 20);
 
             //INIT VARIABLES
-            startButton.position = new Rectangle(1400 / 2, 600 / 2, width, hight);
+            startButton.position = new Rectangle(1400 / 2, 880 / 2, width, hight);
             startButton.texture = Content.Load<Texture2D>("start-export");
 
-            aboutButton.position = new Rectangle(1400 / 2, 900 / 2, width, hight);
+            aboutButton.position = new Rectangle(1400 / 2, 1080 / 2, width, hight);
             aboutButton.texture = Content.Load<Texture2D>("about-export");
 
-            exitButton.position = new Rectangle(1400 / 2, 1200 / 2, width, hight);
+            exitButton.position = new Rectangle(1400 / 2, 1280 / 2, width, hight);
             exitButton.texture = Content.Load<Texture2D>("exit-export");
 
             backButton.position = new Rectangle(1000 / 2, 1200 / 2, width, hight);
@@ -86,6 +86,11 @@ namespace gravityProject
             else
                 SpriteBatch.Draw(exitButton.texture, exitButton.position, Color.White);
 
+            //SCREEN TEXT
+            Globals.spriteBatch.DrawString(Game1._font, "Alpha version 0.1v", new Vector2(10, 750), color: Color.White);
+            Globals.spriteBatch.DrawString(Game1._font, "Created by : ali & jana", new Vector2(10, 770), color: Color.White);
+            Globals.spriteBatch.DrawString(Game1._font, "music by : liana flores - rises the moon ", new Vector2(1240, 770), color: Color.White);
+
 
             if (Game1.gameInfo == true)
                 this.GameInfoMenu();
@@ -98,6 +103,7 @@ namespace gravityProject
         public void UseBackGround()
         {
             Globals.spriteBatch.Draw(Globals.Content.Load<Texture2D>("backJana"), new Rectangle(0, 0, 1600, 900), Color.White);
+            Globals.spriteBatch.Draw(Globals.Content.Load<Texture2D>("backgroundPicture-export"), new Rectangle(200, -20, 1000, 500), Color.White);
         }
 
         public void GameInfoMenu()

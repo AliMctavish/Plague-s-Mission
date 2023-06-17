@@ -33,11 +33,15 @@ namespace gravityProject
             _gamePhysics.ClimbLadder();
         }
 
-        public void AnimationService(Player player , GameTime gameTime)
+        public void AnimationService(Player player, GameTime gameTime)
         {
             _animationManager.itemsAnimation();
             _animationManager.enemyAnimation();
             _animationManager.HumanAnimation();
+
+            if (LevelMapper.humanEffects.Count > 0)
+                _animationManager.HumanEffectAnimation();
+
             _animationManager.playerAttackAnimation(player, Globals.Content);
             _animationManager.playerAnimationIdle(player, Globals.Content);
             _animationManager.injectAnimation(gameTime);

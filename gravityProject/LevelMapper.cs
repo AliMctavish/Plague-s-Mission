@@ -15,6 +15,7 @@ namespace gravityProject
         public static List<Human> humans = new List<Human>();
         public static List<Enemy> enemies = new List<Enemy>();
         public static List<Effects> effects = new List<Effects>();  
+        public static List<HumanEffect> humanEffects = new List<HumanEffect>();  
         public static List<Ground> grounds = new List<Ground>();
         public static List<Ladder> ladders = new List<Ladder>();
         public void StartMapping(string[] map ,ContentManager Content , List<EnemyCollider> enemyColliders , Player player)

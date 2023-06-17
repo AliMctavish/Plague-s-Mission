@@ -134,12 +134,16 @@ namespace gravityProject
                     if (Keyboard.GetState().IsKeyDown(Keys.E) && player.hasSyringe)
                     {
                         player.hasSyringe = false;
+                        HumanEffect effect = new HumanEffect();
+                        effect.texture = Globals.Content.Load<Texture2D>("healingHuman1");
+                        effect.Effect(human.position.X - 87 , human.position.Y + 2);
+                        effect.isActivated = true;
                         LevelMapper.humans.Remove(human);
+                        LevelMapper.humanEffects.Add(effect);
                     }
                 }
             }
         }
-
         public bool PlayerGravity()
         {
             player.playerPos.Y = player.playerPos.Y - player.playerVelocity;
@@ -163,7 +167,10 @@ namespace gravityProject
                 enemy.enemyPos.Y += 10;
 
             if (enemy.enemyPos.Y > 800)
+            {
+                Globals.numberOfEnemyKilled++;
                 LevelMapper.enemies.Remove(enemy);
+            }
         }
         public Color PlayerIntersectsWithEnemy()
         {
@@ -276,6 +283,7 @@ namespace gravityProject
                     Effects effect = new Effects();
                     effect.CoinEffect(item.position.X, item.position.Y);
                     LevelMapper.effects.Add(effect);
+                    Globals.numberOfCoinsCollected += 1;
                     LevelMapper.Items.Remove(item);
                     //coinSound.Play();
                     Game1.numberOfcoins++;

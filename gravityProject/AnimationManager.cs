@@ -126,6 +126,16 @@ namespace gravityProject
                 if(human.animationCounter == 8 ) { human.animationCounter = 1; }
             }
         }
+        public void HumanEffectAnimation()
+        {
+            foreach(var effect in LevelMapper.humanEffects.ToList())
+            {
+                effect.texture = Globals.Content.Load<Texture2D>($"healingHuman{effect.animationCounter}");
+                effect.animationCounter++;  
+                if(effect.animationCounter == 23 )
+                    LevelMapper.humanEffects.Remove(effect);
+            }
+        }
         public void PlayerHitAnimation()
         {
             //foreach()

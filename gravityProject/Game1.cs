@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -14,10 +15,8 @@ namespace gravityProject
 {
     public class Game1 : Game
     {
-        public static bool gameInfo = false;
-        public static bool exitGame = false;
-        public static bool gameOver = false;
-        private SpriteFont _font;
+        public static SpriteFont _font;
+        public static SpriteFont _fontLarge;
         private Texture2D coinCounter;
         private LevelMapper levelMapper = new LevelMapper();
         private List<EnemyCollider> enemyColliders;
@@ -26,6 +25,7 @@ namespace gravityProject
         Player player;
         float waitingTime2 = 0;
         private SoundEffect coinSound;
+        private SoundEffect mainMusic;
         double moveTimer = 1;
         float animateCounter2 = 0.1f;
         GamePhysics GamePhysics;
@@ -37,9 +37,14 @@ namespace gravityProject
         int selectLevel = 1;
         public static bool gameStarted = false;
         bool restartCurrentLevel = false;
-        float mouseAngle = 0;
-        private double timePassed = 2d;
         private Texture2D backgroundColor;
+        //GAME STATES
+        public static bool gameInfo = false;
+        public static bool exitGame = false;
+        public static bool gameOver = false;
+        public static bool keyPressed = false;
+        public static bool missionCompleted = false;
+
         public Game1()
         {
             Globals._graphics = new GraphicsDeviceManager(this);
@@ -64,13 +69,17 @@ namespace gravityProject
             player.playerTexture = Content.Load<Texture2D>("animations/playerMovement1");
             backgroundColor = Content.Load<Texture2D>("backjana");
             _font = Content.Load<SpriteFont>("File");
+            _fontLarge = Content.Load<SpriteFont>("FileLarge");
             coinSound = Content.Load<SoundEffect>("coinSound");
+            mainMusic = Content.Load<SoundEffect>("mainMusic");
             player.playerPos = new Rectangle(500, 200, 76, 98);
             base.Initialize();
         }
         protected override void LoadContent()
         {
             Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
+            
+            mainMusic.Play();
             string[] map = level.LoadLevel(selectLevel);
             levelMapper.StartMapping(map, Content, enemyColliders, player);
         }
@@ -96,24 +105,29 @@ namespace gravityProject
             LevelMapper.humans.Clear();
             LevelMapper.platforms.Clear();
             LevelMapper.ladders.Clear();
+            Globals.numberOfCoinsCollected = 0;
+            Globals.numberOfEnemyKilled = 0;
             player.hasSyringe = false;
             restartCurrentLevel = true;
         }
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.R))
-                ClearGame(selectLevel);
-
-            if (player.playerPos.X > Globals._graphics.PreferredBackBufferWidth - 30)
+            if (mainMusic == null)
             {
-                if (LevelMapper.humans.Count() <= 0)
-                {
-                    selectLevel++;
-                    ClearGame(null);
-                }
-                else
-                    player.playerPos.X -= 6;
+                mainMusic.Play();
             }
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                gameOver = false;
+                ClearGame(selectLevel);
+            }
+
+            if (LevelMapper.humans.Count() <= 0 && LevelMapper.humanEffects.Count() <= 0)
+            {
+               missionCompleted = true;
+            }
+            else
+                missionCompleted = false;
 
             //boundaries for the player to not get out of bounds
             if (player.playerPos.X < 10)
@@ -148,6 +162,7 @@ namespace gravityProject
                 if (Keyboard.GetState().IsKeyDown(Keys.D))
                 {
                     moveTimer += gameTime.ElapsedGameTime.TotalSeconds * 6;
+                    //THIS IF STATEMENT TO PREVENT THE ATTACK ANIMATION WITH WALKING
                     if (!Keyboard.GetState().IsKeyDown(Keys.RightControl))
                     {
                         for (int i = 1; i < 5; i++)
@@ -222,80 +237,111 @@ namespace gravityProject
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
             Globals.spriteBatch.Begin();
 
             if (!gameOver)
                 Globals.spriteBatch.Draw(backgroundColor, new Rectangle(0, 0, 1600, 900), Color.White);
 
-            if (gameOver)
+            //LOAD PLAYER HEALTH BAR
+            if (!missionCompleted && !gameOver)
+            {
+
+                player.DrawHealthBar();
+
+                Globals.spriteBatch.Draw(coinCounter, new Rectangle(1510, 50, 70, 70), color: Color.White);
+
+                Globals.spriteBatch.DrawString(_font, "Number Of Humans: " + LevelMapper.humans, new Vector2(100, 10), color: Color.White);
+
+                Globals.spriteBatch.DrawString(_font, numberOfcoins + "x", new Vector2(1470, 67), color: Color.Wheat, 0, new Vector2(0, 0), 2, 0, 0);
+
+                if (player.hasSyringe)
+                    Globals.spriteBatch.Draw(Content.Load<Texture2D>("Health"), new Rectangle(10, 10, 140, 140), color: Color.White);
+
+                foreach (var ground in LevelMapper.grounds)
+                    ground.Draw();
+
+                foreach (var item in LevelMapper.Items.ToList())
+                    item.Draw();
+
+                foreach (var effect in LevelMapper.effects.ToList())
+                {
+                    Globals.spriteBatch.DrawString(_font, "100", new Vector2(effect.position.X, effect.position.Y -= 3), color: Color.Yellow);
+
+                    if (effect.GetType() == typeof(Effects))
+                        if (effect.position.Y < effect.origin.Y - 100)
+                            LevelMapper.effects.Remove(effect);
+                }
+
+                foreach (var effect in LevelMapper.humanEffects.ToList())
+                    Globals.spriteBatch.Draw(effect.texture, effect.position, Color.White);
+
+                foreach (var human in LevelMapper.humans)
+                {
+                    if (player.playerPos.Intersects(human.position))
+                    {
+                        if (!player.hasSyringe)
+                            Globals.spriteBatch.DrawString(_font, "Syringe Needed!", new Vector2(human.position.X - 40, human.position.Y - 20), color: Color.Yellow);
+                        else
+                            Globals.spriteBatch.DrawString(_font, "Press 'E' To Heal!", new Vector2(human.position.X - 40, human.position.Y - 20), color: Color.Yellow);
+                    }
+                }
+
+                foreach (var chest in LevelMapper.chests)
+                {
+                    if (player.playerPos.Intersects(chest.position) && !chest.isInside)
+                    {
+                        Globals.spriteBatch.DrawString(_font, "Press 'E' To Open", new Vector2(chest.position.X, chest.position.Y - 40), color: Color.GreenYellow);
+                        Globals.spriteBatch.DrawString(_font, "You Need 10 Coins", new Vector2(chest.position.X, chest.position.Y - 20), color: Color.GreenYellow);
+                        Globals.spriteBatch.Draw(coinCounter, new Rectangle(chest.position.X + 140, chest.position.Y - 10, 40, 40), color: Color.Wheat);
+                    }
+                    chest.Draw();
+                }
+
+                //LOOPING ON OBJECTS TO RENDER ON WINDOW
+                Globals.DrawObjects(player);
+            }
+
+
+            //MISSION COMPLETED SUCCESSFULLY
+            if (missionCompleted)
+            {
                 Globals.spriteBatch.Draw(backgroundColor, new Rectangle(0, 0, 1600, 900), new Color(43, 34, 53, 7));
 
-            //Game Debugging Is Here
-            Globals.spriteBatch.DrawString(_font, "Player Position On Y : " + player.playerPos.Y, new Vector2(10, 0), color: Color.White);
+                Globals.spriteBatch.DrawString(_fontLarge, $"Number of coins : {Globals.numberOfCoinsCollected} / {LevelMapper.Items.Count + Globals.numberOfCoinsCollected}", new Vector2(1200 / 2, 500 / 2), color: Color.White);
 
-            //LOAD PLAYER HEALTH BAR
-            player.DrawHealthBar();
+                Globals.spriteBatch.Draw(coinCounter, new Rectangle(950/2,430/2, 90, 90), color: Color.White);
 
-            Globals.spriteBatch.Draw(coinCounter, new Rectangle(1510, 50, 70, 70), color: Color.White);
+                Globals.spriteBatch.Draw(Content.Load<Texture2D>("EnemyIdle1"), new Rectangle(950/2,600/2, 75, 90), color: Color.White);
 
-            Globals.spriteBatch.DrawString(_font, "Number Of Humans: " + LevelMapper.humans.Count(), new Vector2(1100, 10), color: Color.White);
 
-            //GAME DEGUGGING IS HERE 
+                Globals.spriteBatch.DrawString(_fontLarge, $"Number of Enemies : {Globals.numberOfEnemyKilled} / {LevelMapper.enemies.Count + Globals.numberOfEnemyKilled}", new Vector2(1200 / 2, 650 / 2), color: Color.White);
 
-            Globals.spriteBatch.DrawString(_font, "Player Position On X : " + player.playerPos.X, new Vector2(10, 20), color: Color.White);
-            Globals.spriteBatch.DrawString(_font, "Ability To Jump : " + player.hasJump, new Vector2(10, 40), color: Color.White);
-            Globals.spriteBatch.DrawString(_font, "Time Since Jumped : " + timePassed, new Vector2(10, 60), color: Color.White);
-            Globals.spriteBatch.DrawString(_font, "Jump Counter : " + jumpConuter, new Vector2(10, 80), color: Color.White);
-            Globals.spriteBatch.DrawString(_font, "Player Health : " + player.playerHealth, new Vector2(10, 140), color: Color.White);
-            Globals.spriteBatch.DrawString(_font, numberOfcoins + "x", new Vector2(1470, 67), color: Color.Black, 0, new Vector2(0, 0), 2, 0, 0);
+                Globals.spriteBatch.DrawString(_fontLarge, "Mission Accomplished! Press Enter To Continue!", new Vector2(800 / 2, 1000 / 2), color: Color.White);
 
-            if (player.hasSyringe)
-                Globals.spriteBatch.Draw(Content.Load<Texture2D>("Health"), new Rectangle(10, 10, 140, 140), color: Color.White);
-            if (player.playerPos.X > 1500 && LevelMapper.humans.Count > 0)
-                Globals.spriteBatch.DrawString(_font, "You Should Cure All Of The Humans To Pass !", new Vector2(1150, 140), color: Color.White);
 
-            foreach (var ground in LevelMapper.grounds)
-                ground.Draw();
-
-            foreach (var item in LevelMapper.Items.ToList())
-            {
-                item.Draw();
-            }
-
-            foreach (Effects effect in LevelMapper.effects.ToList())
-            {
-                Globals.spriteBatch.DrawString(_font, "100", new Vector2(effect.position.X, effect.position.Y -= 3), color: Color.Yellow);
-
-                if (effect.position.Y < effect.origin.Y - 100)
-                    LevelMapper.effects.Remove(effect);
-
-            }
-
-            foreach (var human in LevelMapper.humans)
-            {
-                if (player.playerPos.Intersects(human.position))
+                if (Keyboard.GetState().IsKeyDown(Keys.Enter) && !keyPressed)
                 {
-                    if (!player.hasSyringe)
-                        Globals.spriteBatch.DrawString(_font, "Syringe Needed!", new Vector2(human.position.X - 40, human.position.Y - 20), color: Color.Yellow);
-                    else
-                        Globals.spriteBatch.DrawString(_font, "Press 'E' To Heal!", new Vector2(human.position.X - 40, human.position.Y - 20), color: Color.Yellow);
+                    if (!keyPressed)
+                        keyPressed = true;
+                    selectLevel++;
+                    ClearGame(null);
                 }
             }
+            if (!missionCompleted)
+                keyPressed = false;
 
-            foreach (var chest in LevelMapper.chests)
+
+            //GAMEOVER STATUS
+            if (gameOver)
             {
-                if (player.playerPos.Intersects(chest.position) && !chest.isInside)
-                {
-                    Globals.spriteBatch.DrawString(_font, "Press 'E' To Open", new Vector2(chest.position.X, chest.position.Y - 40), color: Color.GreenYellow);
-                    Globals.spriteBatch.DrawString(_font, "You Need 10 Coins", new Vector2(chest.position.X, chest.position.Y - 20), color: Color.GreenYellow);
-                    Globals.spriteBatch.Draw(coinCounter, new Rectangle(chest.position.X + 140, chest.position.Y - 10, 40, 40), color: Color.Wheat);
-                }
-                chest.Draw();
-            }          
+                Globals.spriteBatch.Draw(backgroundColor, new Rectangle(0, 0, 1600, 900), Color.Black);
 
-            //LOOPING ON OBJECTS TO RENDER ON WINDOW
-            Globals.DrawObjects(player);
+                Globals.spriteBatch.Draw(Content.Load<Texture2D>("youLost-export"), new Rectangle(800/2,300/2,800,400), Color.White);
+
+
+
+                Globals.spriteBatch.DrawString(_fontLarge, "Your are dead , press 'R' to restart", new Vector2(1100 / 2, 600), color: Color.White);
+            }
 
             //MainMenu
             if (gameStarted is false)

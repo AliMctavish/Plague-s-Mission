@@ -8,12 +8,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace gravityProject
 {
     internal class Globals 
     {
         public static float TotalSeconds {  get; set; }
+        public static int numberOfCoinsCollected = 0;
+        public static int numberOfEnemyKilled = 0;
         private GameServiceContainer _services;
         public static GraphicsDeviceManager _graphics;
         static public ContentManager Content { get; set; }
