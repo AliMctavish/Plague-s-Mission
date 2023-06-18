@@ -34,7 +34,7 @@ namespace gravityProject
         Maps level = new Maps();
         AnimationManager animation;
         private int jumpConuter = 0;
-        int selectLevel = 1;
+        int selectLevel = 8;
         public static bool gameStarted = false;
         bool restartCurrentLevel = false;
         private Texture2D backgroundColor;
@@ -78,7 +78,7 @@ namespace gravityProject
         protected override void LoadContent()
         {
             Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+
             mainMusic.Play();
             string[] map = level.LoadLevel(selectLevel);
             levelMapper.StartMapping(map, Content, enemyColliders, player);
@@ -122,9 +122,9 @@ namespace gravityProject
                 ClearGame(selectLevel);
             }
 
-            if (LevelMapper.humans.Count() <= 0 && LevelMapper.humanEffects.Count() <= 0)
+            if (LevelMapper.humans.Count() <= 0 && LevelMapper.humanEffects.Count() <= 0 && !Keyboard.GetState().IsKeyDown(Keys.R)) 
             {
-               missionCompleted = true;
+                missionCompleted = true;
             }
             else
                 missionCompleted = false;
@@ -151,7 +151,8 @@ namespace gravityProject
             {
                 player.hasJump = true;
                 player.playerPos.Y += 10;
-                gameOver = true;
+                if (player.playerPos.Y > 1200)
+                    gameOver = true;
             }
 
 
@@ -179,6 +180,10 @@ namespace gravityProject
                         }
                     }
                     player.playerPos.X = player.playerPos.X + (int)time + 2;
+
+                    if (player.playerPos.X > 1550)
+                        player.playerPos.X -= 6;
+
                     if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
                     {
                         player.playerPos.X += 2;
@@ -250,7 +255,7 @@ namespace gravityProject
 
                 Globals.spriteBatch.Draw(coinCounter, new Rectangle(1510, 50, 70, 70), color: Color.White);
 
-                Globals.spriteBatch.DrawString(_font, "Number Of Humans: " + LevelMapper.humans, new Vector2(100, 10), color: Color.White);
+                Globals.spriteBatch.DrawString(_font, "Number Of Humans: " + LevelMapper.humans.Count, new Vector2(100, 10), color: Color.White);
 
                 Globals.spriteBatch.DrawString(_font, numberOfcoins + "x", new Vector2(1470, 67), color: Color.Wheat, 0, new Vector2(0, 0), 2, 0, 0);
 
@@ -309,9 +314,9 @@ namespace gravityProject
 
                 Globals.spriteBatch.DrawString(_fontLarge, $"Number of coins : {Globals.numberOfCoinsCollected} / {LevelMapper.Items.Count + Globals.numberOfCoinsCollected}", new Vector2(1200 / 2, 500 / 2), color: Color.White);
 
-                Globals.spriteBatch.Draw(coinCounter, new Rectangle(950/2,430/2, 90, 90), color: Color.White);
+                Globals.spriteBatch.Draw(coinCounter, new Rectangle(950 / 2, 430 / 2, 90, 90), color: Color.White);
 
-                Globals.spriteBatch.Draw(Content.Load<Texture2D>("EnemyIdle1"), new Rectangle(950/2,600/2, 75, 90), color: Color.White);
+                Globals.spriteBatch.Draw(Content.Load<Texture2D>("EnemyIdle1"), new Rectangle(950 / 2, 600 / 2, 75, 90), color: Color.White);
 
 
                 Globals.spriteBatch.DrawString(_fontLarge, $"Number of Enemies : {Globals.numberOfEnemyKilled} / {LevelMapper.enemies.Count + Globals.numberOfEnemyKilled}", new Vector2(1200 / 2, 650 / 2), color: Color.White);
@@ -334,9 +339,9 @@ namespace gravityProject
             //GAMEOVER STATUS
             if (gameOver)
             {
-                Globals.spriteBatch.Draw(backgroundColor, new Rectangle(0, 0, 1600, 900), Color.Black);
+                Globals.spriteBatch.Draw(backgroundColor, new Rectangle(0, 0, 1600, 900), Color.White);
 
-                Globals.spriteBatch.Draw(Content.Load<Texture2D>("youLost-export"), new Rectangle(800/2,300/2,800,400), Color.White);
+                Globals.spriteBatch.Draw(Content.Load<Texture2D>("youLost-export"), new Rectangle(800 / 2, 300 / 2, 800, 400), Color.White);
 
 
 
