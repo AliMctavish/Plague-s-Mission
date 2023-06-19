@@ -29,19 +29,19 @@ namespace gravityProject
 
         public void PlatformMoving()
         {
-            float sinTheta = MathF.Sin(counte++/120) * 2f;
-            foreach(var platform in LevelMapper.platforms.ToList())
-            { 
-                platform.position = new Rectangle(platform.position.X + (int)sinTheta , platform.position.Y ,40,40);
+            float sinTheta = MathF.Sin(counte++ / 120) * 2f;
+            foreach (var platform in LevelMapper.platforms.ToList())
+            {
+                platform.position = new Rectangle(platform.position.X + (int)sinTheta, platform.position.Y, 40, 40);
             }
         }
         public void injectAnimation(GameTime gameTime)
         {
-            float posY = MathF.Sin(counte++/10) * 2f;
+            float posY = MathF.Sin(counte++ / 10) * 2f;
             foreach (var inject in LevelMapper.injects)
-                inject.position = new Rectangle(inject.position.X,inject.position.Y + (int)posY, 40, 40 );
+                inject.position = new Rectangle(inject.position.X, inject.position.Y + (int)posY, 40, 40);
 
-            if(counte > 10000)
+            if (counte > 10000)
                 counte = 1;
         }
         public void enemyAnimation()
@@ -92,7 +92,7 @@ namespace gravityProject
         }
         public void playerAnimationIdle(Player player, ContentManager Content)
         {
-            player.playerPos = new Rectangle(player.playerPos.X, player.playerPos.Y, player.playerPos.Width , player.playerPos.Height );
+            player.playerPos = new Rectangle(player.playerPos.X, player.playerPos.Y, player.playerPos.Width, player.playerPos.Height);
             if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A) && !Keyboard.GetState().IsKeyDown(Keys.RightControl))
             {
                 player.playerTexture = Content.Load<Texture2D>($"animations/playerMovement{player.PlayerAnimationCounter}");
@@ -103,7 +103,7 @@ namespace gravityProject
                 player.PlayerAnimationCounter = 1;
             }
         }
-        public void playerAttackAnimation(Player player , ContentManager content)
+        public void playerAttackAnimation(Player player, ContentManager content)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.RightControl))
             {
@@ -111,7 +111,7 @@ namespace gravityProject
 
                 player.playerAttackAnimationCounter += 1;
 
-                if(player.playerAttackAnimationCounter == 5)
+                if (player.playerAttackAnimationCounter == 5)
                     player.playerAttackAnimationCounter = 1;
             }
 
@@ -119,20 +119,20 @@ namespace gravityProject
 
         public void HumanAnimation()
         {
-            foreach(var human in LevelMapper.humans.ToList())
+            foreach (var human in LevelMapper.humans.ToList())
             {
                 human.texture = Globals.Content.Load<Texture2D>($"sick{human.animationCounter}");
                 human.animationCounter++;
-                if(human.animationCounter == 8 ) { human.animationCounter = 1; }
+                if (human.animationCounter == 8) { human.animationCounter = 1; }
             }
         }
         public void HumanEffectAnimation()
         {
-            foreach(var effect in LevelMapper.humanEffects.ToList())
+            foreach (var effect in LevelMapper.humanEffects.ToList())
             {
                 effect.texture = Globals.Content.Load<Texture2D>($"healingHuman{effect.animationCounter}");
-                effect.animationCounter++;  
-                if(effect.animationCounter == 23 )
+                effect.animationCounter++;
+                if (effect.animationCounter == 23)
                     LevelMapper.humanEffects.Remove(effect);
             }
         }

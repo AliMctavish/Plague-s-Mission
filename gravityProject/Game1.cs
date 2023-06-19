@@ -26,6 +26,8 @@ namespace gravityProject
         float waitingTime2 = 0;
         private SoundEffect coinSound;
         private SoundEffect mainMusic;
+        private SoundEffect healingSound;
+        private SoundEffect pickHealer;
         double moveTimer = 1;
         float animateCounter2 = 0.1f;
         GamePhysics GamePhysics;
@@ -34,7 +36,7 @@ namespace gravityProject
         Maps level = new Maps();
         AnimationManager animation;
         private int jumpConuter = 0;
-        int selectLevel = 8;
+        int selectLevel = 1;
         public static bool gameStarted = false;
         bool restartCurrentLevel = false;
         private Texture2D backgroundColor;
@@ -71,6 +73,8 @@ namespace gravityProject
             _font = Content.Load<SpriteFont>("File");
             _fontLarge = Content.Load<SpriteFont>("FileLarge");
             coinSound = Content.Load<SoundEffect>("coinSound");
+            healingSound = Content.Load<SoundEffect>("healingSound");
+            pickHealer = Content.Load<SoundEffect>("pickHealer");
             mainMusic = Content.Load<SoundEffect>("mainMusic");
             player.playerPos = new Rectangle(500, 200, 76, 98);
             base.Initialize();
@@ -226,7 +230,7 @@ namespace gravityProject
                 animation.PlatformMoving();
 
                 //COLLIDERS AND PLAYER METHODS 
-                services.PhysicsService(LevelMapper.grounds, player, enemyColliders, coinSound);
+                services.PhysicsService(LevelMapper.grounds, player, enemyColliders, coinSound , healingSound , pickHealer);
 
                 if (player.hasJump == true)
                 {

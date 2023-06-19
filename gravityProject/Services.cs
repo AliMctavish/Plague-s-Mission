@@ -20,16 +20,16 @@ namespace gravityProject
             _animationManager = animationManager;
         }
 
-        public void PhysicsService(List<Ground> ground, Player player, List<EnemyCollider> enemyColliders, SoundEffect coinSound)
+        public void PhysicsService(List<Ground> ground, Player player, List<EnemyCollider> enemyColliders, SoundEffect coinSound , SoundEffect healingSound , SoundEffect pickHealer)
         {
             _gamePhysics.playerIntersectsWithCoins(coinSound);
             _gamePhysics.PlayerIntersectsWithChest();
-            _gamePhysics.playerHealing();
+            _gamePhysics.playerHealing(pickHealer);
             _gamePhysics.PlayerIntersectsWithTrap();
             _gamePhysics.PlayerIntersectsWithGround(ground, player.isFlipped);
             _gamePhysics.PlayerIntersectsWithEnemy();
             _gamePhysics.EnemyBoundaries(enemyColliders);
-            _gamePhysics.PlayerIntersectWithHumans();
+            _gamePhysics.PlayerIntersectWithHumans(healingSound);
             _gamePhysics.ClimbLadder();
         }
 

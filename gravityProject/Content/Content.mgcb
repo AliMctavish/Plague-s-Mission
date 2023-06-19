@@ -73,17 +73,11 @@
 /processorParam:TextureFormat=Color
 /build:../../../../../../Desktop/Attack5.png;Attack5.png
 
-#begin ../../../../../../Desktop/healingHuman1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman1.png;healingHuman1.png
+#begin ../../../../../../Desktop/coinSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../../../../../../Desktop/coinSound.wav;coinSound.wav
 
 #begin ../../../../../../Desktop/healingHuman1.png
 /importer:TextureImporter
@@ -109,18 +103,6 @@
 /processorParam:TextureFormat=Color
 /build:../../../../../../Desktop/healingHuman10.png;healingHuman10.png
 
-#begin ../../../../../../Desktop/healingHuman10.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman10.png;healingHuman10.png
-
 #begin ../../../../../../Desktop/healingHuman11.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -132,30 +114,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../../../../../../Desktop/healingHuman11.png;healingHuman11.png
-
-#begin ../../../../../../Desktop/healingHuman11.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman11.png;healingHuman11.png
-
-#begin ../../../../../../Desktop/healingHuman12.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman12.png;healingHuman12.png
 
 #begin ../../../../../../Desktop/healingHuman12.png
 /importer:TextureImporter
@@ -181,18 +139,6 @@
 /processorParam:TextureFormat=Color
 /build:../../../../../../Desktop/healingHuman13.png;healingHuman13.png
 
-#begin ../../../../../../Desktop/healingHuman13.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman13.png;healingHuman13.png
-
 #begin ../../../../../../Desktop/healingHuman14.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -204,30 +150,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../../../../../../Desktop/healingHuman14.png;healingHuman14.png
-
-#begin ../../../../../../Desktop/healingHuman14.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman14.png;healingHuman14.png
-
-#begin ../../../../../../Desktop/healingHuman15.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman15.png;healingHuman15.png
 
 #begin ../../../../../../Desktop/healingHuman15.png
 /importer:TextureImporter
@@ -253,18 +175,6 @@
 /processorParam:TextureFormat=Color
 /build:../../../../../../Desktop/healingHuman16.png;healingHuman16.png
 
-#begin ../../../../../../Desktop/healingHuman16.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman16.png;healingHuman16.png
-
 #begin ../../../../../../Desktop/healingHuman17.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -276,30 +186,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../../../../../../Desktop/healingHuman17.png;healingHuman17.png
-
-#begin ../../../../../../Desktop/healingHuman17.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman17.png;healingHuman17.png
-
-#begin ../../../../../../Desktop/healingHuman18.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman18.png;healingHuman18.png
 
 #begin ../../../../../../Desktop/healingHuman18.png
 /importer:TextureImporter
@@ -325,18 +211,6 @@
 /processorParam:TextureFormat=Color
 /build:../../../../../../Desktop/healingHuman19.png;healingHuman19.png
 
-#begin ../../../../../../Desktop/healingHuman19.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman19.png;healingHuman19.png
-
 #begin ../../../../../../Desktop/healingHuman2.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -348,30 +222,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../../../../../../Desktop/healingHuman2.png;healingHuman2.png
-
-#begin ../../../../../../Desktop/healingHuman2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman2.png;healingHuman2.png
-
-#begin ../../../../../../Desktop/healingHuman20.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman20.png;healingHuman20.png
 
 #begin ../../../../../../Desktop/healingHuman20.png
 /importer:TextureImporter
@@ -397,18 +247,6 @@
 /processorParam:TextureFormat=Color
 /build:../../../../../../Desktop/healingHuman21.png;healingHuman21.png
 
-#begin ../../../../../../Desktop/healingHuman21.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman21.png;healingHuman21.png
-
 #begin ../../../../../../Desktop/healingHuman22.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -420,30 +258,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../../../../../../Desktop/healingHuman22.png;healingHuman22.png
-
-#begin ../../../../../../Desktop/healingHuman22.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman22.png;healingHuman22.png
-
-#begin ../../../../../../Desktop/healingHuman23.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman23.png;healingHuman23.png
 
 #begin ../../../../../../Desktop/healingHuman23.png
 /importer:TextureImporter
@@ -469,18 +283,6 @@
 /processorParam:TextureFormat=Color
 /build:../../../../../../Desktop/healingHuman3.png;healingHuman3.png
 
-#begin ../../../../../../Desktop/healingHuman3.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman3.png;healingHuman3.png
-
 #begin ../../../../../../Desktop/healingHuman4.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -492,30 +294,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../../../../../../Desktop/healingHuman4.png;healingHuman4.png
-
-#begin ../../../../../../Desktop/healingHuman4.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman4.png;healingHuman4.png
-
-#begin ../../../../../../Desktop/healingHuman5.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman5.png;healingHuman5.png
 
 #begin ../../../../../../Desktop/healingHuman5.png
 /importer:TextureImporter
@@ -541,30 +319,6 @@
 /processorParam:TextureFormat=Color
 /build:../../../../../../Desktop/healingHuman6.png;healingHuman6.png
 
-#begin ../../../../../../Desktop/healingHuman6.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman6.png;healingHuman6.png
-
-#begin ../../../../../../Desktop/healingHuman7.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman7.png;healingHuman7.png
-
 #begin ../../../../../../Desktop/healingHuman7.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -588,30 +342,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../../../../../../Desktop/healingHuman8.png;healingHuman8.png
-
-#begin ../../../../../../Desktop/healingHuman8.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman8.png;healingHuman8.png
-
-#begin ../../../../../../Desktop/healingHuman9.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../Desktop/healingHuman9.png;healingHuman9.png
 
 #begin ../../../../../../Desktop/healingHuman9.png
 /importer:TextureImporter
@@ -1249,12 +979,6 @@
 /processorParam:TextureFormat=Color
 /build:coin9.png
 
-#begin coinSound.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:coinSound.wav
-
 #begin EnemyIdle1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1449,6 +1173,12 @@
 /processorParam:TextureFormat=Color
 /build:half-life.png
 
+#begin healingSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:healingSound.wav
+
 #begin Health.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1490,6 +1220,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:mainMusic.wav
+
+#begin pickHealer.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:pickHealer.wav
 
 #begin playerCharacter.png
 /importer:TextureImporter

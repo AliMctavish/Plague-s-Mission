@@ -125,7 +125,7 @@ namespace gravityProject
                 }
             }
         }
-        public void PlayerIntersectWithHumans()
+        public void PlayerIntersectWithHumans(SoundEffect healingSound)
         {
             foreach (var human in LevelMapper.humans.ToList())
             {
@@ -138,6 +138,7 @@ namespace gravityProject
                         effect.texture = Globals.Content.Load<Texture2D>("healingHuman1");
                         effect.Effect(human.position.X - 87 , human.position.Y + 2);
                         effect.isActivated = true;
+                        healingSound.Play();
                         LevelMapper.humans.Remove(human);
                         LevelMapper.humanEffects.Add(effect);
                     }
@@ -227,7 +228,7 @@ namespace gravityProject
             }
             return player.playerColor = Color.White;
         }
-        public void playerHealing()
+        public void playerHealing(SoundEffect pickHealer)
         {
             foreach (var inject in LevelMapper.injects.ToList())
             {
@@ -236,6 +237,7 @@ namespace gravityProject
                     player.playerHealth += 20;
                     player.playerColor = Color.Green;
                     player.hasSyringe = true;
+                    pickHealer.Play();
                     LevelMapper.injects.Remove(inject);
                 }
             }
@@ -285,7 +287,7 @@ namespace gravityProject
                     LevelMapper.effects.Add(effect);
                     Globals.numberOfCoinsCollected += 1;
                     LevelMapper.Items.Remove(item);
-                    //coinSound.Play();
+                    coinSound.Play();
                     Game1.numberOfcoins++;
                 }
             }
