@@ -1221,6 +1221,12 @@
 /processorParam:Quality=Best
 /build:mainMusic.wav
 
+#begin meleeSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:meleeSound.wav
+
 #begin pickHealer.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

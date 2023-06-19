@@ -20,7 +20,7 @@ namespace gravityProject
             _animationManager = animationManager;
         }
 
-        public void PhysicsService(List<Ground> ground, Player player, List<EnemyCollider> enemyColliders, SoundEffect coinSound , SoundEffect healingSound , SoundEffect pickHealer)
+        public void PhysicsService(List<Ground> ground, Player player, List<EnemyCollider> enemyColliders, SoundEffect coinSound , SoundEffect healingSound , SoundEffect pickHealer )
         {
             _gamePhysics.playerIntersectsWithCoins(coinSound);
             _gamePhysics.PlayerIntersectsWithChest();
@@ -33,7 +33,7 @@ namespace gravityProject
             _gamePhysics.ClimbLadder();
         }
 
-        public void AnimationService(Player player, GameTime gameTime)
+        public void AnimationService(Player player, GameTime gameTime, SoundEffect meleeSound)
         {
             _animationManager.itemsAnimation();
             _animationManager.enemyAnimation();
@@ -42,7 +42,7 @@ namespace gravityProject
             if (LevelMapper.humanEffects.Count > 0)
                 _animationManager.HumanEffectAnimation();
 
-            _animationManager.playerAttackAnimation(player, Globals.Content);
+            _animationManager.playerAttackAnimation(player, Globals.Content ,meleeSound);
             _animationManager.playerAnimationIdle(player, Globals.Content);
             _animationManager.injectAnimation(gameTime);
         }

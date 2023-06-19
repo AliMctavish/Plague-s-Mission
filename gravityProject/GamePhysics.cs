@@ -20,7 +20,7 @@ namespace gravityProject
 
         public void ClimbLadder()
         {
-            foreach(var ladder in LevelMapper.ladders.ToList())
+            foreach (var ladder in LevelMapper.ladders.ToList())
             {
                 if (player.playerPos.Intersects(ladder.position))
                 {
@@ -32,8 +32,8 @@ namespace gravityProject
                     player.isClimbing = false;
                 }
 
-                if(player.isClimbing)
-                player.playerPos = new Rectangle(ladder.position.X - 10, player.playerPos.Y - 5, player.playerPos.Width, player.playerPos.Height);
+                if (player.isClimbing)
+                    player.playerPos = new Rectangle(ladder.position.X - 10, player.playerPos.Y - 5, player.playerPos.Width, player.playerPos.Height);
             }
         }
 
@@ -95,7 +95,7 @@ namespace gravityProject
                     {
                         if (isFlipped)
                         {
-                            if (player.playerPos.Y <= ground.GroundPos.Y  && player.playerPos.X > ground.GroundPos.X - 45)
+                            if (player.playerPos.Y <= ground.GroundPos.Y && player.playerPos.X > ground.GroundPos.X - 45)
                             {
                                 player.playerPos.X = ground.GroundPos.X + player.playerPos.Width - 24;
                             }
@@ -136,7 +136,7 @@ namespace gravityProject
                         player.hasSyringe = false;
                         HumanEffect effect = new HumanEffect();
                         effect.texture = Globals.Content.Load<Texture2D>("healingHuman1");
-                        effect.Effect(human.position.X - 87 , human.position.Y + 2);
+                        effect.Effect(human.position.X - 87, human.position.Y + 2);
                         effect.isActivated = true;
                         healingSound.Play();
                         LevelMapper.humans.Remove(human);
@@ -180,6 +180,7 @@ namespace gravityProject
                 if (Keyboard.GetState().IsKeyDown(Keys.RightControl))
                 {
                     player.isShooting = true;
+
                     if (player.playerPos.Intersects(enemy.enemyPos))
                     {
                         enemy.Health -= 5;

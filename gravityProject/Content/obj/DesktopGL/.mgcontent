@@ -107,6 +107,7 @@
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/HealthBar.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/Ladder.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/mainMusic.wav</File>
+    <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/meleeSound.wav</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/pickHealer.wav</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/playerCharacter.png</File>
     <File>C:/Users/HP/source/repos/AliMcavish/firstGameRepository/gravityProject/Content/sick1.png</File>
@@ -154,6 +155,7 @@
     <File>healingHuman7.png</File>
     <File>healingHuman8.png</File>
     <File>healingHuman9.png</File>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -294,3 +294,4 @@ C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\obj\Debug
 C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\obj\Debug\net6.0\ref\gravityProject.dll
 C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\healingSound.xnb
 C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\pickHealer.xnb
+C:\Users\HP\source\repos\AliMcavish\firstGameRepository\gravityProject\bin\Debug\net6.0\Content\meleeSound.xnb

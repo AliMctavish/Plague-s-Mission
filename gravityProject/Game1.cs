@@ -28,6 +28,7 @@ namespace gravityProject
         private SoundEffect mainMusic;
         private SoundEffect healingSound;
         private SoundEffect pickHealer;
+        private SoundEffect meleeSound;
         double moveTimer = 1;
         float animateCounter2 = 0.1f;
         GamePhysics GamePhysics;
@@ -75,6 +76,7 @@ namespace gravityProject
             coinSound = Content.Load<SoundEffect>("coinSound");
             healingSound = Content.Load<SoundEffect>("healingSound");
             pickHealer = Content.Load<SoundEffect>("pickHealer");
+            meleeSound = Content.Load<SoundEffect>("meleeSound");
             mainMusic = Content.Load<SoundEffect>("mainMusic");
             player.playerPos = new Rectangle(500, 200, 76, 98);
             base.Initialize();
@@ -222,9 +224,11 @@ namespace gravityProject
                 if (waitingTime > animateCounter2)
                 {
                     if (player.isShooting)
+                    {
                         animation.PlayerHitAnimation();
+                    }
 
-                    services.AnimationService(player, gameTime);
+                    services.AnimationService(player, gameTime, meleeSound) ;
                     animateCounter2 += 0.1f;
                 }
                 animation.PlatformMoving();

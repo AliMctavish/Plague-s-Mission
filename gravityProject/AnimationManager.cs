@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -103,7 +104,7 @@ namespace gravityProject
                 player.PlayerAnimationCounter = 1;
             }
         }
-        public void playerAttackAnimation(Player player, ContentManager content)
+        public void playerAttackAnimation(Player player, ContentManager content, SoundEffect meleeSound)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.RightControl))
             {
@@ -112,7 +113,11 @@ namespace gravityProject
                 player.playerAttackAnimationCounter += 1;
 
                 if (player.playerAttackAnimationCounter == 5)
+                {
                     player.playerAttackAnimationCounter = 1;
+                    if(!meleeSound.Play())
+                        meleeSound.Play();
+                }
             }
 
         }
